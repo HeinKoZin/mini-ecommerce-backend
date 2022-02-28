@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { TestService } from './test.service';
-import { Test } from './entities/test.entity';
+import { Test, TestHello } from './entities/test.entity';
 import { CreateTestInput } from './dto/create-test.input';
 import { UpdateTestInput } from './dto/update-test.input';
 
@@ -13,14 +13,17 @@ export class TestResolver {
     return { exampleField: 1, test: 'test' };
   }
 
-  @Query(() => [Test], { name: 'test', nullable: true })
-  findAll(): string {
-    return 'Hello World!';
+  @Query(() => [Test], { name: 'tests', nullable: true })
+  findAll(): Test[] {
+    return [
+      { exampleField: 1, test: 'test' },
+      { exampleField: 1, test: 'test' },
+    ];
   }
 
   @Query(() => Test, { name: 'test', nullable: true })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return 'Test';
+  findOne(@Args('id', { type: () => Int }) id: number): { test: string } {
+    return { test: `test ${id}` };
   }
 
   @Mutation(() => Test)

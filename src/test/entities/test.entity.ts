@@ -14,3 +14,12 @@ export class Test {
   })
   test?: string;
 }
+
+@ObjectType()
+export class TestHello {
+  @Field(() => String, {
+    description: 'Example field (placeholder)',
+    nullable: true,
+  })
+  test?: string;
+}
