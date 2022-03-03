@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { UserRole } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -27,11 +26,7 @@ export class UsersService {
   }
 
   async findAll() {
-    const users = await await this.prismaService.user.findMany({
-      include: {
-        role: true,
-      },
-    });
+    const users = await await this.prismaService.user.findMany({});
     return users;
   }
 
@@ -41,7 +36,7 @@ export class UsersService {
   //   });
   // }
 
-  async findOne(id: number): Promise<UserRole> {
+  async findOne(id: number) {
     return await this.prismaService.user.findUnique({
       where: { id },
     });

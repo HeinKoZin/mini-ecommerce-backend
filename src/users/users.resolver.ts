@@ -9,7 +9,7 @@ import {
   ResolveProperty,
 } from '@nestjs/graphql';
 import { UsersService } from './users.service';
-import { UserEntity, UserRole } from './entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 
@@ -28,10 +28,10 @@ export class UsersResolver {
   }
 
   // get user role using resolver property
-  @ResolveField()
-  role(@Parent() user: UserEntity) {
-    return user.role;
-  }
+  // @ResolveField()
+  // role(@Parent() user: UserEntity) {
+  //   return user.role;
+  // }
 
   @Query(() => UserEntity, { name: 'user' })
   findOne(@Args('id', { type: () => Int }) id: number) {

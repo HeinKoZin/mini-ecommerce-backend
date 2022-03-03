@@ -1,23 +1,28 @@
-import { ObjectType, Field, Int, InterfaceType } from '@nestjs/graphql';
-import { Role, User } from '@prisma/client';
+import { ObjectType, Field, Int, registerEnumType } from '@nestjs/graphql';
+import { User, UserType } from '@prisma/client';
+
+// @ObjectType()
+// export class UserRole {
+//   @Field((type) => Int)
+//   id: number;
+
+//   @Field((type) => String)
+//   name: string;
+
+//   @Field((type) => String)
+//   createdAt: Date;
+
+//   @Field((type) => String)
+//   updatedAt: Date;
+// }
+
+registerEnumType(UserType, {
+  name: 'UserType',
+  description: 'The type of user',
+});
 
 @ObjectType()
-export class UserRole {
-  @Field((type) => Int)
-  id: number;
-
-  @Field((type) => String)
-  name: string;
-
-  @Field((type) => String)
-  createdAt: Date;
-
-  @Field((type) => String)
-  updatedAt: Date;
-}
-
-@ObjectType()
-export class UserEntity implements UserType, UserRole {
+export class UserEntity implements User {
   @Field(() => Int, { description: 'User id field' })
   id: number;
 
@@ -30,19 +35,16 @@ export class UserEntity implements UserType, UserRole {
   @Field(() => String, { description: 'User password field' })
   password: string;
 
-  @Field(() => Int, { description: 'User roleId field' })
-  roleId: number;
-
   @Field(() => String, { description: 'User createdAt field' })
   createdAt: Date;
 
   @Field(() => String, { description: 'User updatedAt field' })
   updatedAt: Date;
 
-  @Field((type) => UserRole)
-  role: UserRole;
+  @Field(() => UserType, { description: 'User type field' })
+  role: UserType;
 }
 
 // type UserRole = Role;
 
-type UserType = Required<Omit<User, 'id'>>;
+// type UserType = Required<Omit<User, 'id'>>;
