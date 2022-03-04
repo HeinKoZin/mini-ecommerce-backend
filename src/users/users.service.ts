@@ -43,7 +43,13 @@ export class UsersService {
   }
 
   update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+    const updatedUser = this.prismaService.user.update({
+      where: { id },
+      data: {
+        ...updateUserInput,
+      },
+    });
+    return updatedUser;
   }
 
   remove(id: number) {

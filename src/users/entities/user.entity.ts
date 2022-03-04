@@ -35,14 +35,14 @@ export class UserEntity implements User {
   @Field(() => String, { description: 'User password field' })
   password: string;
 
+  @Field(() => UserType, { description: 'User type field' })
+  role: UserType;
+
   @Field(() => String, { description: 'User createdAt field' })
   createdAt: Date;
 
   @Field(() => String, { description: 'User updatedAt field' })
   updatedAt: Date;
-
-  @Field(() => UserType, { description: 'User type field' })
-  role: UserType;
 }
 
 // type UserRole = Role;
