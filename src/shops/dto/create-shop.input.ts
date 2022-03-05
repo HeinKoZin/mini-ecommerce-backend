@@ -6,6 +6,9 @@ export class CreateShopInput implements CreateShopInputType {
   @Field(() => String, { description: 'Shop name field' })
   name: string;
 
+  @Field(() => String, { description: 'Shop slug field' })
+  slug: string;
+
   @Field(() => String, { description: 'Shop address field' })
   address: string;
 

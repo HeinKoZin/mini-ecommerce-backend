@@ -49,6 +49,7 @@ model Product {
 model Shop {
   id      Int       @id @unique @default(autoincrement())
   name    String
+  slug    String    @unique
   address String?
   phone   String    @unique
   products Product[]

@@ -37,6 +37,9 @@ export class Shop implements ShopType {
   @Field(() => String, { description: 'Shop name field' })
   name: string;
 
+  @Field(() => String, { description: 'Shop slug field' })
+  slug: string;
+
   @Field(() => String, { description: 'Shop address field' })
   address: string;
 
