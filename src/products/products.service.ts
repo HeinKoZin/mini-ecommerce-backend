@@ -16,15 +16,21 @@ export class ProductsService {
   }
 
   async findAll() {
-    const products = await this.prismaService.product.findMany({});
+    const products = await this.prismaService.product.findMany({
+      include: {
+        shop: true,
+      },
+    });
     return products;
   }
 
   async findOne(id: number) {
     const product = await this.prismaService.product.findUnique({
       where: { id },
+      include: {
+        shop: true,
+      },
     });
-    console.log(product);
     return product;
   }
 

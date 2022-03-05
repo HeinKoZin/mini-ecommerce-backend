@@ -51,7 +51,7 @@ model Shop {
   name    String
   address String?
   phone   String    @unique
-  Product Product[]
+  products Product[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 

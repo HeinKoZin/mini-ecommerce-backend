@@ -17,26 +17,33 @@ export class ShopsService {
   }
 
   findAll() {
-    const shops = this.prismaService.shop.findMany({});
+    const shops = this.prismaService.shop.findMany({
+      include: {
+        products: true,
+      },
+    });
     return shops;
   }
 
   findOne(id: number) {
     const shop = this.prismaService.shop.findUnique({
       where: { id },
+      include: {
+        products: true,
+      },
     });
     return shop;
   }
 
-  findProducts(id: number) {
-    const products = this.prismaService.product.findMany({
-      where: { shopId: id },
-      include: {
-        shop: true,
-      },
-    });
-    return products;
-  }
+  // findProducts(id: number) {
+  //   const products = this.prismaService.product.findMany({
+  //     where: { shopId: id },
+  //     include: {
+  //       shop: true,
+  //     },
+  //   });
+  //   return products;
+  // }
 
   update(id: number, updateShopInput: UpdateShopInput) {
     const updatedShop = this.prismaService.shop.update({
