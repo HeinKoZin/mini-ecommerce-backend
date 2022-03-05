@@ -13,4 +13,7 @@ export class CreateShopInput implements CreateShopInputType {
   phone: string;
 }
 
-type CreateShopInputType = Omit<Shop, 'id' | 'createdAt' | 'updatedAt'>;
+type CreateShopInputType = Omit<
+  Shop,
+  'id' | 'createdAt' | 'updatedAt' | 'products'
+>;

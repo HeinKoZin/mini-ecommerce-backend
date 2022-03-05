@@ -1,8 +1,17 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { ShopsService } from './shops.service';
 import { Shop } from './entities/shop.entity';
 import { CreateShopInput } from './dto/create-shop.input';
 import { UpdateShopInput } from './dto/update-shop.input';
+import { Product } from '@products/entities/product.entity';
 
 @Resolver(() => Shop)
 export class ShopsResolver {
@@ -21,6 +30,11 @@ export class ShopsResolver {
   @Query(() => Shop, { name: 'shop' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.shopsService.findOne(id);
+  }
+
+  @ResolveField(() => [Product])
+  products(@Parent() shop: Shop) {
+    return this.shopsService.findProducts(shop.id);
   }
 
   @Mutation(() => Shop)

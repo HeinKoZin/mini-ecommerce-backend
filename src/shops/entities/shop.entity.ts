@@ -1,5 +1,33 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Shop as ShopType } from '@prisma/client';
+import { ProductStatus, Shop as ShopType } from '@prisma/client';
+import { Product } from '@products/entities/product.entity';
+
+@ObjectType()
+export class ProductObj implements Omit<Product, 'shop' | 'shopId'> {
+  @Field(() => Int)
+  id: number;
+
+  @Field()
+  name: string;
+
+  @Field()
+  description: string;
+
+  @Field()
+  status: ProductStatus;
+
+  @Field()
+  product_code: string;
+
+  @Field()
+  quantity: number;
+
+  @Field()
+  createdAt: Date;
+
+  @Field()
+  updatedAt: Date;
+}
 
 @ObjectType()
 export class Shop implements ShopType {
@@ -14,6 +42,9 @@ export class Shop implements ShopType {
 
   @Field(() => String, { description: 'Shop phone field' })
   phone: string;
+
+  @Field(() => [ProductObj], { description: "Shop's products" })
+  products: ProductObj[];
 
   @Field(() => String, { description: 'Shop createdAt field' })
   createdAt: Date;

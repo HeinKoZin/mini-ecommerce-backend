@@ -28,6 +28,16 @@ export class ShopsService {
     return shop;
   }
 
+  findProducts(id: number) {
+    const products = this.prismaService.product.findMany({
+      where: { shopId: id },
+      include: {
+        shop: true,
+      },
+    });
+    return products;
+  }
+
   update(id: number, updateShopInput: UpdateShopInput) {
     const updatedShop = this.prismaService.shop.update({
       where: { id },
