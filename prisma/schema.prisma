@@ -17,7 +17,7 @@ model User {
   name        String
   email       String @unique
   password    String
-  role        UserRole @default(value: USER)
+  role        UserType @default(value: USER)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -25,9 +25,45 @@ model User {
   @@index([email, id])
 }
 
-
-
-enum UserRole {
-  ADMIN
+enum UserType {
+  ADMIN 
   USER
+}
+
+
+model Product {
+  id           Int           @id @unique @default(autoincrement())
+  name         String
+  description  String
+  quantity     Int
+  product_code String
+  shop         Shop          @relation(fields: [shopId], references: [id])
+  status       ProductStatus
+  shopId       Int
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("products")
+  @@index([name, id, product_code])
+}
+
+model Shop {
+  id      Int       @id @unique @default(autoincrement())
+  name    String
+  slug    String    @unique
+  address String?
+  phone   String    @unique
+  products Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("shops")
+  @@index([name, id])
+}
+
+
+enum ProductStatus {
+  AVAILABLE
+  STOCK_OUT
+  PRE_ORDER
 }
