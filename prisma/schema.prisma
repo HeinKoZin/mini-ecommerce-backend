@@ -18,6 +18,7 @@ model User {
   email       String @unique
   password    String
   role        UserType @default(value: USER)
+  shops       UsersOnShops[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -47,13 +48,20 @@ model Product {
   @@index([name, id, product_code])
 }
 
+enum ProductStatus {
+  AVAILABLE
+  STOCK_OUT
+  PRE_ORDER
+}
+
 model Shop {
-  id      Int       @id @unique @default(autoincrement())
-  name    String
-  slug    String    @unique
-  address String?
-  phone   String    @unique
-  products Product[]
+  id        Int       @id @unique @default(autoincrement())
+  name      String
+  slug      String    @unique
+  address   String?
+  phone     String    @unique
+  products  Product[]
+  owners    UsersOnShops[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
@@ -61,9 +69,18 @@ model Shop {
   @@index([name, id])
 }
 
+model UsersOnShops{
+  shop        Shop      @relation(fields: [shopId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+  shopId      Int
+  userId      Int
+  assignedby  String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
-enum ProductStatus {
-  AVAILABLE
-  STOCK_OUT
-  PRE_ORDER
+  @@map("owners_on_shops")
+  @@index([shopId, userId])
+  @@id([shopId, userId])
 }
+
+

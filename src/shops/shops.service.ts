@@ -7,29 +7,46 @@ import { UpdateShopInput } from './dto/update-shop.input';
 export class ShopsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  create(createShopInput: CreateShopInput) {
-    const createdShop = this.prismaService.shop.create({
+  async create(createShopInput: CreateShopInput, ownerId: number) {
+    const createdShop = await this.prismaService.shop.create({
       data: {
         ...createShopInput,
       },
+      include: {
+        owners: true,
+      },
     });
+
+    createdShop
+      ? await this.prismaService.usersOnShops.create({
+          data: {
+            shopId: createdShop.id,
+            userId: ownerId,
+            assignedby: 'Hein Ko Zin',
+          },
+        })
+      : null;
+
     return createdShop;
   }
 
-  findAll() {
-    const shops = this.prismaService.shop.findMany({
+  async findAll() {
+    const shops = await this.prismaService.shop.findMany({
       include: {
         products: true,
+        owners: true,
       },
     });
+    console.log(shops);
     return shops;
   }
 
-  findOne(id: number) {
-    const shop = this.prismaService.shop.findUnique({
+  async findOne(id: number) {
+    const shop = await this.prismaService.shop.findUnique({
       where: { id },
       include: {
         products: true,
+        owners: true,
       },
     });
     return shop;

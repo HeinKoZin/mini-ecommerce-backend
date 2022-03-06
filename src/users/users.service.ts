@@ -26,13 +26,21 @@ export class UsersService {
   }
 
   async findAll() {
-    const users = await await this.prismaService.user.findMany({});
+    const users = await this.prismaService.user.findMany({
+      include: {
+        shops: true,
+      },
+    });
+    console.log(users[0].shops);
     return users;
   }
 
-  // async getRole(id: number) {
-  //   return await this.prismaService.role.findUnique({
+  // async getShops(id: number) {
+  //   return await this.prismaService.user.findUnique({
   //     where: { id },
+  //     include: {
+  //       shops: true,
+  //     },
   //   });
   // }
 

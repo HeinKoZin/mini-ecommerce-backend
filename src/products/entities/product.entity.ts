@@ -3,7 +3,7 @@ import { Product as ProductType, ProductStatus } from '@prisma/client';
 import { Shop } from '@shops/entities/shop.entity';
 
 @ObjectType()
-class ShopObj extends OmitType(Shop, ['products']) {}
+export class ShopObj extends OmitType(Shop, ['products']) {}
 
 @ObjectType()
 export class Product implements ProductType {

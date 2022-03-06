@@ -1,4 +1,12 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { UserEntity } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
@@ -16,6 +24,11 @@ export class UsersResolver {
   @Query(() => [UserEntity], { name: 'users' })
   findAll() {
     return this.usersService.findAll();
+  }
+
+  @ResolveField()
+  async shops(@Parent() user: UserEntity) {
+    return { name: 'Phoo', slug: 'phoo' };
   }
 
   // get user role using resolver property

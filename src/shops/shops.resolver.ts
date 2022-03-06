@@ -9,8 +9,11 @@ export class ShopsResolver {
   constructor(private readonly shopsService: ShopsService) {}
 
   @Mutation(() => Shop)
-  createShop(@Args('createShopInput') createShopInput: CreateShopInput) {
-    return this.shopsService.create(createShopInput);
+  createShop(
+    @Args('createShopInput') createShopInput: CreateShopInput,
+    @Args('ownerId') ownerId: number,
+  ) {
+    return this.shopsService.create(createShopInput, ownerId);
   }
 
   @Query(() => [Shop], { name: 'shops' })

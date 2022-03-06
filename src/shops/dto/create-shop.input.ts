@@ -18,5 +18,5 @@ export class CreateShopInput implements CreateShopInputType {
 
 type CreateShopInputType = Omit<
   Shop,
-  'id' | 'createdAt' | 'updatedAt' | 'products'
+  'id' | 'createdAt' | 'updatedAt' | 'products' | 'owners'
 >;

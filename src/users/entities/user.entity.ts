@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int, registerEnumType } from '@nestjs/graphql';
 import { User, UserType } from '@prisma/client';
+import { ShopObj } from '@products/entities/product.entity';
 
 // @ObjectType()
 // export class UserRole {
@@ -37,6 +38,9 @@ export class UserEntity implements User {
 
   @Field(() => UserType, { description: 'User type field' })
   role: UserType;
+
+  @Field(() => [ShopObj])
+  shops: ShopObj[];
 
   @Field(() => String, { description: 'User createdAt field' })
   createdAt: Date;
