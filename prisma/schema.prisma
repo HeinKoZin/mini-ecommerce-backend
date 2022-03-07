@@ -11,11 +11,20 @@ datasource db {
 }
 
 
+generator nestgraphql {
+    provider = "node node_modules/prisma-nestjs-graphql"
+    output = "../src/@generated/prisma-nestjs-graphql"
+    fields_Validator_from = "class-validator"
+    fields_Validator_input = true
+}
+
 
 model User {
   id          Int @id @default(autoincrement())
+  /// @Validator.MinLength(3)
   name        String
   email       String @unique
+  /// @Validator.MinLength(8)
   password    String
   role        UserType @default(value: USER)
   shops       UsersOnShops[]

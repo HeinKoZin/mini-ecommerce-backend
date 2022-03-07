@@ -1,13 +1,13 @@
+import { ShopCreateInput } from '@generated/prisma-nestjs-graphql/shop/shop-create.input';
+import { ShopUpdateInput } from '@generated/prisma-nestjs-graphql/shop/shop-update.input';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma.service';
-import { CreateShopInput } from './dto/create-shop.input';
-import { UpdateShopInput } from './dto/update-shop.input';
 
 @Injectable()
 export class ShopsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(createShopInput: CreateShopInput, ownerId: number) {
+  async create(createShopInput: ShopCreateInput, ownerId: number) {
     const createdShop = await this.prismaService.shop.create({
       data: {
         ...createShopInput,
@@ -28,13 +28,22 @@ export class ShopsService {
   }
 
   async getOwners(shopId: number) {
-    const owners = await this.prismaService.user.findMany({
+    // const owners = await this.prismaService.user.findMany({
+    //   where: {
+    //     shops: {
+    //       some: {
+    //         shopId: shopId,
+    //       },
+    //     },
+    //   },
+    // });
+    const owners = await this.prismaService.usersOnShops.findMany({
       where: {
-        shops: {
-          some: {
-            shopId: shopId,
-          },
-        },
+        shopId: shopId,
+      },
+      include: {
+        user: true,
+        shop: true,
       },
     });
     return owners;
@@ -50,28 +59,37 @@ export class ShopsService {
   }
 
   async findAll() {
-    const shops = await this.prismaService.shop.findMany({});
+    const shops = await this.prismaService.shop.findMany({
+      include: {
+        _count: true,
+      },
+    });
     return shops;
+  }
+
+  async getCounts(shopId: number) {
+    const counts = await this.prismaService.shop.findMany({
+      where: {
+        id: shopId,
+      },
+      select: {
+        _count: true,
+      },
+    });
+    return counts[0]._count;
   }
 
   async findOne(id: number) {
     const shop = await this.prismaService.shop.findUnique({
       where: { id },
+      include: {
+        _count: true,
+      },
     });
     return shop;
   }
 
-  // findProducts(id: number) {
-  //   const products = this.prismaService.product.findMany({
-  //     where: { shopId: id },
-  //     include: {
-  //       shop: true,
-  //     },
-  //   });
-  //   return products;
-  // }
-
-  update(id: number, updateShopInput: UpdateShopInput) {
+  update(id: number, updateShopInput: ShopUpdateInput) {
     const updatedShop = this.prismaService.shop.update({
       where: { id },
       data: {

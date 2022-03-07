@@ -1,13 +1,13 @@
+import { UserCreateInput } from '@dtos/user/user-create.input';
+import { UserUpdateInput } from '@dtos/user/user-update.input';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma.service';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(createUserInput: CreateUserInput) {
+  async create(createUserInput: UserCreateInput) {
     // find existing user by email if exists return error message else create new user and return success message
     const user = await this.prismaService.user.findUnique({
       where: { email: createUserInput.email },
@@ -26,18 +26,22 @@ export class UsersService {
   }
 
   async findAll() {
-    const users = await this.prismaService.user.findMany({});
+    const users = await this.prismaService.user.findMany({
+      include: {
+        _count: true,
+      },
+    });
     return users;
   }
 
   async getShops(userId: number) {
-    const shops = await this.prismaService.shop.findMany({
+    const shops = await this.prismaService.usersOnShops.findMany({
       where: {
-        owners: {
-          some: {
-            userId: userId,
-          },
-        },
+        userId,
+      },
+      include: {
+        shop: true,
+        user: true,
       },
     });
     return shops;
@@ -46,11 +50,14 @@ export class UsersService {
   async findOne(id: number) {
     return await this.prismaService.user.findUnique({
       where: { id },
+      include: {
+        _count: true,
+      },
     });
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    const updatedUser = this.prismaService.user.update({
+  async update(id: number, updateUserInput: UserUpdateInput) {
+    const updatedUser = await this.prismaService.user.update({
       where: { id },
       data: {
         ...updateUserInput,
