@@ -12,9 +12,6 @@ export class ShopsService {
       data: {
         ...createShopInput,
       },
-      include: {
-        owners: true,
-      },
     });
 
     createdShop
@@ -30,24 +27,36 @@ export class ShopsService {
     return createdShop;
   }
 
-  async findAll() {
-    const shops = await this.prismaService.shop.findMany({
-      include: {
-        products: true,
-        owners: true,
+  async getOwners(shopId: number) {
+    const owners = await this.prismaService.user.findMany({
+      where: {
+        shops: {
+          some: {
+            shopId: shopId,
+          },
+        },
       },
     });
-    console.log(shops);
+    return owners;
+  }
+
+  async getProducts(shopId: number) {
+    const products = await this.prismaService.product.findMany({
+      where: {
+        shopId: shopId,
+      },
+    });
+    return products;
+  }
+
+  async findAll() {
+    const shops = await this.prismaService.shop.findMany({});
     return shops;
   }
 
   async findOne(id: number) {
     const shop = await this.prismaService.shop.findUnique({
       where: { id },
-      include: {
-        products: true,
-        owners: true,
-      },
     });
     return shop;
   }

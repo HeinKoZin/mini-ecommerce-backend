@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { ProductStatus, Shop as ShopType } from '@prisma/client';
+import { ProductStatus, Shop as ShopType, UserType } from '@prisma/client';
 import { Product } from '@products/entities/product.entity';
 import { UserEntity } from '@users/entities/user.entity';
 
@@ -31,6 +31,27 @@ export class ProductObj implements Omit<Product, 'shop' | 'shopId'> {
 }
 
 @ObjectType()
+export class OwnerObj implements Omit<UserEntity, 'password' | 'shops'> {
+  @Field(() => Int, { description: 'Owner id' })
+  id: number;
+
+  @Field({ description: 'Owner name' })
+  name: string;
+
+  @Field({ description: 'Owner email' })
+  email: string;
+
+  @Field({ description: "Owner's role" })
+  role: UserType;
+
+  @Field({ description: 'Owner created at' })
+  createdAt: Date;
+
+  @Field({ description: 'Owner updated at' })
+  updatedAt: Date;
+}
+
+@ObjectType()
 export class Shop implements ShopType {
   @Field(() => Int, { description: 'Shop id field' })
   id: number;
@@ -50,8 +71,8 @@ export class Shop implements ShopType {
   @Field(() => [ProductObj], { description: "Shop's products" })
   products: ProductObj[];
 
-  @Field(() => [UserEntity])
-  owners: UserEntity[];
+  @Field(() => [OwnerObj], { description: 'Shop owners' })
+  owners: OwnerObj[];
 
   @Field(() => String, { description: 'Shop createdAt field' })
   createdAt: Date;

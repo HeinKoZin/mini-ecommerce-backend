@@ -28,7 +28,7 @@ export class UsersResolver {
 
   @ResolveField()
   async shops(@Parent() user: UserEntity) {
-    return { name: 'Phoo', slug: 'phoo' };
+    return this.usersService.getShops(user.id);
   }
 
   // get user role using resolver property
