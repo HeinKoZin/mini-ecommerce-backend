@@ -19,7 +19,6 @@ export class ProductsService {
         ...createProductInput,
       },
     });
-    console.log(createdProduct);
     return createdProduct;
   }
 
@@ -30,7 +29,6 @@ export class ProductsService {
         currencies: true,
       },
     });
-    console.log(products);
     return products;
   }
 
