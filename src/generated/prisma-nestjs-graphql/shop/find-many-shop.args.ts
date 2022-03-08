@@ -8,21 +8,22 @@ import { ShopScalarFieldEnum } from './shop-scalar-field.enum';
 
 @ArgsType()
 export class FindManyShopArgs {
-  @Field(() => ShopWhereInput, { nullable: true })
-  where?: ShopWhereInput;
 
-  @Field(() => [ShopOrderByWithRelationInput], { nullable: true })
-  orderBy?: Array<ShopOrderByWithRelationInput>;
+    @Field(() => ShopWhereInput, {nullable:true})
+    where?: ShopWhereInput;
 
-  @Field(() => ShopWhereUniqueInput, { nullable: true })
-  cursor?: ShopWhereUniqueInput;
+    @Field(() => [ShopOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<ShopOrderByWithRelationInput>;
 
-  @Field(() => Int, { nullable: true })
-  take?: number;
+    @Field(() => ShopWhereUniqueInput, {nullable:true})
+    cursor?: ShopWhereUniqueInput;
 
-  @Field(() => Int, { nullable: true })
-  skip?: number;
+    @Field(() => Int, {nullable:true})
+    take?: number;
 
-  @Field(() => [ShopScalarFieldEnum], { nullable: true })
-  distinct?: Array<keyof typeof ShopScalarFieldEnum>;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+
+    @Field(() => [ShopScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof ShopScalarFieldEnum>;
 }

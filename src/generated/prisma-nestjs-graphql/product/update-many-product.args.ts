@@ -5,9 +5,10 @@ import { ProductWhereInput } from './product-where.input';
 
 @ArgsType()
 export class UpdateManyProductArgs {
-  @Field(() => ProductUpdateManyMutationInput, { nullable: false })
-  data!: ProductUpdateManyMutationInput;
 
-  @Field(() => ProductWhereInput, { nullable: true })
-  where?: ProductWhereInput;
+    @Field(() => ProductUpdateManyMutationInput, {nullable:false})
+    data!: ProductUpdateManyMutationInput;
+
+    @Field(() => ProductWhereInput, {nullable:true})
+    where?: ProductWhereInput;
 }

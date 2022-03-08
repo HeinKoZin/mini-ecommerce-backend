@@ -4,18 +4,19 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class UsersOnShopsMaxOrderByAggregateInput {
-  @Field(() => SortOrder, { nullable: true })
-  shopId?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  userId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    shopId?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  assignedby?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    userId?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    assignedby?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  updatedAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
 }

@@ -5,9 +5,10 @@ import { ProductUpdateManyMutationInput } from './product-update-many-mutation.i
 
 @InputType()
 export class ProductUpdateManyWithWhereWithoutShopInput {
-  @Field(() => ProductScalarWhereInput, { nullable: false })
-  where!: ProductScalarWhereInput;
 
-  @Field(() => ProductUpdateManyMutationInput, { nullable: false })
-  data!: ProductUpdateManyMutationInput;
+    @Field(() => ProductScalarWhereInput, {nullable:false})
+    where!: ProductScalarWhereInput;
+
+    @Field(() => ProductUpdateManyMutationInput, {nullable:false})
+    data!: ProductUpdateManyMutationInput;
 }

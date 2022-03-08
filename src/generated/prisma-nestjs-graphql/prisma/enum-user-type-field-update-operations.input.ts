@@ -4,6 +4,7 @@ import { UserType } from './user-type.enum';
 
 @InputType()
 export class EnumUserTypeFieldUpdateOperationsInput {
-  @Field(() => UserType, { nullable: true })
-  set?: keyof typeof UserType;
+
+    @Field(() => UserType, {nullable:true})
+    set?: keyof typeof UserType;
 }

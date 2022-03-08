@@ -9,11 +9,17 @@ import { PrismaService } from '@prisma.service';
 export class ProductsService {
   constructor(private readonly prismaService: PrismaService) {}
   async create(createProductInput: ProductCreateInput) {
+    console.log(createProductInput);
     const createdProduct = await this.prismaService.product.create({
+      include: {
+        shop: true,
+        currencies: true,
+      },
       data: {
         ...createProductInput,
       },
     });
+    console.log(createdProduct);
     return createdProduct;
   }
 
@@ -21,22 +27,33 @@ export class ProductsService {
     const products = await this.prismaService.product.findMany({
       include: {
         shop: true,
+        currencies: true,
       },
     });
+    console.log(products);
     return products;
   }
 
-  // async getCounts() {
-  //   const counts = await this.prismaService.product.count();
-  //   console.log(counts);
-  //   return counts;
-  // }
+  async getCurrencies(productId: number) {
+    const currencies = await this.prismaService.currenciesOnProducts.findMany({
+      where: {
+        product: {
+          id: productId,
+        },
+      },
+      include: {
+        currency: true,
+      },
+    });
+    return currencies;
+  }
 
   async findOne(id: number) {
     const product = await this.prismaService.product.findUnique({
       where: { id },
       include: {
         shop: true,
+        currencies: true,
       },
     });
     return product;

@@ -9,39 +9,40 @@ import { ShopSumOrderByAggregateInput } from './shop-sum-order-by-aggregate.inpu
 
 @InputType()
 export class ShopOrderByWithAggregationInput {
-  @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  slug?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  address?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    slug?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  phone?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    address?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    phone?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  updatedAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
 
-  @Field(() => ShopCountOrderByAggregateInput, { nullable: true })
-  _count?: ShopCountOrderByAggregateInput;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
 
-  @Field(() => ShopAvgOrderByAggregateInput, { nullable: true })
-  _avg?: ShopAvgOrderByAggregateInput;
+    @Field(() => ShopCountOrderByAggregateInput, {nullable:true})
+    _count?: ShopCountOrderByAggregateInput;
 
-  @Field(() => ShopMaxOrderByAggregateInput, { nullable: true })
-  _max?: ShopMaxOrderByAggregateInput;
+    @Field(() => ShopAvgOrderByAggregateInput, {nullable:true})
+    _avg?: ShopAvgOrderByAggregateInput;
 
-  @Field(() => ShopMinOrderByAggregateInput, { nullable: true })
-  _min?: ShopMinOrderByAggregateInput;
+    @Field(() => ShopMaxOrderByAggregateInput, {nullable:true})
+    _max?: ShopMaxOrderByAggregateInput;
 
-  @Field(() => ShopSumOrderByAggregateInput, { nullable: true })
-  _sum?: ShopSumOrderByAggregateInput;
+    @Field(() => ShopMinOrderByAggregateInput, {nullable:true})
+    _min?: ShopMinOrderByAggregateInput;
+
+    @Field(() => ShopSumOrderByAggregateInput, {nullable:true})
+    _sum?: ShopSumOrderByAggregateInput;
 }

@@ -4,6 +4,7 @@ import { ShopWhereUniqueInput } from './shop-where-unique.input';
 
 @ArgsType()
 export class DeleteOneShopArgs {
-  @Field(() => ShopWhereUniqueInput, { nullable: false })
-  where!: ShopWhereUniqueInput;
+
+    @Field(() => ShopWhereUniqueInput, {nullable:false})
+    where!: ShopWhereUniqueInput;
 }

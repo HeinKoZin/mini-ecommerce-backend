@@ -8,18 +8,19 @@ import { ShopUpdateWithoutProductsInput } from './shop-update-without-products.i
 
 @InputType()
 export class ShopUpdateOneRequiredWithoutProductsInput {
-  @Field(() => ShopCreateWithoutProductsInput, { nullable: true })
-  create?: ShopCreateWithoutProductsInput;
 
-  @Field(() => ShopCreateOrConnectWithoutProductsInput, { nullable: true })
-  connectOrCreate?: ShopCreateOrConnectWithoutProductsInput;
+    @Field(() => ShopCreateWithoutProductsInput, {nullable:true})
+    create?: ShopCreateWithoutProductsInput;
 
-  @Field(() => ShopUpsertWithoutProductsInput, { nullable: true })
-  upsert?: ShopUpsertWithoutProductsInput;
+    @Field(() => ShopCreateOrConnectWithoutProductsInput, {nullable:true})
+    connectOrCreate?: ShopCreateOrConnectWithoutProductsInput;
 
-  @Field(() => ShopWhereUniqueInput, { nullable: true })
-  connect?: ShopWhereUniqueInput;
+    @Field(() => ShopUpsertWithoutProductsInput, {nullable:true})
+    upsert?: ShopUpsertWithoutProductsInput;
 
-  @Field(() => ShopUpdateWithoutProductsInput, { nullable: true })
-  update?: ShopUpdateWithoutProductsInput;
+    @Field(() => ShopWhereUniqueInput, {nullable:true})
+    connect?: ShopWhereUniqueInput;
+
+    @Field(() => ShopUpdateWithoutProductsInput, {nullable:true})
+    update?: ShopUpdateWithoutProductsInput;
 }

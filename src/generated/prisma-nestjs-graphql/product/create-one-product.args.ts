@@ -4,6 +4,7 @@ import { ProductCreateInput } from './product-create.input';
 
 @ArgsType()
 export class CreateOneProductArgs {
-  @Field(() => ProductCreateInput, { nullable: false })
-  data!: ProductCreateInput;
+
+    @Field(() => ProductCreateInput, {nullable:false})
+    data!: ProductCreateInput;
 }

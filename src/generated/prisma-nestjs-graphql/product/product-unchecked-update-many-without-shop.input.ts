@@ -11,40 +11,37 @@ import { ProductScalarWhereInput } from './product-scalar-where.input';
 
 @InputType()
 export class ProductUncheckedUpdateManyWithoutShopInput {
-  @Field(() => [ProductCreateWithoutShopInput], { nullable: true })
-  create?: Array<ProductCreateWithoutShopInput>;
 
-  @Field(() => [ProductCreateOrConnectWithoutShopInput], { nullable: true })
-  connectOrCreate?: Array<ProductCreateOrConnectWithoutShopInput>;
+    @Field(() => [ProductCreateWithoutShopInput], {nullable:true})
+    create?: Array<ProductCreateWithoutShopInput>;
 
-  @Field(() => [ProductUpsertWithWhereUniqueWithoutShopInput], {
-    nullable: true,
-  })
-  upsert?: Array<ProductUpsertWithWhereUniqueWithoutShopInput>;
+    @Field(() => [ProductCreateOrConnectWithoutShopInput], {nullable:true})
+    connectOrCreate?: Array<ProductCreateOrConnectWithoutShopInput>;
 
-  @Field(() => ProductCreateManyShopInputEnvelope, { nullable: true })
-  createMany?: ProductCreateManyShopInputEnvelope;
+    @Field(() => [ProductUpsertWithWhereUniqueWithoutShopInput], {nullable:true})
+    upsert?: Array<ProductUpsertWithWhereUniqueWithoutShopInput>;
 
-  @Field(() => [ProductWhereUniqueInput], { nullable: true })
-  set?: Array<ProductWhereUniqueInput>;
+    @Field(() => ProductCreateManyShopInputEnvelope, {nullable:true})
+    createMany?: ProductCreateManyShopInputEnvelope;
 
-  @Field(() => [ProductWhereUniqueInput], { nullable: true })
-  disconnect?: Array<ProductWhereUniqueInput>;
+    @Field(() => [ProductWhereUniqueInput], {nullable:true})
+    set?: Array<ProductWhereUniqueInput>;
 
-  @Field(() => [ProductWhereUniqueInput], { nullable: true })
-  delete?: Array<ProductWhereUniqueInput>;
+    @Field(() => [ProductWhereUniqueInput], {nullable:true})
+    disconnect?: Array<ProductWhereUniqueInput>;
 
-  @Field(() => [ProductWhereUniqueInput], { nullable: true })
-  connect?: Array<ProductWhereUniqueInput>;
+    @Field(() => [ProductWhereUniqueInput], {nullable:true})
+    delete?: Array<ProductWhereUniqueInput>;
 
-  @Field(() => [ProductUpdateWithWhereUniqueWithoutShopInput], {
-    nullable: true,
-  })
-  update?: Array<ProductUpdateWithWhereUniqueWithoutShopInput>;
+    @Field(() => [ProductWhereUniqueInput], {nullable:true})
+    connect?: Array<ProductWhereUniqueInput>;
 
-  @Field(() => [ProductUpdateManyWithWhereWithoutShopInput], { nullable: true })
-  updateMany?: Array<ProductUpdateManyWithWhereWithoutShopInput>;
+    @Field(() => [ProductUpdateWithWhereUniqueWithoutShopInput], {nullable:true})
+    update?: Array<ProductUpdateWithWhereUniqueWithoutShopInput>;
 
-  @Field(() => [ProductScalarWhereInput], { nullable: true })
-  deleteMany?: Array<ProductScalarWhereInput>;
+    @Field(() => [ProductUpdateManyWithWhereWithoutShopInput], {nullable:true})
+    updateMany?: Array<ProductUpdateManyWithWhereWithoutShopInput>;
+
+    @Field(() => [ProductScalarWhereInput], {nullable:true})
+    deleteMany?: Array<ProductScalarWhereInput>;
 }

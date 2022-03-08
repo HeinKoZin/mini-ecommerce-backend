@@ -4,6 +4,7 @@ import { ProductStatus } from './product-status.enum';
 
 @InputType()
 export class EnumProductStatusFieldUpdateOperationsInput {
-  @Field(() => ProductStatus, { nullable: true })
-  set?: keyof typeof ProductStatus;
+
+    @Field(() => ProductStatus, {nullable:true})
+    set?: keyof typeof ProductStatus;
 }

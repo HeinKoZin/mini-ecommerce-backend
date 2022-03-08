@@ -4,6 +4,7 @@ import { ProductWhereInput } from './product-where.input';
 
 @ArgsType()
 export class DeleteManyProductArgs {
-  @Field(() => ProductWhereInput, { nullable: true })
-  where?: ProductWhereInput;
+
+    @Field(() => ProductWhereInput, {nullable:true})
+    where?: ProductWhereInput;
 }

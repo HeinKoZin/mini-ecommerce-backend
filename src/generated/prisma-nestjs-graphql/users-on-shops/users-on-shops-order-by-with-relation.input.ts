@@ -6,24 +6,25 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class UsersOnShopsOrderByWithRelationInput {
-  @Field(() => ShopOrderByWithRelationInput, { nullable: true })
-  shop?: ShopOrderByWithRelationInput;
 
-  @Field(() => UserOrderByWithRelationInput, { nullable: true })
-  user?: UserOrderByWithRelationInput;
+    @Field(() => ShopOrderByWithRelationInput, {nullable:true})
+    shop?: ShopOrderByWithRelationInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  shopId?: keyof typeof SortOrder;
+    @Field(() => UserOrderByWithRelationInput, {nullable:true})
+    user?: UserOrderByWithRelationInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  userId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    shopId?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  assignedby?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    userId?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    assignedby?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  updatedAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
 }

@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { ShopCreateNestedOneWithoutProductsInput } from '../shop/shop-create-nested-one-without-products.input';
 import { ProductStatus } from '../prisma/product-status.enum';
+import { CurrenciesOnProductsCreateNestedManyWithoutProductInput } from '../currencies-on-products/currencies-on-products-create-nested-many-without-product.input';
 
 @InputType()
 export class ProductCreateInput {
@@ -23,6 +24,11 @@ export class ProductCreateInput {
 
   @Field(() => ProductStatus, { nullable: false })
   status!: keyof typeof ProductStatus;
+
+  @Field(() => CurrenciesOnProductsCreateNestedManyWithoutProductInput, {
+    nullable: true,
+  })
+  currencies?: CurrenciesOnProductsCreateNestedManyWithoutProductInput;
 
   @Field(() => Date, { nullable: true })
   createdAt?: Date | string;

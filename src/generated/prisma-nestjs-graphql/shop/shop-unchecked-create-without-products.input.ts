@@ -5,29 +5,28 @@ import { UsersOnShopsUncheckedCreateNestedManyWithoutShopInput } from '../users-
 
 @InputType()
 export class ShopUncheckedCreateWithoutProductsInput {
-  @Field(() => Int, { nullable: true })
-  id?: number;
 
-  @Field(() => String, { nullable: false })
-  name!: string;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-  @Field(() => String, { nullable: false })
-  slug!: string;
+    @Field(() => String, {nullable:false})
+    name!: string;
 
-  @Field(() => String, { nullable: true })
-  address?: string;
+    @Field(() => String, {nullable:false})
+    slug!: string;
 
-  @Field(() => String, { nullable: false })
-  phone!: string;
+    @Field(() => String, {nullable:true})
+    address?: string;
 
-  @Field(() => UsersOnShopsUncheckedCreateNestedManyWithoutShopInput, {
-    nullable: true,
-  })
-  owners?: UsersOnShopsUncheckedCreateNestedManyWithoutShopInput;
+    @Field(() => String, {nullable:false})
+    phone!: string;
 
-  @Field(() => Date, { nullable: true })
-  createdAt?: Date | string;
+    @Field(() => UsersOnShopsUncheckedCreateNestedManyWithoutShopInput, {nullable:true})
+    owners?: UsersOnShopsUncheckedCreateNestedManyWithoutShopInput;
 
-  @Field(() => Date, { nullable: true })
-  updatedAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
 }

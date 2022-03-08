@@ -5,9 +5,10 @@ import { UsersOnShopsWhereUniqueInput } from './users-on-shops-where-unique.inpu
 
 @ArgsType()
 export class UpdateOneUsersOnShopsArgs {
-  @Field(() => UsersOnShopsUpdateInput, { nullable: false })
-  data!: UsersOnShopsUpdateInput;
 
-  @Field(() => UsersOnShopsWhereUniqueInput, { nullable: false })
-  where!: UsersOnShopsWhereUniqueInput;
+    @Field(() => UsersOnShopsUpdateInput, {nullable:false})
+    data!: UsersOnShopsUpdateInput;
+
+    @Field(() => UsersOnShopsWhereUniqueInput, {nullable:false})
+    where!: UsersOnShopsWhereUniqueInput;
 }

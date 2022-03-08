@@ -9,39 +9,40 @@ import { ShopMaxAggregate } from './shop-max-aggregate.output';
 
 @ObjectType()
 export class ShopGroupBy {
-  @Field(() => Int, { nullable: false })
-  id!: number;
 
-  @Field(() => String, { nullable: false })
-  name!: string;
+    @Field(() => Int, {nullable:false})
+    id!: number;
 
-  @Field(() => String, { nullable: false })
-  slug!: string;
+    @Field(() => String, {nullable:false})
+    name!: string;
 
-  @Field(() => String, { nullable: true })
-  address?: string;
+    @Field(() => String, {nullable:false})
+    slug!: string;
 
-  @Field(() => String, { nullable: false })
-  phone!: string;
+    @Field(() => String, {nullable:true})
+    address?: string;
 
-  @Field(() => Date, { nullable: false })
-  createdAt!: Date | string;
+    @Field(() => String, {nullable:false})
+    phone!: string;
 
-  @Field(() => Date, { nullable: false })
-  updatedAt!: Date | string;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date | string;
 
-  @Field(() => ShopCountAggregate, { nullable: true })
-  _count?: ShopCountAggregate;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date | string;
 
-  @Field(() => ShopAvgAggregate, { nullable: true })
-  _avg?: ShopAvgAggregate;
+    @Field(() => ShopCountAggregate, {nullable:true})
+    _count?: ShopCountAggregate;
 
-  @Field(() => ShopSumAggregate, { nullable: true })
-  _sum?: ShopSumAggregate;
+    @Field(() => ShopAvgAggregate, {nullable:true})
+    _avg?: ShopAvgAggregate;
 
-  @Field(() => ShopMinAggregate, { nullable: true })
-  _min?: ShopMinAggregate;
+    @Field(() => ShopSumAggregate, {nullable:true})
+    _sum?: ShopSumAggregate;
 
-  @Field(() => ShopMaxAggregate, { nullable: true })
-  _max?: ShopMaxAggregate;
+    @Field(() => ShopMinAggregate, {nullable:true})
+    _min?: ShopMinAggregate;
+
+    @Field(() => ShopMaxAggregate, {nullable:true})
+    _max?: ShopMaxAggregate;
 }

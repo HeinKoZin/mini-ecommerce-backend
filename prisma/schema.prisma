@@ -13,7 +13,7 @@ datasource db {
 
 generator nestgraphql {
     provider = "node node_modules/prisma-nestjs-graphql"
-    output = "../src/@generated/prisma-nestjs-graphql"
+    output = "../src/generated/prisma-nestjs-graphql"
     fields_Validator_from = "class-validator"
     fields_Validator_input = true
 }
@@ -50,11 +50,38 @@ model Product {
   shop         Shop          @relation(fields: [shopId], references: [id])
   status       ProductStatus
   shopId       Int
+  currencies   CurrenciesOnProducts[]     
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
   @@map("products")
   @@index([name, id, product_code])
+}
+
+model Currency {
+  id        Int @id @default(autoincrement())
+  name      String
+  code      String @unique
+  products  CurrenciesOnProducts[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("currencies")
+  @@index([name, id])
+}
+
+model CurrenciesOnProducts {
+  id        Int @id @default(autoincrement())
+  sell_price Float
+  product   Product @relation(fields: [productId], references: [id])
+  currency  Currency @relation(fields: [currencyId], references: [id])
+  productId Int
+  currencyId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("currencies_on_products")
+  @@index([productId, currencyId])
 }
 
 enum ProductStatus {

@@ -4,9 +4,10 @@ import { ProductCreateManyShopInput } from './product-create-many-shop.input';
 
 @InputType()
 export class ProductCreateManyShopInputEnvelope {
-  @Field(() => [ProductCreateManyShopInput], { nullable: false })
-  data!: Array<ProductCreateManyShopInput>;
 
-  @Field(() => Boolean, { nullable: true })
-  skipDuplicates?: boolean;
+    @Field(() => [ProductCreateManyShopInput], {nullable:false})
+    data!: Array<ProductCreateManyShopInput>;
+
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
 }

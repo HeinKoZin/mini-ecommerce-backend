@@ -4,9 +4,10 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class ShopCount {
-  @Field(() => Int, { nullable: false })
-  products?: number;
 
-  @Field(() => Int, { nullable: false })
-  owners?: number;
+    @Field(() => Int, {nullable:false})
+    products?: number;
+
+    @Field(() => Int, {nullable:false})
+    owners?: number;
 }

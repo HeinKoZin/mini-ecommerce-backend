@@ -12,33 +12,34 @@ import { ShopMaxAggregateInput } from './shop-max-aggregate.input';
 
 @ArgsType()
 export class ShopAggregateArgs {
-  @Field(() => ShopWhereInput, { nullable: true })
-  where?: ShopWhereInput;
 
-  @Field(() => [ShopOrderByWithRelationInput], { nullable: true })
-  orderBy?: Array<ShopOrderByWithRelationInput>;
+    @Field(() => ShopWhereInput, {nullable:true})
+    where?: ShopWhereInput;
 
-  @Field(() => ShopWhereUniqueInput, { nullable: true })
-  cursor?: ShopWhereUniqueInput;
+    @Field(() => [ShopOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<ShopOrderByWithRelationInput>;
 
-  @Field(() => Int, { nullable: true })
-  take?: number;
+    @Field(() => ShopWhereUniqueInput, {nullable:true})
+    cursor?: ShopWhereUniqueInput;
 
-  @Field(() => Int, { nullable: true })
-  skip?: number;
+    @Field(() => Int, {nullable:true})
+    take?: number;
 
-  @Field(() => ShopCountAggregateInput, { nullable: true })
-  _count?: ShopCountAggregateInput;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
 
-  @Field(() => ShopAvgAggregateInput, { nullable: true })
-  _avg?: ShopAvgAggregateInput;
+    @Field(() => ShopCountAggregateInput, {nullable:true})
+    _count?: ShopCountAggregateInput;
 
-  @Field(() => ShopSumAggregateInput, { nullable: true })
-  _sum?: ShopSumAggregateInput;
+    @Field(() => ShopAvgAggregateInput, {nullable:true})
+    _avg?: ShopAvgAggregateInput;
 
-  @Field(() => ShopMinAggregateInput, { nullable: true })
-  _min?: ShopMinAggregateInput;
+    @Field(() => ShopSumAggregateInput, {nullable:true})
+    _sum?: ShopSumAggregateInput;
 
-  @Field(() => ShopMaxAggregateInput, { nullable: true })
-  _max?: ShopMaxAggregateInput;
+    @Field(() => ShopMinAggregateInput, {nullable:true})
+    _min?: ShopMinAggregateInput;
+
+    @Field(() => ShopMaxAggregateInput, {nullable:true})
+    _max?: ShopMaxAggregateInput;
 }

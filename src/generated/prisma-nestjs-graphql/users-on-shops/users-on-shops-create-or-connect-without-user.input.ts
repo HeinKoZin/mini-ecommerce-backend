@@ -5,9 +5,10 @@ import { UsersOnShopsCreateWithoutUserInput } from './users-on-shops-create-with
 
 @InputType()
 export class UsersOnShopsCreateOrConnectWithoutUserInput {
-  @Field(() => UsersOnShopsWhereUniqueInput, { nullable: false })
-  where!: UsersOnShopsWhereUniqueInput;
 
-  @Field(() => UsersOnShopsCreateWithoutUserInput, { nullable: false })
-  create!: UsersOnShopsCreateWithoutUserInput;
+    @Field(() => UsersOnShopsWhereUniqueInput, {nullable:false})
+    where!: UsersOnShopsWhereUniqueInput;
+
+    @Field(() => UsersOnShopsCreateWithoutUserInput, {nullable:false})
+    create!: UsersOnShopsCreateWithoutUserInput;
 }

@@ -5,9 +5,10 @@ import { ShopWhereUniqueInput } from './shop-where-unique.input';
 
 @ArgsType()
 export class UpdateOneShopArgs {
-  @Field(() => ShopUpdateInput, { nullable: false })
-  data!: ShopUpdateInput;
 
-  @Field(() => ShopWhereUniqueInput, { nullable: false })
-  where!: ShopWhereUniqueInput;
+    @Field(() => ShopUpdateInput, {nullable:false})
+    data!: ShopUpdateInput;
+
+    @Field(() => ShopWhereUniqueInput, {nullable:false})
+    where!: ShopWhereUniqueInput;
 }

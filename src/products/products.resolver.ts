@@ -1,9 +1,17 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { ProductsService } from './products.service';
 // import { Product } from './entities/product.entity';
 // import { CreateProductInput } from './dto/create-product.input';
 // import { UpdateProductInput } from './dto/update-product.input';
-import { ProductCreateInput } from '@dtos//product/product-create.input';
+import { ProductCreateInput } from '@dtos/product/product-create.input';
 import { ProductUpdateInput } from '@dtos/product/product-update.input';
 import { Product } from '@dtos/product/product.model';
 
@@ -23,11 +31,11 @@ export class ProductsResolver {
     return this.productsService.findAll();
   }
 
-  // @ResolveField(() => Number)
-  // async _count() {
-  //   console.log('count');
-  //   return this.productsService.getCounts();
-  // }
+  @ResolveField()
+  async currencies(@Parent() product: Product) {
+    // console.log(product.currencies);
+    return await this.productsService.getCurrencies(product.id);
+  }
 
   @Query(() => Product, { name: 'product' })
   findOne(@Args('id', { type: () => Int }) id: number) {

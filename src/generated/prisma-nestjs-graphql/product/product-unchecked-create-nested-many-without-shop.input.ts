@@ -7,15 +7,16 @@ import { ProductWhereUniqueInput } from './product-where-unique.input';
 
 @InputType()
 export class ProductUncheckedCreateNestedManyWithoutShopInput {
-  @Field(() => [ProductCreateWithoutShopInput], { nullable: true })
-  create?: Array<ProductCreateWithoutShopInput>;
 
-  @Field(() => [ProductCreateOrConnectWithoutShopInput], { nullable: true })
-  connectOrCreate?: Array<ProductCreateOrConnectWithoutShopInput>;
+    @Field(() => [ProductCreateWithoutShopInput], {nullable:true})
+    create?: Array<ProductCreateWithoutShopInput>;
 
-  @Field(() => ProductCreateManyShopInputEnvelope, { nullable: true })
-  createMany?: ProductCreateManyShopInputEnvelope;
+    @Field(() => [ProductCreateOrConnectWithoutShopInput], {nullable:true})
+    connectOrCreate?: Array<ProductCreateOrConnectWithoutShopInput>;
 
-  @Field(() => [ProductWhereUniqueInput], { nullable: true })
-  connect?: Array<ProductWhereUniqueInput>;
+    @Field(() => ProductCreateManyShopInputEnvelope, {nullable:true})
+    createMany?: ProductCreateManyShopInputEnvelope;
+
+    @Field(() => [ProductWhereUniqueInput], {nullable:true})
+    connect?: Array<ProductWhereUniqueInput>;
 }

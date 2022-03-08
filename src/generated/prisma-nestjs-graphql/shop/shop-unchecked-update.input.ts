@@ -9,32 +9,31 @@ import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-up
 
 @InputType()
 export class ShopUncheckedUpdateInput {
-  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
-  id?: IntFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  name?: StringFieldUpdateOperationsInput;
+    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
+    id?: IntFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  slug?: StringFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    name?: StringFieldUpdateOperationsInput;
 
-  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-  address?: NullableStringFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    slug?: StringFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  phone?: StringFieldUpdateOperationsInput;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    address?: NullableStringFieldUpdateOperationsInput;
 
-  @Field(() => ProductUncheckedUpdateManyWithoutShopInput, { nullable: true })
-  products?: ProductUncheckedUpdateManyWithoutShopInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phone?: StringFieldUpdateOperationsInput;
 
-  @Field(() => UsersOnShopsUncheckedUpdateManyWithoutShopInput, {
-    nullable: true,
-  })
-  owners?: UsersOnShopsUncheckedUpdateManyWithoutShopInput;
+    @Field(() => ProductUncheckedUpdateManyWithoutShopInput, {nullable:true})
+    products?: ProductUncheckedUpdateManyWithoutShopInput;
 
-  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-  createdAt?: DateTimeFieldUpdateOperationsInput;
+    @Field(() => UsersOnShopsUncheckedUpdateManyWithoutShopInput, {nullable:true})
+    owners?: UsersOnShopsUncheckedUpdateManyWithoutShopInput;
 
-  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-  updatedAt?: DateTimeFieldUpdateOperationsInput;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    updatedAt?: DateTimeFieldUpdateOperationsInput;
 }

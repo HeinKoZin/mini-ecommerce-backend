@@ -6,12 +6,13 @@ import { ShopWhereUniqueInput } from './shop-where-unique.input';
 
 @InputType()
 export class ShopCreateNestedOneWithoutOwnersInput {
-  @Field(() => ShopCreateWithoutOwnersInput, { nullable: true })
-  create?: ShopCreateWithoutOwnersInput;
 
-  @Field(() => ShopCreateOrConnectWithoutOwnersInput, { nullable: true })
-  connectOrCreate?: ShopCreateOrConnectWithoutOwnersInput;
+    @Field(() => ShopCreateWithoutOwnersInput, {nullable:true})
+    create?: ShopCreateWithoutOwnersInput;
 
-  @Field(() => ShopWhereUniqueInput, { nullable: true })
-  connect?: ShopWhereUniqueInput;
+    @Field(() => ShopCreateOrConnectWithoutOwnersInput, {nullable:true})
+    connectOrCreate?: ShopCreateOrConnectWithoutOwnersInput;
+
+    @Field(() => ShopWhereUniqueInput, {nullable:true})
+    connect?: ShopWhereUniqueInput;
 }

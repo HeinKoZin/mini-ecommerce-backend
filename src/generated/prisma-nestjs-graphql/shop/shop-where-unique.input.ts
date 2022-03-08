@@ -4,12 +4,13 @@ import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class ShopWhereUniqueInput {
-  @Field(() => Int, { nullable: true })
-  id?: number;
 
-  @Field(() => String, { nullable: true })
-  slug?: string;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-  @Field(() => String, { nullable: true })
-  phone?: string;
+    @Field(() => String, {nullable:true})
+    slug?: string;
+
+    @Field(() => String, {nullable:true})
+    phone?: string;
 }

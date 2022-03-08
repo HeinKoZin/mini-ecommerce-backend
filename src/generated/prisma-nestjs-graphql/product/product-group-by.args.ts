@@ -13,36 +13,37 @@ import { ProductMaxAggregateInput } from './product-max-aggregate.input';
 
 @ArgsType()
 export class ProductGroupByArgs {
-  @Field(() => ProductWhereInput, { nullable: true })
-  where?: ProductWhereInput;
 
-  @Field(() => [ProductOrderByWithAggregationInput], { nullable: true })
-  orderBy?: Array<ProductOrderByWithAggregationInput>;
+    @Field(() => ProductWhereInput, {nullable:true})
+    where?: ProductWhereInput;
 
-  @Field(() => [ProductScalarFieldEnum], { nullable: false })
-  by!: Array<keyof typeof ProductScalarFieldEnum>;
+    @Field(() => [ProductOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<ProductOrderByWithAggregationInput>;
 
-  @Field(() => ProductScalarWhereWithAggregatesInput, { nullable: true })
-  having?: ProductScalarWhereWithAggregatesInput;
+    @Field(() => [ProductScalarFieldEnum], {nullable:false})
+    by!: Array<keyof typeof ProductScalarFieldEnum>;
 
-  @Field(() => Int, { nullable: true })
-  take?: number;
+    @Field(() => ProductScalarWhereWithAggregatesInput, {nullable:true})
+    having?: ProductScalarWhereWithAggregatesInput;
 
-  @Field(() => Int, { nullable: true })
-  skip?: number;
+    @Field(() => Int, {nullable:true})
+    take?: number;
 
-  @Field(() => ProductCountAggregateInput, { nullable: true })
-  _count?: ProductCountAggregateInput;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
 
-  @Field(() => ProductAvgAggregateInput, { nullable: true })
-  _avg?: ProductAvgAggregateInput;
+    @Field(() => ProductCountAggregateInput, {nullable:true})
+    _count?: ProductCountAggregateInput;
 
-  @Field(() => ProductSumAggregateInput, { nullable: true })
-  _sum?: ProductSumAggregateInput;
+    @Field(() => ProductAvgAggregateInput, {nullable:true})
+    _avg?: ProductAvgAggregateInput;
 
-  @Field(() => ProductMinAggregateInput, { nullable: true })
-  _min?: ProductMinAggregateInput;
+    @Field(() => ProductSumAggregateInput, {nullable:true})
+    _sum?: ProductSumAggregateInput;
 
-  @Field(() => ProductMaxAggregateInput, { nullable: true })
-  _max?: ProductMaxAggregateInput;
+    @Field(() => ProductMinAggregateInput, {nullable:true})
+    _min?: ProductMinAggregateInput;
+
+    @Field(() => ProductMaxAggregateInput, {nullable:true})
+    _max?: ProductMaxAggregateInput;
 }

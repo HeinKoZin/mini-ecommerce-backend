@@ -9,39 +9,40 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 
 @InputType()
 export class ShopWhereInput {
-  @Field(() => [ShopWhereInput], { nullable: true })
-  AND?: Array<ShopWhereInput>;
 
-  @Field(() => [ShopWhereInput], { nullable: true })
-  OR?: Array<ShopWhereInput>;
+    @Field(() => [ShopWhereInput], {nullable:true})
+    AND?: Array<ShopWhereInput>;
 
-  @Field(() => [ShopWhereInput], { nullable: true })
-  NOT?: Array<ShopWhereInput>;
+    @Field(() => [ShopWhereInput], {nullable:true})
+    OR?: Array<ShopWhereInput>;
 
-  @Field(() => IntFilter, { nullable: true })
-  id?: IntFilter;
+    @Field(() => [ShopWhereInput], {nullable:true})
+    NOT?: Array<ShopWhereInput>;
 
-  @Field(() => StringFilter, { nullable: true })
-  name?: StringFilter;
+    @Field(() => IntFilter, {nullable:true})
+    id?: IntFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  slug?: StringFilter;
+    @Field(() => StringFilter, {nullable:true})
+    name?: StringFilter;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  address?: StringNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    slug?: StringFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  phone?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    address?: StringNullableFilter;
 
-  @Field(() => ProductListRelationFilter, { nullable: true })
-  products?: ProductListRelationFilter;
+    @Field(() => StringFilter, {nullable:true})
+    phone?: StringFilter;
 
-  @Field(() => UsersOnShopsListRelationFilter, { nullable: true })
-  owners?: UsersOnShopsListRelationFilter;
+    @Field(() => ProductListRelationFilter, {nullable:true})
+    products?: ProductListRelationFilter;
 
-  @Field(() => DateTimeFilter, { nullable: true })
-  createdAt?: DateTimeFilter;
+    @Field(() => UsersOnShopsListRelationFilter, {nullable:true})
+    owners?: UsersOnShopsListRelationFilter;
 
-  @Field(() => DateTimeFilter, { nullable: true })
-  updatedAt?: DateTimeFilter;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: DateTimeFilter;
+
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: DateTimeFilter;
 }

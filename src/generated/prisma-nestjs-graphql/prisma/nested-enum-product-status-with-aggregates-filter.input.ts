@@ -6,24 +6,25 @@ import { NestedEnumProductStatusFilter } from './nested-enum-product-status-filt
 
 @InputType()
 export class NestedEnumProductStatusWithAggregatesFilter {
-  @Field(() => ProductStatus, { nullable: true })
-  equals?: keyof typeof ProductStatus;
 
-  @Field(() => [ProductStatus], { nullable: true })
-  in?: Array<keyof typeof ProductStatus>;
+    @Field(() => ProductStatus, {nullable:true})
+    equals?: keyof typeof ProductStatus;
 
-  @Field(() => [ProductStatus], { nullable: true })
-  notIn?: Array<keyof typeof ProductStatus>;
+    @Field(() => [ProductStatus], {nullable:true})
+    in?: Array<keyof typeof ProductStatus>;
 
-  @Field(() => NestedEnumProductStatusWithAggregatesFilter, { nullable: true })
-  not?: NestedEnumProductStatusWithAggregatesFilter;
+    @Field(() => [ProductStatus], {nullable:true})
+    notIn?: Array<keyof typeof ProductStatus>;
 
-  @Field(() => NestedIntFilter, { nullable: true })
-  _count?: NestedIntFilter;
+    @Field(() => NestedEnumProductStatusWithAggregatesFilter, {nullable:true})
+    not?: NestedEnumProductStatusWithAggregatesFilter;
 
-  @Field(() => NestedEnumProductStatusFilter, { nullable: true })
-  _min?: NestedEnumProductStatusFilter;
+    @Field(() => NestedIntFilter, {nullable:true})
+    _count?: NestedIntFilter;
 
-  @Field(() => NestedEnumProductStatusFilter, { nullable: true })
-  _max?: NestedEnumProductStatusFilter;
+    @Field(() => NestedEnumProductStatusFilter, {nullable:true})
+    _min?: NestedEnumProductStatusFilter;
+
+    @Field(() => NestedEnumProductStatusFilter, {nullable:true})
+    _max?: NestedEnumProductStatusFilter;
 }

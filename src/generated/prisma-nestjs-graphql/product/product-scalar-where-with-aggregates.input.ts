@@ -7,39 +7,40 @@ import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregate
 
 @InputType()
 export class ProductScalarWhereWithAggregatesInput {
-  @Field(() => [ProductScalarWhereWithAggregatesInput], { nullable: true })
-  AND?: Array<ProductScalarWhereWithAggregatesInput>;
 
-  @Field(() => [ProductScalarWhereWithAggregatesInput], { nullable: true })
-  OR?: Array<ProductScalarWhereWithAggregatesInput>;
+    @Field(() => [ProductScalarWhereWithAggregatesInput], {nullable:true})
+    AND?: Array<ProductScalarWhereWithAggregatesInput>;
 
-  @Field(() => [ProductScalarWhereWithAggregatesInput], { nullable: true })
-  NOT?: Array<ProductScalarWhereWithAggregatesInput>;
+    @Field(() => [ProductScalarWhereWithAggregatesInput], {nullable:true})
+    OR?: Array<ProductScalarWhereWithAggregatesInput>;
 
-  @Field(() => IntWithAggregatesFilter, { nullable: true })
-  id?: IntWithAggregatesFilter;
+    @Field(() => [ProductScalarWhereWithAggregatesInput], {nullable:true})
+    NOT?: Array<ProductScalarWhereWithAggregatesInput>;
 
-  @Field(() => StringWithAggregatesFilter, { nullable: true })
-  name?: StringWithAggregatesFilter;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    id?: IntWithAggregatesFilter;
 
-  @Field(() => StringWithAggregatesFilter, { nullable: true })
-  description?: StringWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    name?: StringWithAggregatesFilter;
 
-  @Field(() => IntWithAggregatesFilter, { nullable: true })
-  quantity?: IntWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    description?: StringWithAggregatesFilter;
 
-  @Field(() => StringWithAggregatesFilter, { nullable: true })
-  product_code?: StringWithAggregatesFilter;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    quantity?: IntWithAggregatesFilter;
 
-  @Field(() => EnumProductStatusWithAggregatesFilter, { nullable: true })
-  status?: EnumProductStatusWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    product_code?: StringWithAggregatesFilter;
 
-  @Field(() => IntWithAggregatesFilter, { nullable: true })
-  shopId?: IntWithAggregatesFilter;
+    @Field(() => EnumProductStatusWithAggregatesFilter, {nullable:true})
+    status?: EnumProductStatusWithAggregatesFilter;
 
-  @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
-  createdAt?: DateTimeWithAggregatesFilter;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    shopId?: IntWithAggregatesFilter;
 
-  @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
-  updatedAt?: DateTimeWithAggregatesFilter;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    createdAt?: DateTimeWithAggregatesFilter;
+
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    updatedAt?: DateTimeWithAggregatesFilter;
 }

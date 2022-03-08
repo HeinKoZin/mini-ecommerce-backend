@@ -6,12 +6,13 @@ import { ProductUpdateInput } from './product-update.input';
 
 @ArgsType()
 export class UpsertOneProductArgs {
-  @Field(() => ProductWhereUniqueInput, { nullable: false })
-  where!: ProductWhereUniqueInput;
 
-  @Field(() => ProductCreateInput, { nullable: false })
-  create!: ProductCreateInput;
+    @Field(() => ProductWhereUniqueInput, {nullable:false})
+    where!: ProductWhereUniqueInput;
 
-  @Field(() => ProductUpdateInput, { nullable: false })
-  update!: ProductUpdateInput;
+    @Field(() => ProductCreateInput, {nullable:false})
+    create!: ProductCreateInput;
+
+    @Field(() => ProductUpdateInput, {nullable:false})
+    update!: ProductUpdateInput;
 }

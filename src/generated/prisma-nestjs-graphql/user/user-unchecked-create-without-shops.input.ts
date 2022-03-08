@@ -6,26 +6,27 @@ import { UserType } from '../prisma/user-type.enum';
 
 @InputType()
 export class UserUncheckedCreateWithoutShopsInput {
-  @Field(() => Int, { nullable: true })
-  id?: number;
 
-  @Field(() => String, { nullable: false })
-  @Validator.MinLength(3)
-  name!: string;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-  @Field(() => String, { nullable: false })
-  email!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.MinLength(3)
+    name!: string;
 
-  @Field(() => String, { nullable: false })
-  @Validator.MinLength(8)
-  password!: string;
+    @Field(() => String, {nullable:false})
+    email!: string;
 
-  @Field(() => UserType, { nullable: true })
-  role?: keyof typeof UserType;
+    @Field(() => String, {nullable:false})
+    @Validator.MinLength(8)
+    password!: string;
 
-  @Field(() => Date, { nullable: true })
-  createdAt?: Date | string;
+    @Field(() => UserType, {nullable:true})
+    role?: keyof typeof UserType;
 
-  @Field(() => Date, { nullable: true })
-  updatedAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
 }

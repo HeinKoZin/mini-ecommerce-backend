@@ -5,9 +5,10 @@ import { ProductCreateWithoutShopInput } from './product-create-without-shop.inp
 
 @InputType()
 export class ProductCreateOrConnectWithoutShopInput {
-  @Field(() => ProductWhereUniqueInput, { nullable: false })
-  where!: ProductWhereUniqueInput;
 
-  @Field(() => ProductCreateWithoutShopInput, { nullable: false })
-  create!: ProductCreateWithoutShopInput;
+    @Field(() => ProductWhereUniqueInput, {nullable:false})
+    where!: ProductWhereUniqueInput;
+
+    @Field(() => ProductCreateWithoutShopInput, {nullable:false})
+    create!: ProductCreateWithoutShopInput;
 }

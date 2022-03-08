@@ -7,24 +7,25 @@ import { NestedEnumUserTypeFilter } from './nested-enum-user-type-filter.input';
 
 @InputType()
 export class EnumUserTypeWithAggregatesFilter {
-  @Field(() => UserType, { nullable: true })
-  equals?: keyof typeof UserType;
 
-  @Field(() => [UserType], { nullable: true })
-  in?: Array<keyof typeof UserType>;
+    @Field(() => UserType, {nullable:true})
+    equals?: keyof typeof UserType;
 
-  @Field(() => [UserType], { nullable: true })
-  notIn?: Array<keyof typeof UserType>;
+    @Field(() => [UserType], {nullable:true})
+    in?: Array<keyof typeof UserType>;
 
-  @Field(() => NestedEnumUserTypeWithAggregatesFilter, { nullable: true })
-  not?: NestedEnumUserTypeWithAggregatesFilter;
+    @Field(() => [UserType], {nullable:true})
+    notIn?: Array<keyof typeof UserType>;
 
-  @Field(() => NestedIntFilter, { nullable: true })
-  _count?: NestedIntFilter;
+    @Field(() => NestedEnumUserTypeWithAggregatesFilter, {nullable:true})
+    not?: NestedEnumUserTypeWithAggregatesFilter;
 
-  @Field(() => NestedEnumUserTypeFilter, { nullable: true })
-  _min?: NestedEnumUserTypeFilter;
+    @Field(() => NestedIntFilter, {nullable:true})
+    _count?: NestedIntFilter;
 
-  @Field(() => NestedEnumUserTypeFilter, { nullable: true })
-  _max?: NestedEnumUserTypeFilter;
+    @Field(() => NestedEnumUserTypeFilter, {nullable:true})
+    _min?: NestedEnumUserTypeFilter;
+
+    @Field(() => NestedEnumUserTypeFilter, {nullable:true})
+    _max?: NestedEnumUserTypeFilter;
 }

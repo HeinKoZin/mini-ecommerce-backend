@@ -5,9 +5,10 @@ import { UsersOnShopsUpdateManyMutationInput } from './users-on-shops-update-man
 
 @InputType()
 export class UsersOnShopsUpdateManyWithWhereWithoutShopInput {
-  @Field(() => UsersOnShopsScalarWhereInput, { nullable: false })
-  where!: UsersOnShopsScalarWhereInput;
 
-  @Field(() => UsersOnShopsUpdateManyMutationInput, { nullable: false })
-  data!: UsersOnShopsUpdateManyMutationInput;
+    @Field(() => UsersOnShopsScalarWhereInput, {nullable:false})
+    where!: UsersOnShopsScalarWhereInput;
+
+    @Field(() => UsersOnShopsUpdateManyMutationInput, {nullable:false})
+    data!: UsersOnShopsUpdateManyMutationInput;
 }

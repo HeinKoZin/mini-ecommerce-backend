@@ -5,9 +5,10 @@ import { ShopWhereInput } from './shop-where.input';
 
 @ArgsType()
 export class UpdateManyShopArgs {
-  @Field(() => ShopUpdateManyMutationInput, { nullable: false })
-  data!: ShopUpdateManyMutationInput;
 
-  @Field(() => ShopWhereInput, { nullable: true })
-  where?: ShopWhereInput;
+    @Field(() => ShopUpdateManyMutationInput, {nullable:false})
+    data!: ShopUpdateManyMutationInput;
+
+    @Field(() => ShopWhereInput, {nullable:true})
+    where?: ShopWhereInput;
 }

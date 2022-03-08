@@ -4,24 +4,25 @@ import { ProductCreateNestedManyWithoutShopInput } from '../product/product-crea
 
 @InputType()
 export class ShopCreateWithoutOwnersInput {
-  @Field(() => String, { nullable: false })
-  name!: string;
 
-  @Field(() => String, { nullable: false })
-  slug!: string;
+    @Field(() => String, {nullable:false})
+    name!: string;
 
-  @Field(() => String, { nullable: true })
-  address?: string;
+    @Field(() => String, {nullable:false})
+    slug!: string;
 
-  @Field(() => String, { nullable: false })
-  phone!: string;
+    @Field(() => String, {nullable:true})
+    address?: string;
 
-  @Field(() => ProductCreateNestedManyWithoutShopInput, { nullable: true })
-  products?: ProductCreateNestedManyWithoutShopInput;
+    @Field(() => String, {nullable:false})
+    phone!: string;
 
-  @Field(() => Date, { nullable: true })
-  createdAt?: Date | string;
+    @Field(() => ProductCreateNestedManyWithoutShopInput, {nullable:true})
+    products?: ProductCreateNestedManyWithoutShopInput;
 
-  @Field(() => Date, { nullable: true })
-  updatedAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
 }

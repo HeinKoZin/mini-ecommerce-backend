@@ -4,6 +4,8 @@ import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Shop } from '../shop/shop.model';
 import { ProductStatus } from '../prisma/product-status.enum';
+import { CurrenciesOnProducts } from '../currencies-on-products/currencies-on-products.model';
+import { ProductCount } from './product-count.output';
 
 @ObjectType()
 export class Product {
@@ -31,9 +33,15 @@ export class Product {
   @Field(() => Int, { nullable: false })
   shopId!: number;
 
+  @Field(() => [CurrenciesOnProducts], { nullable: true })
+  currencies?: Array<CurrenciesOnProducts>;
+
   @Field(() => Date, { nullable: false })
   createdAt!: Date;
 
   @Field(() => Date, { nullable: false })
   updatedAt!: Date;
+
+  @Field(() => ProductCount, { nullable: false })
+  _count?: ProductCount;
 }

@@ -9,33 +9,34 @@ import { UsersOnShopsMaxAggregate } from './users-on-shops-max-aggregate.output'
 
 @ObjectType()
 export class UsersOnShopsGroupBy {
-  @Field(() => Int, { nullable: false })
-  shopId!: number;
 
-  @Field(() => Int, { nullable: false })
-  userId!: number;
+    @Field(() => Int, {nullable:false})
+    shopId!: number;
 
-  @Field(() => String, { nullable: false })
-  assignedby!: string;
+    @Field(() => Int, {nullable:false})
+    userId!: number;
 
-  @Field(() => Date, { nullable: false })
-  createdAt!: Date | string;
+    @Field(() => String, {nullable:false})
+    assignedby!: string;
 
-  @Field(() => Date, { nullable: false })
-  updatedAt!: Date | string;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date | string;
 
-  @Field(() => UsersOnShopsCountAggregate, { nullable: true })
-  _count?: UsersOnShopsCountAggregate;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date | string;
 
-  @Field(() => UsersOnShopsAvgAggregate, { nullable: true })
-  _avg?: UsersOnShopsAvgAggregate;
+    @Field(() => UsersOnShopsCountAggregate, {nullable:true})
+    _count?: UsersOnShopsCountAggregate;
 
-  @Field(() => UsersOnShopsSumAggregate, { nullable: true })
-  _sum?: UsersOnShopsSumAggregate;
+    @Field(() => UsersOnShopsAvgAggregate, {nullable:true})
+    _avg?: UsersOnShopsAvgAggregate;
 
-  @Field(() => UsersOnShopsMinAggregate, { nullable: true })
-  _min?: UsersOnShopsMinAggregate;
+    @Field(() => UsersOnShopsSumAggregate, {nullable:true})
+    _sum?: UsersOnShopsSumAggregate;
 
-  @Field(() => UsersOnShopsMaxAggregate, { nullable: true })
-  _max?: UsersOnShopsMaxAggregate;
+    @Field(() => UsersOnShopsMinAggregate, {nullable:true})
+    _min?: UsersOnShopsMinAggregate;
+
+    @Field(() => UsersOnShopsMaxAggregate, {nullable:true})
+    _max?: UsersOnShopsMaxAggregate;
 }

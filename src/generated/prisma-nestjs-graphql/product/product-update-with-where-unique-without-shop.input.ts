@@ -5,9 +5,10 @@ import { ProductUpdateWithoutShopInput } from './product-update-without-shop.inp
 
 @InputType()
 export class ProductUpdateWithWhereUniqueWithoutShopInput {
-  @Field(() => ProductWhereUniqueInput, { nullable: false })
-  where!: ProductWhereUniqueInput;
 
-  @Field(() => ProductUpdateWithoutShopInput, { nullable: false })
-  data!: ProductUpdateWithoutShopInput;
+    @Field(() => ProductWhereUniqueInput, {nullable:false})
+    where!: ProductWhereUniqueInput;
+
+    @Field(() => ProductUpdateWithoutShopInput, {nullable:false})
+    data!: ProductUpdateWithoutShopInput;
 }

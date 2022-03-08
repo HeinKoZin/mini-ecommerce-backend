@@ -5,9 +5,10 @@ import { UsersOnShopsWhereInput } from './users-on-shops-where.input';
 
 @ArgsType()
 export class UpdateManyUsersOnShopsArgs {
-  @Field(() => UsersOnShopsUpdateManyMutationInput, { nullable: false })
-  data!: UsersOnShopsUpdateManyMutationInput;
 
-  @Field(() => UsersOnShopsWhereInput, { nullable: true })
-  where?: UsersOnShopsWhereInput;
+    @Field(() => UsersOnShopsUpdateManyMutationInput, {nullable:false})
+    data!: UsersOnShopsUpdateManyMutationInput;
+
+    @Field(() => UsersOnShopsWhereInput, {nullable:true})
+    where?: UsersOnShopsWhereInput;
 }

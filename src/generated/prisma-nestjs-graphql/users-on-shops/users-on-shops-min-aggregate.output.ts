@@ -4,18 +4,19 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class UsersOnShopsMinAggregate {
-  @Field(() => Int, { nullable: true })
-  shopId?: number;
 
-  @Field(() => Int, { nullable: true })
-  userId?: number;
+    @Field(() => Int, {nullable:true})
+    shopId?: number;
 
-  @Field(() => String, { nullable: true })
-  assignedby?: string;
+    @Field(() => Int, {nullable:true})
+    userId?: number;
 
-  @Field(() => Date, { nullable: true })
-  createdAt?: Date | string;
+    @Field(() => String, {nullable:true})
+    assignedby?: string;
 
-  @Field(() => Date, { nullable: true })
-  updatedAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
 }

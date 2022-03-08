@@ -4,6 +4,7 @@ import { UsersOnShopsShopIdUserIdCompoundUniqueInput } from './users-on-shops-sh
 
 @InputType()
 export class UsersOnShopsWhereUniqueInput {
-  @Field(() => UsersOnShopsShopIdUserIdCompoundUniqueInput, { nullable: true })
-  shopId_userId?: UsersOnShopsShopIdUserIdCompoundUniqueInput;
+
+    @Field(() => UsersOnShopsShopIdUserIdCompoundUniqueInput, {nullable:true})
+    shopId_userId?: UsersOnShopsShopIdUserIdCompoundUniqueInput;
 }

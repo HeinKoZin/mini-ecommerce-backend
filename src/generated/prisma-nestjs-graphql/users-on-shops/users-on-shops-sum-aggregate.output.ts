@@ -4,9 +4,10 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class UsersOnShopsSumAggregate {
-  @Field(() => Int, { nullable: true })
-  shopId?: number;
 
-  @Field(() => Int, { nullable: true })
-  userId?: number;
+    @Field(() => Int, {nullable:true})
+    shopId?: number;
+
+    @Field(() => Int, {nullable:true})
+    userId?: number;
 }

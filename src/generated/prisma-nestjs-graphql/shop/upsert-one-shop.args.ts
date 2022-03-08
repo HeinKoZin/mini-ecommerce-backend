@@ -6,12 +6,13 @@ import { ShopUpdateInput } from './shop-update.input';
 
 @ArgsType()
 export class UpsertOneShopArgs {
-  @Field(() => ShopWhereUniqueInput, { nullable: false })
-  where!: ShopWhereUniqueInput;
 
-  @Field(() => ShopCreateInput, { nullable: false })
-  create!: ShopCreateInput;
+    @Field(() => ShopWhereUniqueInput, {nullable:false})
+    where!: ShopWhereUniqueInput;
 
-  @Field(() => ShopUpdateInput, { nullable: false })
-  update!: ShopUpdateInput;
+    @Field(() => ShopCreateInput, {nullable:false})
+    create!: ShopCreateInput;
+
+    @Field(() => ShopUpdateInput, {nullable:false})
+    update!: ShopUpdateInput;
 }

@@ -8,18 +8,19 @@ import { UsersOnShopsMaxAggregate } from './users-on-shops-max-aggregate.output'
 
 @ObjectType()
 export class AggregateUsersOnShops {
-  @Field(() => UsersOnShopsCountAggregate, { nullable: true })
-  _count?: UsersOnShopsCountAggregate;
 
-  @Field(() => UsersOnShopsAvgAggregate, { nullable: true })
-  _avg?: UsersOnShopsAvgAggregate;
+    @Field(() => UsersOnShopsCountAggregate, {nullable:true})
+    _count?: UsersOnShopsCountAggregate;
 
-  @Field(() => UsersOnShopsSumAggregate, { nullable: true })
-  _sum?: UsersOnShopsSumAggregate;
+    @Field(() => UsersOnShopsAvgAggregate, {nullable:true})
+    _avg?: UsersOnShopsAvgAggregate;
 
-  @Field(() => UsersOnShopsMinAggregate, { nullable: true })
-  _min?: UsersOnShopsMinAggregate;
+    @Field(() => UsersOnShopsSumAggregate, {nullable:true})
+    _sum?: UsersOnShopsSumAggregate;
 
-  @Field(() => UsersOnShopsMaxAggregate, { nullable: true })
-  _max?: UsersOnShopsMaxAggregate;
+    @Field(() => UsersOnShopsMinAggregate, {nullable:true})
+    _min?: UsersOnShopsMinAggregate;
+
+    @Field(() => UsersOnShopsMaxAggregate, {nullable:true})
+    _max?: UsersOnShopsMaxAggregate;
 }

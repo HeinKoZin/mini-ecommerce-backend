@@ -8,21 +8,22 @@ import { UsersOnShopsScalarFieldEnum } from './users-on-shops-scalar-field.enum'
 
 @ArgsType()
 export class FindFirstUsersOnShopsArgs {
-  @Field(() => UsersOnShopsWhereInput, { nullable: true })
-  where?: UsersOnShopsWhereInput;
 
-  @Field(() => [UsersOnShopsOrderByWithRelationInput], { nullable: true })
-  orderBy?: Array<UsersOnShopsOrderByWithRelationInput>;
+    @Field(() => UsersOnShopsWhereInput, {nullable:true})
+    where?: UsersOnShopsWhereInput;
 
-  @Field(() => UsersOnShopsWhereUniqueInput, { nullable: true })
-  cursor?: UsersOnShopsWhereUniqueInput;
+    @Field(() => [UsersOnShopsOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<UsersOnShopsOrderByWithRelationInput>;
 
-  @Field(() => Int, { nullable: true })
-  take?: number;
+    @Field(() => UsersOnShopsWhereUniqueInput, {nullable:true})
+    cursor?: UsersOnShopsWhereUniqueInput;
 
-  @Field(() => Int, { nullable: true })
-  skip?: number;
+    @Field(() => Int, {nullable:true})
+    take?: number;
 
-  @Field(() => [UsersOnShopsScalarFieldEnum], { nullable: true })
-  distinct?: Array<keyof typeof UsersOnShopsScalarFieldEnum>;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+
+    @Field(() => [UsersOnShopsScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof UsersOnShopsScalarFieldEnum>;
 }

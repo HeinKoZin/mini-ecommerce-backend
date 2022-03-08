@@ -5,9 +5,10 @@ import { ShopCreateWithoutOwnersInput } from './shop-create-without-owners.input
 
 @InputType()
 export class ShopUpsertWithoutOwnersInput {
-  @Field(() => ShopUpdateWithoutOwnersInput, { nullable: false })
-  update!: ShopUpdateWithoutOwnersInput;
 
-  @Field(() => ShopCreateWithoutOwnersInput, { nullable: false })
-  create!: ShopCreateWithoutOwnersInput;
+    @Field(() => ShopUpdateWithoutOwnersInput, {nullable:false})
+    update!: ShopUpdateWithoutOwnersInput;
+
+    @Field(() => ShopCreateWithoutOwnersInput, {nullable:false})
+    create!: ShopCreateWithoutOwnersInput;
 }

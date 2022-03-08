@@ -12,33 +12,34 @@ import { UsersOnShopsMaxAggregateInput } from './users-on-shops-max-aggregate.in
 
 @ArgsType()
 export class UsersOnShopsAggregateArgs {
-  @Field(() => UsersOnShopsWhereInput, { nullable: true })
-  where?: UsersOnShopsWhereInput;
 
-  @Field(() => [UsersOnShopsOrderByWithRelationInput], { nullable: true })
-  orderBy?: Array<UsersOnShopsOrderByWithRelationInput>;
+    @Field(() => UsersOnShopsWhereInput, {nullable:true})
+    where?: UsersOnShopsWhereInput;
 
-  @Field(() => UsersOnShopsWhereUniqueInput, { nullable: true })
-  cursor?: UsersOnShopsWhereUniqueInput;
+    @Field(() => [UsersOnShopsOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<UsersOnShopsOrderByWithRelationInput>;
 
-  @Field(() => Int, { nullable: true })
-  take?: number;
+    @Field(() => UsersOnShopsWhereUniqueInput, {nullable:true})
+    cursor?: UsersOnShopsWhereUniqueInput;
 
-  @Field(() => Int, { nullable: true })
-  skip?: number;
+    @Field(() => Int, {nullable:true})
+    take?: number;
 
-  @Field(() => UsersOnShopsCountAggregateInput, { nullable: true })
-  _count?: UsersOnShopsCountAggregateInput;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
 
-  @Field(() => UsersOnShopsAvgAggregateInput, { nullable: true })
-  _avg?: UsersOnShopsAvgAggregateInput;
+    @Field(() => UsersOnShopsCountAggregateInput, {nullable:true})
+    _count?: UsersOnShopsCountAggregateInput;
 
-  @Field(() => UsersOnShopsSumAggregateInput, { nullable: true })
-  _sum?: UsersOnShopsSumAggregateInput;
+    @Field(() => UsersOnShopsAvgAggregateInput, {nullable:true})
+    _avg?: UsersOnShopsAvgAggregateInput;
 
-  @Field(() => UsersOnShopsMinAggregateInput, { nullable: true })
-  _min?: UsersOnShopsMinAggregateInput;
+    @Field(() => UsersOnShopsSumAggregateInput, {nullable:true})
+    _sum?: UsersOnShopsSumAggregateInput;
 
-  @Field(() => UsersOnShopsMaxAggregateInput, { nullable: true })
-  _max?: UsersOnShopsMaxAggregateInput;
+    @Field(() => UsersOnShopsMinAggregateInput, {nullable:true})
+    _min?: UsersOnShopsMinAggregateInput;
+
+    @Field(() => UsersOnShopsMaxAggregateInput, {nullable:true})
+    _max?: UsersOnShopsMaxAggregateInput;
 }

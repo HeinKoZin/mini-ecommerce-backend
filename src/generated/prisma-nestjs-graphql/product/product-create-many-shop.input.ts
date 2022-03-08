@@ -5,27 +5,28 @@ import { ProductStatus } from '../prisma/product-status.enum';
 
 @InputType()
 export class ProductCreateManyShopInput {
-  @Field(() => Int, { nullable: true })
-  id?: number;
 
-  @Field(() => String, { nullable: false })
-  name!: string;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-  @Field(() => String, { nullable: false })
-  description!: string;
+    @Field(() => String, {nullable:false})
+    name!: string;
 
-  @Field(() => Int, { nullable: false })
-  quantity!: number;
+    @Field(() => String, {nullable:false})
+    description!: string;
 
-  @Field(() => String, { nullable: false })
-  product_code!: string;
+    @Field(() => Int, {nullable:false})
+    quantity!: number;
 
-  @Field(() => ProductStatus, { nullable: false })
-  status!: keyof typeof ProductStatus;
+    @Field(() => String, {nullable:false})
+    product_code!: string;
 
-  @Field(() => Date, { nullable: true })
-  createdAt?: Date | string;
+    @Field(() => ProductStatus, {nullable:false})
+    status!: keyof typeof ProductStatus;
 
-  @Field(() => Date, { nullable: true })
-  updatedAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
 }

@@ -7,17 +7,16 @@ import { UsersOnShopsWhereUniqueInput } from './users-on-shops-where-unique.inpu
 
 @InputType()
 export class UsersOnShopsCreateNestedManyWithoutShopInput {
-  @Field(() => [UsersOnShopsCreateWithoutShopInput], { nullable: true })
-  create?: Array<UsersOnShopsCreateWithoutShopInput>;
 
-  @Field(() => [UsersOnShopsCreateOrConnectWithoutShopInput], {
-    nullable: true,
-  })
-  connectOrCreate?: Array<UsersOnShopsCreateOrConnectWithoutShopInput>;
+    @Field(() => [UsersOnShopsCreateWithoutShopInput], {nullable:true})
+    create?: Array<UsersOnShopsCreateWithoutShopInput>;
 
-  @Field(() => UsersOnShopsCreateManyShopInputEnvelope, { nullable: true })
-  createMany?: UsersOnShopsCreateManyShopInputEnvelope;
+    @Field(() => [UsersOnShopsCreateOrConnectWithoutShopInput], {nullable:true})
+    connectOrCreate?: Array<UsersOnShopsCreateOrConnectWithoutShopInput>;
 
-  @Field(() => [UsersOnShopsWhereUniqueInput], { nullable: true })
-  connect?: Array<UsersOnShopsWhereUniqueInput>;
+    @Field(() => UsersOnShopsCreateManyShopInputEnvelope, {nullable:true})
+    createMany?: UsersOnShopsCreateManyShopInputEnvelope;
+
+    @Field(() => [UsersOnShopsWhereUniqueInput], {nullable:true})
+    connect?: Array<UsersOnShopsWhereUniqueInput>;
 }
