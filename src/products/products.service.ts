@@ -22,13 +22,18 @@ export class ProductsService {
     return createdProduct;
   }
 
-  async findAll() {
+  async findAll(take = 10) {
     const products = await this.prismaService.product.findMany({
       include: {
         shop: true,
         currencies: true,
       },
+      take,
+      orderBy: {
+        id: 'desc',
+      },
     });
+    // console.log(products);
     return products;
   }
 
@@ -43,6 +48,7 @@ export class ProductsService {
         currency: true,
       },
     });
+
     return currencies;
   }
 
@@ -54,6 +60,7 @@ export class ProductsService {
         currencies: true,
       },
     });
+    // console.log(product);
     return product;
   }
 
