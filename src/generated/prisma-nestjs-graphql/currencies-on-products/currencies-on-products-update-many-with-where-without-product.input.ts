@@ -5,10 +5,9 @@ import { CurrenciesOnProductsUpdateManyMutationInput } from './currencies-on-pro
 
 @InputType()
 export class CurrenciesOnProductsUpdateManyWithWhereWithoutProductInput {
+  @Field(() => CurrenciesOnProductsScalarWhereInput, { nullable: false })
+  where!: CurrenciesOnProductsScalarWhereInput;
 
-    @Field(() => CurrenciesOnProductsScalarWhereInput, {nullable:false})
-    where!: CurrenciesOnProductsScalarWhereInput;
-
-    @Field(() => CurrenciesOnProductsUpdateManyMutationInput, {nullable:false})
-    data!: CurrenciesOnProductsUpdateManyMutationInput;
+  @Field(() => CurrenciesOnProductsUpdateManyMutationInput, { nullable: false })
+  data!: CurrenciesOnProductsUpdateManyMutationInput;
 }

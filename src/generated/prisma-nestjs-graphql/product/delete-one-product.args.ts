@@ -4,7 +4,6 @@ import { ProductWhereUniqueInput } from './product-where-unique.input';
 
 @ArgsType()
 export class DeleteOneProductArgs {
-
-    @Field(() => ProductWhereUniqueInput, {nullable:false})
-    where!: ProductWhereUniqueInput;
+  @Field(() => ProductWhereUniqueInput, { nullable: false })
+  where!: ProductWhereUniqueInput;
 }

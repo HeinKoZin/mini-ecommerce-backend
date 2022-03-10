@@ -11,37 +11,50 @@ import { CurrenciesOnProductsScalarWhereInput } from './currencies-on-products-s
 
 @InputType()
 export class CurrenciesOnProductsUncheckedUpdateManyWithoutCurrencyInput {
+  @Field(() => [CurrenciesOnProductsCreateWithoutCurrencyInput], {
+    nullable: true,
+  })
+  create?: Array<CurrenciesOnProductsCreateWithoutCurrencyInput>;
 
-    @Field(() => [CurrenciesOnProductsCreateWithoutCurrencyInput], {nullable:true})
-    create?: Array<CurrenciesOnProductsCreateWithoutCurrencyInput>;
+  @Field(() => [CurrenciesOnProductsCreateOrConnectWithoutCurrencyInput], {
+    nullable: true,
+  })
+  connectOrCreate?: Array<CurrenciesOnProductsCreateOrConnectWithoutCurrencyInput>;
 
-    @Field(() => [CurrenciesOnProductsCreateOrConnectWithoutCurrencyInput], {nullable:true})
-    connectOrCreate?: Array<CurrenciesOnProductsCreateOrConnectWithoutCurrencyInput>;
+  @Field(
+    () => [CurrenciesOnProductsUpsertWithWhereUniqueWithoutCurrencyInput],
+    { nullable: true },
+  )
+  upsert?: Array<CurrenciesOnProductsUpsertWithWhereUniqueWithoutCurrencyInput>;
 
-    @Field(() => [CurrenciesOnProductsUpsertWithWhereUniqueWithoutCurrencyInput], {nullable:true})
-    upsert?: Array<CurrenciesOnProductsUpsertWithWhereUniqueWithoutCurrencyInput>;
+  @Field(() => CurrenciesOnProductsCreateManyCurrencyInputEnvelope, {
+    nullable: true,
+  })
+  createMany?: CurrenciesOnProductsCreateManyCurrencyInputEnvelope;
 
-    @Field(() => CurrenciesOnProductsCreateManyCurrencyInputEnvelope, {nullable:true})
-    createMany?: CurrenciesOnProductsCreateManyCurrencyInputEnvelope;
+  @Field(() => [CurrenciesOnProductsWhereUniqueInput], { nullable: true })
+  set?: Array<CurrenciesOnProductsWhereUniqueInput>;
 
-    @Field(() => [CurrenciesOnProductsWhereUniqueInput], {nullable:true})
-    set?: Array<CurrenciesOnProductsWhereUniqueInput>;
+  @Field(() => [CurrenciesOnProductsWhereUniqueInput], { nullable: true })
+  disconnect?: Array<CurrenciesOnProductsWhereUniqueInput>;
 
-    @Field(() => [CurrenciesOnProductsWhereUniqueInput], {nullable:true})
-    disconnect?: Array<CurrenciesOnProductsWhereUniqueInput>;
+  @Field(() => [CurrenciesOnProductsWhereUniqueInput], { nullable: true })
+  delete?: Array<CurrenciesOnProductsWhereUniqueInput>;
 
-    @Field(() => [CurrenciesOnProductsWhereUniqueInput], {nullable:true})
-    delete?: Array<CurrenciesOnProductsWhereUniqueInput>;
+  @Field(() => [CurrenciesOnProductsWhereUniqueInput], { nullable: true })
+  connect?: Array<CurrenciesOnProductsWhereUniqueInput>;
 
-    @Field(() => [CurrenciesOnProductsWhereUniqueInput], {nullable:true})
-    connect?: Array<CurrenciesOnProductsWhereUniqueInput>;
+  @Field(
+    () => [CurrenciesOnProductsUpdateWithWhereUniqueWithoutCurrencyInput],
+    { nullable: true },
+  )
+  update?: Array<CurrenciesOnProductsUpdateWithWhereUniqueWithoutCurrencyInput>;
 
-    @Field(() => [CurrenciesOnProductsUpdateWithWhereUniqueWithoutCurrencyInput], {nullable:true})
-    update?: Array<CurrenciesOnProductsUpdateWithWhereUniqueWithoutCurrencyInput>;
+  @Field(() => [CurrenciesOnProductsUpdateManyWithWhereWithoutCurrencyInput], {
+    nullable: true,
+  })
+  updateMany?: Array<CurrenciesOnProductsUpdateManyWithWhereWithoutCurrencyInput>;
 
-    @Field(() => [CurrenciesOnProductsUpdateManyWithWhereWithoutCurrencyInput], {nullable:true})
-    updateMany?: Array<CurrenciesOnProductsUpdateManyWithWhereWithoutCurrencyInput>;
-
-    @Field(() => [CurrenciesOnProductsScalarWhereInput], {nullable:true})
-    deleteMany?: Array<CurrenciesOnProductsScalarWhereInput>;
+  @Field(() => [CurrenciesOnProductsScalarWhereInput], { nullable: true })
+  deleteMany?: Array<CurrenciesOnProductsScalarWhereInput>;
 }

@@ -8,19 +8,18 @@ import { ProductUpdateWithoutCurrenciesInput } from './product-update-without-cu
 
 @InputType()
 export class ProductUpdateOneRequiredWithoutCurrenciesInput {
+  @Field(() => ProductCreateWithoutCurrenciesInput, { nullable: true })
+  create?: ProductCreateWithoutCurrenciesInput;
 
-    @Field(() => ProductCreateWithoutCurrenciesInput, {nullable:true})
-    create?: ProductCreateWithoutCurrenciesInput;
+  @Field(() => ProductCreateOrConnectWithoutCurrenciesInput, { nullable: true })
+  connectOrCreate?: ProductCreateOrConnectWithoutCurrenciesInput;
 
-    @Field(() => ProductCreateOrConnectWithoutCurrenciesInput, {nullable:true})
-    connectOrCreate?: ProductCreateOrConnectWithoutCurrenciesInput;
+  @Field(() => ProductUpsertWithoutCurrenciesInput, { nullable: true })
+  upsert?: ProductUpsertWithoutCurrenciesInput;
 
-    @Field(() => ProductUpsertWithoutCurrenciesInput, {nullable:true})
-    upsert?: ProductUpsertWithoutCurrenciesInput;
+  @Field(() => ProductWhereUniqueInput, { nullable: true })
+  connect?: ProductWhereUniqueInput;
 
-    @Field(() => ProductWhereUniqueInput, {nullable:true})
-    connect?: ProductWhereUniqueInput;
-
-    @Field(() => ProductUpdateWithoutCurrenciesInput, {nullable:true})
-    update?: ProductUpdateWithoutCurrenciesInput;
+  @Field(() => ProductUpdateWithoutCurrenciesInput, { nullable: true })
+  update?: ProductUpdateWithoutCurrenciesInput;
 }

@@ -11,37 +11,44 @@ import { UsersOnShopsScalarWhereInput } from './users-on-shops-scalar-where.inpu
 
 @InputType()
 export class UsersOnShopsUpdateManyWithoutUserInput {
+  @Field(() => [UsersOnShopsCreateWithoutUserInput], { nullable: true })
+  create?: Array<UsersOnShopsCreateWithoutUserInput>;
 
-    @Field(() => [UsersOnShopsCreateWithoutUserInput], {nullable:true})
-    create?: Array<UsersOnShopsCreateWithoutUserInput>;
+  @Field(() => [UsersOnShopsCreateOrConnectWithoutUserInput], {
+    nullable: true,
+  })
+  connectOrCreate?: Array<UsersOnShopsCreateOrConnectWithoutUserInput>;
 
-    @Field(() => [UsersOnShopsCreateOrConnectWithoutUserInput], {nullable:true})
-    connectOrCreate?: Array<UsersOnShopsCreateOrConnectWithoutUserInput>;
+  @Field(() => [UsersOnShopsUpsertWithWhereUniqueWithoutUserInput], {
+    nullable: true,
+  })
+  upsert?: Array<UsersOnShopsUpsertWithWhereUniqueWithoutUserInput>;
 
-    @Field(() => [UsersOnShopsUpsertWithWhereUniqueWithoutUserInput], {nullable:true})
-    upsert?: Array<UsersOnShopsUpsertWithWhereUniqueWithoutUserInput>;
+  @Field(() => UsersOnShopsCreateManyUserInputEnvelope, { nullable: true })
+  createMany?: UsersOnShopsCreateManyUserInputEnvelope;
 
-    @Field(() => UsersOnShopsCreateManyUserInputEnvelope, {nullable:true})
-    createMany?: UsersOnShopsCreateManyUserInputEnvelope;
+  @Field(() => [UsersOnShopsWhereUniqueInput], { nullable: true })
+  set?: Array<UsersOnShopsWhereUniqueInput>;
 
-    @Field(() => [UsersOnShopsWhereUniqueInput], {nullable:true})
-    set?: Array<UsersOnShopsWhereUniqueInput>;
+  @Field(() => [UsersOnShopsWhereUniqueInput], { nullable: true })
+  disconnect?: Array<UsersOnShopsWhereUniqueInput>;
 
-    @Field(() => [UsersOnShopsWhereUniqueInput], {nullable:true})
-    disconnect?: Array<UsersOnShopsWhereUniqueInput>;
+  @Field(() => [UsersOnShopsWhereUniqueInput], { nullable: true })
+  delete?: Array<UsersOnShopsWhereUniqueInput>;
 
-    @Field(() => [UsersOnShopsWhereUniqueInput], {nullable:true})
-    delete?: Array<UsersOnShopsWhereUniqueInput>;
+  @Field(() => [UsersOnShopsWhereUniqueInput], { nullable: true })
+  connect?: Array<UsersOnShopsWhereUniqueInput>;
 
-    @Field(() => [UsersOnShopsWhereUniqueInput], {nullable:true})
-    connect?: Array<UsersOnShopsWhereUniqueInput>;
+  @Field(() => [UsersOnShopsUpdateWithWhereUniqueWithoutUserInput], {
+    nullable: true,
+  })
+  update?: Array<UsersOnShopsUpdateWithWhereUniqueWithoutUserInput>;
 
-    @Field(() => [UsersOnShopsUpdateWithWhereUniqueWithoutUserInput], {nullable:true})
-    update?: Array<UsersOnShopsUpdateWithWhereUniqueWithoutUserInput>;
+  @Field(() => [UsersOnShopsUpdateManyWithWhereWithoutUserInput], {
+    nullable: true,
+  })
+  updateMany?: Array<UsersOnShopsUpdateManyWithWhereWithoutUserInput>;
 
-    @Field(() => [UsersOnShopsUpdateManyWithWhereWithoutUserInput], {nullable:true})
-    updateMany?: Array<UsersOnShopsUpdateManyWithWhereWithoutUserInput>;
-
-    @Field(() => [UsersOnShopsScalarWhereInput], {nullable:true})
-    deleteMany?: Array<UsersOnShopsScalarWhereInput>;
+  @Field(() => [UsersOnShopsScalarWhereInput], { nullable: true })
+  deleteMany?: Array<UsersOnShopsScalarWhereInput>;
 }

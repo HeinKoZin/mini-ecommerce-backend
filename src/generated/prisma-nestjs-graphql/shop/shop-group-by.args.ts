@@ -13,37 +13,36 @@ import { ShopMaxAggregateInput } from './shop-max-aggregate.input';
 
 @ArgsType()
 export class ShopGroupByArgs {
+  @Field(() => ShopWhereInput, { nullable: true })
+  where?: ShopWhereInput;
 
-    @Field(() => ShopWhereInput, {nullable:true})
-    where?: ShopWhereInput;
+  @Field(() => [ShopOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<ShopOrderByWithAggregationInput>;
 
-    @Field(() => [ShopOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<ShopOrderByWithAggregationInput>;
+  @Field(() => [ShopScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof ShopScalarFieldEnum>;
 
-    @Field(() => [ShopScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof ShopScalarFieldEnum>;
+  @Field(() => ShopScalarWhereWithAggregatesInput, { nullable: true })
+  having?: ShopScalarWhereWithAggregatesInput;
 
-    @Field(() => ShopScalarWhereWithAggregatesInput, {nullable:true})
-    having?: ShopScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => ShopCountAggregateInput, { nullable: true })
+  _count?: ShopCountAggregateInput;
 
-    @Field(() => ShopCountAggregateInput, {nullable:true})
-    _count?: ShopCountAggregateInput;
+  @Field(() => ShopAvgAggregateInput, { nullable: true })
+  _avg?: ShopAvgAggregateInput;
 
-    @Field(() => ShopAvgAggregateInput, {nullable:true})
-    _avg?: ShopAvgAggregateInput;
+  @Field(() => ShopSumAggregateInput, { nullable: true })
+  _sum?: ShopSumAggregateInput;
 
-    @Field(() => ShopSumAggregateInput, {nullable:true})
-    _sum?: ShopSumAggregateInput;
+  @Field(() => ShopMinAggregateInput, { nullable: true })
+  _min?: ShopMinAggregateInput;
 
-    @Field(() => ShopMinAggregateInput, {nullable:true})
-    _min?: ShopMinAggregateInput;
-
-    @Field(() => ShopMaxAggregateInput, {nullable:true})
-    _max?: ShopMaxAggregateInput;
+  @Field(() => ShopMaxAggregateInput, { nullable: true })
+  _max?: ShopMaxAggregateInput;
 }

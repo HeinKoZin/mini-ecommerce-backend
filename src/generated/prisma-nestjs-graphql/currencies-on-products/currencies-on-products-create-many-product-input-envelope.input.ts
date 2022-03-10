@@ -4,10 +4,11 @@ import { CurrenciesOnProductsCreateManyProductInput } from './currencies-on-prod
 
 @InputType()
 export class CurrenciesOnProductsCreateManyProductInputEnvelope {
+  @Field(() => [CurrenciesOnProductsCreateManyProductInput], {
+    nullable: false,
+  })
+  data!: Array<CurrenciesOnProductsCreateManyProductInput>;
 
-    @Field(() => [CurrenciesOnProductsCreateManyProductInput], {nullable:false})
-    data!: Array<CurrenciesOnProductsCreateManyProductInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

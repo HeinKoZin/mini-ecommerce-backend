@@ -8,22 +8,21 @@ import { ProductScalarFieldEnum } from './product-scalar-field.enum';
 
 @ArgsType()
 export class FindManyProductArgs {
+  @Field(() => ProductWhereInput, { nullable: true })
+  where?: ProductWhereInput;
 
-    @Field(() => ProductWhereInput, {nullable:true})
-    where?: ProductWhereInput;
+  @Field(() => [ProductOrderByWithRelationInput], { nullable: true })
+  orderBy?: Array<ProductOrderByWithRelationInput>;
 
-    @Field(() => [ProductOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<ProductOrderByWithRelationInput>;
+  @Field(() => ProductWhereUniqueInput, { nullable: true })
+  cursor?: ProductWhereUniqueInput;
 
-    @Field(() => ProductWhereUniqueInput, {nullable:true})
-    cursor?: ProductWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [ProductScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof ProductScalarFieldEnum>;
+  @Field(() => [ProductScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof ProductScalarFieldEnum>;
 }

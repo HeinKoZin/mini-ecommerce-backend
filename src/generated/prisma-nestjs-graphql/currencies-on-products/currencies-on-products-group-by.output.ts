@@ -10,37 +10,36 @@ import { CurrenciesOnProductsMaxAggregate } from './currencies-on-products-max-a
 
 @ObjectType()
 export class CurrenciesOnProductsGroupBy {
+  @Field(() => Int, { nullable: false })
+  id!: number;
 
-    @Field(() => Int, {nullable:false})
-    id!: number;
+  @Field(() => Float, { nullable: false })
+  sell_price!: number;
 
-    @Field(() => Float, {nullable:false})
-    sell_price!: number;
+  @Field(() => Int, { nullable: false })
+  productId!: number;
 
-    @Field(() => Int, {nullable:false})
-    productId!: number;
+  @Field(() => Int, { nullable: false })
+  currencyId!: number;
 
-    @Field(() => Int, {nullable:false})
-    currencyId!: number;
+  @Field(() => Date, { nullable: false })
+  createdAt!: Date | string;
 
-    @Field(() => Date, {nullable:false})
-    createdAt!: Date | string;
+  @Field(() => Date, { nullable: false })
+  updatedAt!: Date | string;
 
-    @Field(() => Date, {nullable:false})
-    updatedAt!: Date | string;
+  @Field(() => CurrenciesOnProductsCountAggregate, { nullable: true })
+  _count?: CurrenciesOnProductsCountAggregate;
 
-    @Field(() => CurrenciesOnProductsCountAggregate, {nullable:true})
-    _count?: CurrenciesOnProductsCountAggregate;
+  @Field(() => CurrenciesOnProductsAvgAggregate, { nullable: true })
+  _avg?: CurrenciesOnProductsAvgAggregate;
 
-    @Field(() => CurrenciesOnProductsAvgAggregate, {nullable:true})
-    _avg?: CurrenciesOnProductsAvgAggregate;
+  @Field(() => CurrenciesOnProductsSumAggregate, { nullable: true })
+  _sum?: CurrenciesOnProductsSumAggregate;
 
-    @Field(() => CurrenciesOnProductsSumAggregate, {nullable:true})
-    _sum?: CurrenciesOnProductsSumAggregate;
+  @Field(() => CurrenciesOnProductsMinAggregate, { nullable: true })
+  _min?: CurrenciesOnProductsMinAggregate;
 
-    @Field(() => CurrenciesOnProductsMinAggregate, {nullable:true})
-    _min?: CurrenciesOnProductsMinAggregate;
-
-    @Field(() => CurrenciesOnProductsMaxAggregate, {nullable:true})
-    _max?: CurrenciesOnProductsMaxAggregate;
+  @Field(() => CurrenciesOnProductsMaxAggregate, { nullable: true })
+  _max?: CurrenciesOnProductsMaxAggregate;
 }

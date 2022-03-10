@@ -5,10 +5,9 @@ import { UserCreateWithoutShopsInput } from './user-create-without-shops.input';
 
 @InputType()
 export class UserCreateOrConnectWithoutShopsInput {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  where!: UserWhereUniqueInput;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    where!: UserWhereUniqueInput;
-
-    @Field(() => UserCreateWithoutShopsInput, {nullable:false})
-    create!: UserCreateWithoutShopsInput;
+  @Field(() => UserCreateWithoutShopsInput, { nullable: false })
+  create!: UserCreateWithoutShopsInput;
 }

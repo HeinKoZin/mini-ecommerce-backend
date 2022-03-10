@@ -5,22 +5,24 @@ import { CurrenciesOnProductsUncheckedCreateNestedManyWithoutCurrencyInput } fro
 
 @InputType()
 export class CurrencyUncheckedCreateInput {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+  @Field(() => String, { nullable: false })
+  code!: string;
 
-    @Field(() => String, {nullable:false})
-    code!: string;
+  @Field(
+    () => CurrenciesOnProductsUncheckedCreateNestedManyWithoutCurrencyInput,
+    { nullable: true },
+  )
+  products?: CurrenciesOnProductsUncheckedCreateNestedManyWithoutCurrencyInput;
 
-    @Field(() => CurrenciesOnProductsUncheckedCreateNestedManyWithoutCurrencyInput, {nullable:true})
-    products?: CurrenciesOnProductsUncheckedCreateNestedManyWithoutCurrencyInput;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 }

@@ -8,22 +8,21 @@ import { CurrencyScalarFieldEnum } from './currency-scalar-field.enum';
 
 @ArgsType()
 export class FindFirstCurrencyArgs {
+  @Field(() => CurrencyWhereInput, { nullable: true })
+  where?: CurrencyWhereInput;
 
-    @Field(() => CurrencyWhereInput, {nullable:true})
-    where?: CurrencyWhereInput;
+  @Field(() => [CurrencyOrderByWithRelationInput], { nullable: true })
+  orderBy?: Array<CurrencyOrderByWithRelationInput>;
 
-    @Field(() => [CurrencyOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<CurrencyOrderByWithRelationInput>;
+  @Field(() => CurrencyWhereUniqueInput, { nullable: true })
+  cursor?: CurrencyWhereUniqueInput;
 
-    @Field(() => CurrencyWhereUniqueInput, {nullable:true})
-    cursor?: CurrencyWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [CurrencyScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof CurrencyScalarFieldEnum>;
+  @Field(() => [CurrencyScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof CurrencyScalarFieldEnum>;
 }

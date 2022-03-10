@@ -5,10 +5,9 @@ import { CurrencyWhereInput } from './currency-where.input';
 
 @ArgsType()
 export class UpdateManyCurrencyArgs {
+  @Field(() => CurrencyUpdateManyMutationInput, { nullable: false })
+  data!: CurrencyUpdateManyMutationInput;
 
-    @Field(() => CurrencyUpdateManyMutationInput, {nullable:false})
-    data!: CurrencyUpdateManyMutationInput;
-
-    @Field(() => CurrencyWhereInput, {nullable:true})
-    where?: CurrencyWhereInput;
+  @Field(() => CurrencyWhereInput, { nullable: true })
+  where?: CurrencyWhereInput;
 }

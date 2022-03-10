@@ -8,51 +8,47 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { UsersService } from './users.service';
-// import { UserEntity } from './entities/user.entity';
-// import { CreateUserInput } from './dto/create-user.input';
-// import { UpdateUserInput } from './dto/update-user.input';
-import { UserCreateInput } from '@dtos/user/user-create.input';
-import { User } from '@dtos/user/user.model';
-import { UserUpdateInput } from '@dtos/user/user-update.input';
+import { UserEntity } from './entities/user.entity';
+import { UserType } from '@generated/prisma-nestjs-graphql/prisma/user-type.enum';
+import { Shop } from '@generated/prisma-nestjs-graphql/shop/shop.model';
+import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
 
-@Resolver(() => User)
+@Resolver(() => UserEntity)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Mutation(() => User)
-  createUser(@Args('createUserInput') createUserInput: UserCreateInput) {
+  @Mutation(() => UserEntity)
+  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
     return this.usersService.create(createUserInput);
   }
 
-  @Query(() => [User], { name: 'users' })
+  @Query(() => [UserEntity], { name: 'users' })
   findAll() {
     return this.usersService.findAll();
   }
 
-  @ResolveField()
-  async role(@Parent() user: User) {
-    return user.role;
+  @ResolveField(() => UserType)
+  async role(@Parent() user: UserEntity) {
+    return await user.role;
   }
 
-  @ResolveField()
-  async shops(@Parent() user: User) {
-    return this.usersService.getShops(user.id);
+  @ResolveField(() => [Shop])
+  async shops(@Parent() user: UserEntity) {
+    return await this.usersService.getShops(user.id);
   }
 
-  @Query(() => User, { name: 'user' })
+  @Query(() => UserEntity, { name: 'user' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.usersService.findOne(id);
   }
 
-  @Mutation(() => User)
-  updateUser(
-    @Args('updateUserInput') updateUserInput: UserUpdateInput,
-    @Args('id') id: number,
-  ) {
-    return this.usersService.update(id, updateUserInput);
+  @Mutation(() => UserEntity)
+  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
+    return this.usersService.update(updateUserInput);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => UserEntity)
   removeUser(@Args('id', { type: () => Int }) id: number) {
     return this.usersService.remove(id);
   }

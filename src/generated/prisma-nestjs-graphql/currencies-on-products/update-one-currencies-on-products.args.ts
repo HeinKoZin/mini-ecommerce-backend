@@ -5,10 +5,9 @@ import { CurrenciesOnProductsWhereUniqueInput } from './currencies-on-products-w
 
 @ArgsType()
 export class UpdateOneCurrenciesOnProductsArgs {
+  @Field(() => CurrenciesOnProductsUpdateInput, { nullable: false })
+  data!: CurrenciesOnProductsUpdateInput;
 
-    @Field(() => CurrenciesOnProductsUpdateInput, {nullable:false})
-    data!: CurrenciesOnProductsUpdateInput;
-
-    @Field(() => CurrenciesOnProductsWhereUniqueInput, {nullable:false})
-    where!: CurrenciesOnProductsWhereUniqueInput;
+  @Field(() => CurrenciesOnProductsWhereUniqueInput, { nullable: false })
+  where!: CurrenciesOnProductsWhereUniqueInput;
 }

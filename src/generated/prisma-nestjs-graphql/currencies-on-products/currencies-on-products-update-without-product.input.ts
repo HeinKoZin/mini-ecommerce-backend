@@ -6,16 +6,17 @@ import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-up
 
 @InputType()
 export class CurrenciesOnProductsUpdateWithoutProductInput {
+  @Field(() => FloatFieldUpdateOperationsInput, { nullable: true })
+  sell_price?: FloatFieldUpdateOperationsInput;
 
-    @Field(() => FloatFieldUpdateOperationsInput, {nullable:true})
-    sell_price?: FloatFieldUpdateOperationsInput;
+  @Field(() => CurrencyUpdateOneRequiredWithoutProductsInput, {
+    nullable: true,
+  })
+  currency?: CurrencyUpdateOneRequiredWithoutProductsInput;
 
-    @Field(() => CurrencyUpdateOneRequiredWithoutProductsInput, {nullable:true})
-    currency?: CurrencyUpdateOneRequiredWithoutProductsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    createdAt?: DateTimeFieldUpdateOperationsInput;
-
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    updatedAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  updatedAt?: DateTimeFieldUpdateOperationsInput;
 }

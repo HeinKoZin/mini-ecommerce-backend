@@ -8,22 +8,23 @@ import { CurrenciesOnProductsScalarFieldEnum } from './currencies-on-products-sc
 
 @ArgsType()
 export class FindManyCurrenciesOnProductsArgs {
+  @Field(() => CurrenciesOnProductsWhereInput, { nullable: true })
+  where?: CurrenciesOnProductsWhereInput;
 
-    @Field(() => CurrenciesOnProductsWhereInput, {nullable:true})
-    where?: CurrenciesOnProductsWhereInput;
+  @Field(() => [CurrenciesOnProductsOrderByWithRelationInput], {
+    nullable: true,
+  })
+  orderBy?: Array<CurrenciesOnProductsOrderByWithRelationInput>;
 
-    @Field(() => [CurrenciesOnProductsOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<CurrenciesOnProductsOrderByWithRelationInput>;
+  @Field(() => CurrenciesOnProductsWhereUniqueInput, { nullable: true })
+  cursor?: CurrenciesOnProductsWhereUniqueInput;
 
-    @Field(() => CurrenciesOnProductsWhereUniqueInput, {nullable:true})
-    cursor?: CurrenciesOnProductsWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [CurrenciesOnProductsScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof CurrenciesOnProductsScalarFieldEnum>;
+  @Field(() => [CurrenciesOnProductsScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof CurrenciesOnProductsScalarFieldEnum>;
 }

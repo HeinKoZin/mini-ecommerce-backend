@@ -4,7 +4,6 @@ import { CurrenciesOnProductsWhereInput } from './currencies-on-products-where.i
 
 @ArgsType()
 export class DeleteManyCurrenciesOnProductsArgs {
-
-    @Field(() => CurrenciesOnProductsWhereInput, {nullable:true})
-    where?: CurrenciesOnProductsWhereInput;
+  @Field(() => CurrenciesOnProductsWhereInput, { nullable: true })
+  where?: CurrenciesOnProductsWhereInput;
 }

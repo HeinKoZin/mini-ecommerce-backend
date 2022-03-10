@@ -4,7 +4,6 @@ import { ShopWhereInput } from './shop-where.input';
 
 @ArgsType()
 export class DeleteManyShopArgs {
-
-    @Field(() => ShopWhereInput, {nullable:true})
-    where?: ShopWhereInput;
+  @Field(() => ShopWhereInput, { nullable: true })
+  where?: ShopWhereInput;
 }

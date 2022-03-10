@@ -6,31 +6,30 @@ import { UsersOnShopsOrderByRelationAggregateInput } from '../users-on-shops/use
 
 @InputType()
 export class ShopOrderByWithRelationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  slug?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    slug?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  address?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    address?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  phone?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    phone?: keyof typeof SortOrder;
+  @Field(() => ProductOrderByRelationAggregateInput, { nullable: true })
+  products?: ProductOrderByRelationAggregateInput;
 
-    @Field(() => ProductOrderByRelationAggregateInput, {nullable:true})
-    products?: ProductOrderByRelationAggregateInput;
+  @Field(() => UsersOnShopsOrderByRelationAggregateInput, { nullable: true })
+  owners?: UsersOnShopsOrderByRelationAggregateInput;
 
-    @Field(() => UsersOnShopsOrderByRelationAggregateInput, {nullable:true})
-    owners?: UsersOnShopsOrderByRelationAggregateInput;
+  @Field(() => SortOrder, { nullable: true })
+  createdAt?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  updatedAt?: keyof typeof SortOrder;
 }

@@ -6,13 +6,12 @@ import { ProductWhereUniqueInput } from './product-where-unique.input';
 
 @InputType()
 export class ProductCreateNestedOneWithoutCurrenciesInput {
+  @Field(() => ProductCreateWithoutCurrenciesInput, { nullable: true })
+  create?: ProductCreateWithoutCurrenciesInput;
 
-    @Field(() => ProductCreateWithoutCurrenciesInput, {nullable:true})
-    create?: ProductCreateWithoutCurrenciesInput;
+  @Field(() => ProductCreateOrConnectWithoutCurrenciesInput, { nullable: true })
+  connectOrCreate?: ProductCreateOrConnectWithoutCurrenciesInput;
 
-    @Field(() => ProductCreateOrConnectWithoutCurrenciesInput, {nullable:true})
-    connectOrCreate?: ProductCreateOrConnectWithoutCurrenciesInput;
-
-    @Field(() => ProductWhereUniqueInput, {nullable:true})
-    connect?: ProductWhereUniqueInput;
+  @Field(() => ProductWhereUniqueInput, { nullable: true })
+  connect?: ProductWhereUniqueInput;
 }

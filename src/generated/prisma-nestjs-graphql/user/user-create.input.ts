@@ -6,27 +6,26 @@ import { UsersOnShopsCreateNestedManyWithoutUserInput } from '../users-on-shops/
 
 @InputType()
 export class UserCreateInput {
+  @Field(() => String, { nullable: false })
+  @Validator.MinLength(3)
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    @Validator.MinLength(3)
-    name!: string;
+  @Field(() => String, { nullable: false })
+  email!: string;
 
-    @Field(() => String, {nullable:false})
-    email!: string;
+  @Field(() => String, { nullable: false })
+  @Validator.MinLength(8)
+  password!: string;
 
-    @Field(() => String, {nullable:false})
-    @Validator.MinLength(8)
-    password!: string;
+  @Field(() => UserType, { nullable: true })
+  role?: keyof typeof UserType;
 
-    @Field(() => UserType, {nullable:true})
-    role?: keyof typeof UserType;
+  @Field(() => UsersOnShopsCreateNestedManyWithoutUserInput, { nullable: true })
+  shops?: UsersOnShopsCreateNestedManyWithoutUserInput;
 
-    @Field(() => UsersOnShopsCreateNestedManyWithoutUserInput, {nullable:true})
-    shops?: UsersOnShopsCreateNestedManyWithoutUserInput;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 }

@@ -8,19 +8,18 @@ import { UserUpdateWithoutShopsInput } from './user-update-without-shops.input';
 
 @InputType()
 export class UserUpdateOneRequiredWithoutShopsInput {
+  @Field(() => UserCreateWithoutShopsInput, { nullable: true })
+  create?: UserCreateWithoutShopsInput;
 
-    @Field(() => UserCreateWithoutShopsInput, {nullable:true})
-    create?: UserCreateWithoutShopsInput;
+  @Field(() => UserCreateOrConnectWithoutShopsInput, { nullable: true })
+  connectOrCreate?: UserCreateOrConnectWithoutShopsInput;
 
-    @Field(() => UserCreateOrConnectWithoutShopsInput, {nullable:true})
-    connectOrCreate?: UserCreateOrConnectWithoutShopsInput;
+  @Field(() => UserUpsertWithoutShopsInput, { nullable: true })
+  upsert?: UserUpsertWithoutShopsInput;
 
-    @Field(() => UserUpsertWithoutShopsInput, {nullable:true})
-    upsert?: UserUpsertWithoutShopsInput;
+  @Field(() => UserWhereUniqueInput, { nullable: true })
+  connect?: UserWhereUniqueInput;
 
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    connect?: UserWhereUniqueInput;
-
-    @Field(() => UserUpdateWithoutShopsInput, {nullable:true})
-    update?: UserUpdateWithoutShopsInput;
+  @Field(() => UserUpdateWithoutShopsInput, { nullable: true })
+  update?: UserUpdateWithoutShopsInput;
 }

@@ -12,34 +12,35 @@ import { CurrenciesOnProductsMaxAggregateInput } from './currencies-on-products-
 
 @ArgsType()
 export class CurrenciesOnProductsAggregateArgs {
+  @Field(() => CurrenciesOnProductsWhereInput, { nullable: true })
+  where?: CurrenciesOnProductsWhereInput;
 
-    @Field(() => CurrenciesOnProductsWhereInput, {nullable:true})
-    where?: CurrenciesOnProductsWhereInput;
+  @Field(() => [CurrenciesOnProductsOrderByWithRelationInput], {
+    nullable: true,
+  })
+  orderBy?: Array<CurrenciesOnProductsOrderByWithRelationInput>;
 
-    @Field(() => [CurrenciesOnProductsOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<CurrenciesOnProductsOrderByWithRelationInput>;
+  @Field(() => CurrenciesOnProductsWhereUniqueInput, { nullable: true })
+  cursor?: CurrenciesOnProductsWhereUniqueInput;
 
-    @Field(() => CurrenciesOnProductsWhereUniqueInput, {nullable:true})
-    cursor?: CurrenciesOnProductsWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => CurrenciesOnProductsCountAggregateInput, { nullable: true })
+  _count?: CurrenciesOnProductsCountAggregateInput;
 
-    @Field(() => CurrenciesOnProductsCountAggregateInput, {nullable:true})
-    _count?: CurrenciesOnProductsCountAggregateInput;
+  @Field(() => CurrenciesOnProductsAvgAggregateInput, { nullable: true })
+  _avg?: CurrenciesOnProductsAvgAggregateInput;
 
-    @Field(() => CurrenciesOnProductsAvgAggregateInput, {nullable:true})
-    _avg?: CurrenciesOnProductsAvgAggregateInput;
+  @Field(() => CurrenciesOnProductsSumAggregateInput, { nullable: true })
+  _sum?: CurrenciesOnProductsSumAggregateInput;
 
-    @Field(() => CurrenciesOnProductsSumAggregateInput, {nullable:true})
-    _sum?: CurrenciesOnProductsSumAggregateInput;
+  @Field(() => CurrenciesOnProductsMinAggregateInput, { nullable: true })
+  _min?: CurrenciesOnProductsMinAggregateInput;
 
-    @Field(() => CurrenciesOnProductsMinAggregateInput, {nullable:true})
-    _min?: CurrenciesOnProductsMinAggregateInput;
-
-    @Field(() => CurrenciesOnProductsMaxAggregateInput, {nullable:true})
-    _max?: CurrenciesOnProductsMaxAggregateInput;
+  @Field(() => CurrenciesOnProductsMaxAggregateInput, { nullable: true })
+  _max?: CurrenciesOnProductsMaxAggregateInput;
 }

@@ -6,13 +6,12 @@ import { UsersOnShopsCreateWithoutUserInput } from './users-on-shops-create-with
 
 @InputType()
 export class UsersOnShopsUpsertWithWhereUniqueWithoutUserInput {
+  @Field(() => UsersOnShopsWhereUniqueInput, { nullable: false })
+  where!: UsersOnShopsWhereUniqueInput;
 
-    @Field(() => UsersOnShopsWhereUniqueInput, {nullable:false})
-    where!: UsersOnShopsWhereUniqueInput;
+  @Field(() => UsersOnShopsUpdateWithoutUserInput, { nullable: false })
+  update!: UsersOnShopsUpdateWithoutUserInput;
 
-    @Field(() => UsersOnShopsUpdateWithoutUserInput, {nullable:false})
-    update!: UsersOnShopsUpdateWithoutUserInput;
-
-    @Field(() => UsersOnShopsCreateWithoutUserInput, {nullable:false})
-    create!: UsersOnShopsCreateWithoutUserInput;
+  @Field(() => UsersOnShopsCreateWithoutUserInput, { nullable: false })
+  create!: UsersOnShopsCreateWithoutUserInput;
 }

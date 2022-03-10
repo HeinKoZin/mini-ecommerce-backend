@@ -5,10 +5,9 @@ import { ProductWhereUniqueInput } from './product-where-unique.input';
 
 @ArgsType()
 export class UpdateOneProductArgs {
+  @Field(() => ProductUpdateInput, { nullable: false })
+  data!: ProductUpdateInput;
 
-    @Field(() => ProductUpdateInput, {nullable:false})
-    data!: ProductUpdateInput;
-
-    @Field(() => ProductWhereUniqueInput, {nullable:false})
-    where!: ProductWhereUniqueInput;
+  @Field(() => ProductWhereUniqueInput, { nullable: false })
+  where!: ProductWhereUniqueInput;
 }

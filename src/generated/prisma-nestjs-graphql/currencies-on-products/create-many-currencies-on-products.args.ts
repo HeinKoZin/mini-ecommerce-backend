@@ -4,10 +4,9 @@ import { CurrenciesOnProductsCreateManyInput } from './currencies-on-products-cr
 
 @ArgsType()
 export class CreateManyCurrenciesOnProductsArgs {
+  @Field(() => [CurrenciesOnProductsCreateManyInput], { nullable: false })
+  data!: Array<CurrenciesOnProductsCreateManyInput>;
 
-    @Field(() => [CurrenciesOnProductsCreateManyInput], {nullable:false})
-    data!: Array<CurrenciesOnProductsCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

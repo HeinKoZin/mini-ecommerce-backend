@@ -7,16 +7,21 @@ import { CurrenciesOnProductsWhereUniqueInput } from './currencies-on-products-w
 
 @InputType()
 export class CurrenciesOnProductsCreateNestedManyWithoutProductInput {
+  @Field(() => [CurrenciesOnProductsCreateWithoutProductInput], {
+    nullable: true,
+  })
+  create?: Array<CurrenciesOnProductsCreateWithoutProductInput>;
 
-    @Field(() => [CurrenciesOnProductsCreateWithoutProductInput], {nullable:true})
-    create?: Array<CurrenciesOnProductsCreateWithoutProductInput>;
+  @Field(() => [CurrenciesOnProductsCreateOrConnectWithoutProductInput], {
+    nullable: true,
+  })
+  connectOrCreate?: Array<CurrenciesOnProductsCreateOrConnectWithoutProductInput>;
 
-    @Field(() => [CurrenciesOnProductsCreateOrConnectWithoutProductInput], {nullable:true})
-    connectOrCreate?: Array<CurrenciesOnProductsCreateOrConnectWithoutProductInput>;
+  @Field(() => CurrenciesOnProductsCreateManyProductInputEnvelope, {
+    nullable: true,
+  })
+  createMany?: CurrenciesOnProductsCreateManyProductInputEnvelope;
 
-    @Field(() => CurrenciesOnProductsCreateManyProductInputEnvelope, {nullable:true})
-    createMany?: CurrenciesOnProductsCreateManyProductInputEnvelope;
-
-    @Field(() => [CurrenciesOnProductsWhereUniqueInput], {nullable:true})
-    connect?: Array<CurrenciesOnProductsWhereUniqueInput>;
+  @Field(() => [CurrenciesOnProductsWhereUniqueInput], { nullable: true })
+  connect?: Array<CurrenciesOnProductsWhereUniqueInput>;
 }

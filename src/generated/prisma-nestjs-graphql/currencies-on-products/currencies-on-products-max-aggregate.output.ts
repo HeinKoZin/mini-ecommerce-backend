@@ -5,22 +5,21 @@ import { Float } from '@nestjs/graphql';
 
 @ObjectType()
 export class CurrenciesOnProductsMaxAggregate {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
+  @Field(() => Float, { nullable: true })
+  sell_price?: number;
 
-    @Field(() => Float, {nullable:true})
-    sell_price?: number;
+  @Field(() => Int, { nullable: true })
+  productId?: number;
 
-    @Field(() => Int, {nullable:true})
-    productId?: number;
+  @Field(() => Int, { nullable: true })
+  currencyId?: number;
 
-    @Field(() => Int, {nullable:true})
-    currencyId?: number;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 }

@@ -4,16 +4,15 @@ import { UserCreateNestedOneWithoutShopsInput } from '../user/user-create-nested
 
 @InputType()
 export class UsersOnShopsCreateWithoutShopInput {
+  @Field(() => UserCreateNestedOneWithoutShopsInput, { nullable: false })
+  user!: UserCreateNestedOneWithoutShopsInput;
 
-    @Field(() => UserCreateNestedOneWithoutShopsInput, {nullable:false})
-    user!: UserCreateNestedOneWithoutShopsInput;
+  @Field(() => String, { nullable: false })
+  assignedby!: string;
 
-    @Field(() => String, {nullable:false})
-    assignedby!: string;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 }

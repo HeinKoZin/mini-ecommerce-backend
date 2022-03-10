@@ -5,10 +5,9 @@ import { UserCreateWithoutShopsInput } from './user-create-without-shops.input';
 
 @InputType()
 export class UserUpsertWithoutShopsInput {
+  @Field(() => UserUpdateWithoutShopsInput, { nullable: false })
+  update!: UserUpdateWithoutShopsInput;
 
-    @Field(() => UserUpdateWithoutShopsInput, {nullable:false})
-    update!: UserUpdateWithoutShopsInput;
-
-    @Field(() => UserCreateWithoutShopsInput, {nullable:false})
-    create!: UserCreateWithoutShopsInput;
+  @Field(() => UserCreateWithoutShopsInput, { nullable: false })
+  create!: UserCreateWithoutShopsInput;
 }

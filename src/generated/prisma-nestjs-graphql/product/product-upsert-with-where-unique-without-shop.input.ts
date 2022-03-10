@@ -6,13 +6,12 @@ import { ProductCreateWithoutShopInput } from './product-create-without-shop.inp
 
 @InputType()
 export class ProductUpsertWithWhereUniqueWithoutShopInput {
+  @Field(() => ProductWhereUniqueInput, { nullable: false })
+  where!: ProductWhereUniqueInput;
 
-    @Field(() => ProductWhereUniqueInput, {nullable:false})
-    where!: ProductWhereUniqueInput;
+  @Field(() => ProductUpdateWithoutShopInput, { nullable: false })
+  update!: ProductUpdateWithoutShopInput;
 
-    @Field(() => ProductUpdateWithoutShopInput, {nullable:false})
-    update!: ProductUpdateWithoutShopInput;
-
-    @Field(() => ProductCreateWithoutShopInput, {nullable:false})
-    create!: ProductCreateWithoutShopInput;
+  @Field(() => ProductCreateWithoutShopInput, { nullable: false })
+  create!: ProductCreateWithoutShopInput;
 }

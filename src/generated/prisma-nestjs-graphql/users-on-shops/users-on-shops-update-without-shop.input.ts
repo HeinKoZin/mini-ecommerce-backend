@@ -6,16 +6,15 @@ import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-up
 
 @InputType()
 export class UsersOnShopsUpdateWithoutShopInput {
+  @Field(() => UserUpdateOneRequiredWithoutShopsInput, { nullable: true })
+  user?: UserUpdateOneRequiredWithoutShopsInput;
 
-    @Field(() => UserUpdateOneRequiredWithoutShopsInput, {nullable:true})
-    user?: UserUpdateOneRequiredWithoutShopsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  assignedby?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    assignedby?: StringFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    createdAt?: DateTimeFieldUpdateOperationsInput;
-
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    updatedAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  updatedAt?: DateTimeFieldUpdateOperationsInput;
 }

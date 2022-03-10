@@ -5,10 +5,9 @@ import { CurrencyWhereUniqueInput } from './currency-where-unique.input';
 
 @ArgsType()
 export class UpdateOneCurrencyArgs {
+  @Field(() => CurrencyUpdateInput, { nullable: false })
+  data!: CurrencyUpdateInput;
 
-    @Field(() => CurrencyUpdateInput, {nullable:false})
-    data!: CurrencyUpdateInput;
-
-    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
-    where!: CurrencyWhereUniqueInput;
+  @Field(() => CurrencyWhereUniqueInput, { nullable: false })
+  where!: CurrencyWhereUniqueInput;
 }

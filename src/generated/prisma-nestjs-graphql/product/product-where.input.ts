@@ -9,46 +9,45 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 
 @InputType()
 export class ProductWhereInput {
+  @Field(() => [ProductWhereInput], { nullable: true })
+  AND?: Array<ProductWhereInput>;
 
-    @Field(() => [ProductWhereInput], {nullable:true})
-    AND?: Array<ProductWhereInput>;
+  @Field(() => [ProductWhereInput], { nullable: true })
+  OR?: Array<ProductWhereInput>;
 
-    @Field(() => [ProductWhereInput], {nullable:true})
-    OR?: Array<ProductWhereInput>;
+  @Field(() => [ProductWhereInput], { nullable: true })
+  NOT?: Array<ProductWhereInput>;
 
-    @Field(() => [ProductWhereInput], {nullable:true})
-    NOT?: Array<ProductWhereInput>;
+  @Field(() => IntFilter, { nullable: true })
+  id?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  description?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    description?: StringFilter;
+  @Field(() => IntFilter, { nullable: true })
+  quantity?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    quantity?: IntFilter;
+  @Field(() => StringFilter, { nullable: true })
+  product_code?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    product_code?: StringFilter;
+  @Field(() => ShopRelationFilter, { nullable: true })
+  shop?: ShopRelationFilter;
 
-    @Field(() => ShopRelationFilter, {nullable:true})
-    shop?: ShopRelationFilter;
+  @Field(() => EnumProductStatusFilter, { nullable: true })
+  status?: EnumProductStatusFilter;
 
-    @Field(() => EnumProductStatusFilter, {nullable:true})
-    status?: EnumProductStatusFilter;
+  @Field(() => IntFilter, { nullable: true })
+  shopId?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    shopId?: IntFilter;
+  @Field(() => CurrenciesOnProductsListRelationFilter, { nullable: true })
+  currencies?: CurrenciesOnProductsListRelationFilter;
 
-    @Field(() => CurrenciesOnProductsListRelationFilter, {nullable:true})
-    currencies?: CurrenciesOnProductsListRelationFilter;
+  @Field(() => DateTimeFilter, { nullable: true })
+  createdAt?: DateTimeFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    createdAt?: DateTimeFilter;
-
-    @Field(() => DateTimeFilter, {nullable:true})
-    updatedAt?: DateTimeFilter;
+  @Field(() => DateTimeFilter, { nullable: true })
+  updatedAt?: DateTimeFilter;
 }

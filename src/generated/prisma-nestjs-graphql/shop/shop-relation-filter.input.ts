@@ -4,10 +4,9 @@ import { ShopWhereInput } from './shop-where.input';
 
 @InputType()
 export class ShopRelationFilter {
+  @Field(() => ShopWhereInput, { nullable: true })
+  is?: ShopWhereInput;
 
-    @Field(() => ShopWhereInput, {nullable:true})
-    is?: ShopWhereInput;
-
-    @Field(() => ShopWhereInput, {nullable:true})
-    isNot?: ShopWhereInput;
+  @Field(() => ShopWhereInput, { nullable: true })
+  isNot?: ShopWhereInput;
 }

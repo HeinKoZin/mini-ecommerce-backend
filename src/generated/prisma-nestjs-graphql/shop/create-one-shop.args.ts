@@ -4,7 +4,6 @@ import { ShopCreateInput } from './shop-create.input';
 
 @ArgsType()
 export class CreateOneShopArgs {
-
-    @Field(() => ShopCreateInput, {nullable:false})
-    data!: ShopCreateInput;
+  @Field(() => ShopCreateInput, { nullable: false })
+  data!: ShopCreateInput;
 }

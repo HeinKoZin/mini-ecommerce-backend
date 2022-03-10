@@ -4,13 +4,12 @@ import { CurrenciesOnProductsWhereInput } from './currencies-on-products-where.i
 
 @InputType()
 export class CurrenciesOnProductsListRelationFilter {
+  @Field(() => CurrenciesOnProductsWhereInput, { nullable: true })
+  every?: CurrenciesOnProductsWhereInput;
 
-    @Field(() => CurrenciesOnProductsWhereInput, {nullable:true})
-    every?: CurrenciesOnProductsWhereInput;
+  @Field(() => CurrenciesOnProductsWhereInput, { nullable: true })
+  some?: CurrenciesOnProductsWhereInput;
 
-    @Field(() => CurrenciesOnProductsWhereInput, {nullable:true})
-    some?: CurrenciesOnProductsWhereInput;
-
-    @Field(() => CurrenciesOnProductsWhereInput, {nullable:true})
-    none?: CurrenciesOnProductsWhereInput;
+  @Field(() => CurrenciesOnProductsWhereInput, { nullable: true })
+  none?: CurrenciesOnProductsWhereInput;
 }

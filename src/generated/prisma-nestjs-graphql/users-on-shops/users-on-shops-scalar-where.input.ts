@@ -6,28 +6,27 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 
 @InputType()
 export class UsersOnShopsScalarWhereInput {
+  @Field(() => [UsersOnShopsScalarWhereInput], { nullable: true })
+  AND?: Array<UsersOnShopsScalarWhereInput>;
 
-    @Field(() => [UsersOnShopsScalarWhereInput], {nullable:true})
-    AND?: Array<UsersOnShopsScalarWhereInput>;
+  @Field(() => [UsersOnShopsScalarWhereInput], { nullable: true })
+  OR?: Array<UsersOnShopsScalarWhereInput>;
 
-    @Field(() => [UsersOnShopsScalarWhereInput], {nullable:true})
-    OR?: Array<UsersOnShopsScalarWhereInput>;
+  @Field(() => [UsersOnShopsScalarWhereInput], { nullable: true })
+  NOT?: Array<UsersOnShopsScalarWhereInput>;
 
-    @Field(() => [UsersOnShopsScalarWhereInput], {nullable:true})
-    NOT?: Array<UsersOnShopsScalarWhereInput>;
+  @Field(() => IntFilter, { nullable: true })
+  shopId?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    shopId?: IntFilter;
+  @Field(() => IntFilter, { nullable: true })
+  userId?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    userId?: IntFilter;
+  @Field(() => StringFilter, { nullable: true })
+  assignedby?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    assignedby?: StringFilter;
+  @Field(() => DateTimeFilter, { nullable: true })
+  createdAt?: DateTimeFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    createdAt?: DateTimeFilter;
-
-    @Field(() => DateTimeFilter, {nullable:true})
-    updatedAt?: DateTimeFilter;
+  @Field(() => DateTimeFilter, { nullable: true })
+  updatedAt?: DateTimeFilter;
 }

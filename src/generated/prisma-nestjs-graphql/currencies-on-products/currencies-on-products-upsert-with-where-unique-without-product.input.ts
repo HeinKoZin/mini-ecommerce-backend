@@ -6,13 +6,16 @@ import { CurrenciesOnProductsCreateWithoutProductInput } from './currencies-on-p
 
 @InputType()
 export class CurrenciesOnProductsUpsertWithWhereUniqueWithoutProductInput {
+  @Field(() => CurrenciesOnProductsWhereUniqueInput, { nullable: false })
+  where!: CurrenciesOnProductsWhereUniqueInput;
 
-    @Field(() => CurrenciesOnProductsWhereUniqueInput, {nullable:false})
-    where!: CurrenciesOnProductsWhereUniqueInput;
+  @Field(() => CurrenciesOnProductsUpdateWithoutProductInput, {
+    nullable: false,
+  })
+  update!: CurrenciesOnProductsUpdateWithoutProductInput;
 
-    @Field(() => CurrenciesOnProductsUpdateWithoutProductInput, {nullable:false})
-    update!: CurrenciesOnProductsUpdateWithoutProductInput;
-
-    @Field(() => CurrenciesOnProductsCreateWithoutProductInput, {nullable:false})
-    create!: CurrenciesOnProductsCreateWithoutProductInput;
+  @Field(() => CurrenciesOnProductsCreateWithoutProductInput, {
+    nullable: false,
+  })
+  create!: CurrenciesOnProductsCreateWithoutProductInput;
 }

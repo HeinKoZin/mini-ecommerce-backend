@@ -4,10 +4,11 @@ import { CurrenciesOnProductsCreateManyCurrencyInput } from './currencies-on-pro
 
 @InputType()
 export class CurrenciesOnProductsCreateManyCurrencyInputEnvelope {
+  @Field(() => [CurrenciesOnProductsCreateManyCurrencyInput], {
+    nullable: false,
+  })
+  data!: Array<CurrenciesOnProductsCreateManyCurrencyInput>;
 
-    @Field(() => [CurrenciesOnProductsCreateManyCurrencyInput], {nullable:false})
-    data!: Array<CurrenciesOnProductsCreateManyCurrencyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

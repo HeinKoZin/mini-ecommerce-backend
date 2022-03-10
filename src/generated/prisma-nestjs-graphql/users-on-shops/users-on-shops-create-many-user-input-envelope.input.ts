@@ -4,10 +4,9 @@ import { UsersOnShopsCreateManyUserInput } from './users-on-shops-create-many-us
 
 @InputType()
 export class UsersOnShopsCreateManyUserInputEnvelope {
+  @Field(() => [UsersOnShopsCreateManyUserInput], { nullable: false })
+  data!: Array<UsersOnShopsCreateManyUserInput>;
 
-    @Field(() => [UsersOnShopsCreateManyUserInput], {nullable:false})
-    data!: Array<UsersOnShopsCreateManyUserInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

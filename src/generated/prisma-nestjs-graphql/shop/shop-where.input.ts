@@ -9,40 +9,39 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 
 @InputType()
 export class ShopWhereInput {
+  @Field(() => [ShopWhereInput], { nullable: true })
+  AND?: Array<ShopWhereInput>;
 
-    @Field(() => [ShopWhereInput], {nullable:true})
-    AND?: Array<ShopWhereInput>;
+  @Field(() => [ShopWhereInput], { nullable: true })
+  OR?: Array<ShopWhereInput>;
 
-    @Field(() => [ShopWhereInput], {nullable:true})
-    OR?: Array<ShopWhereInput>;
+  @Field(() => [ShopWhereInput], { nullable: true })
+  NOT?: Array<ShopWhereInput>;
 
-    @Field(() => [ShopWhereInput], {nullable:true})
-    NOT?: Array<ShopWhereInput>;
+  @Field(() => IntFilter, { nullable: true })
+  id?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  slug?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    slug?: StringFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  address?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    address?: StringNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  phone?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    phone?: StringFilter;
+  @Field(() => ProductListRelationFilter, { nullable: true })
+  products?: ProductListRelationFilter;
 
-    @Field(() => ProductListRelationFilter, {nullable:true})
-    products?: ProductListRelationFilter;
+  @Field(() => UsersOnShopsListRelationFilter, { nullable: true })
+  owners?: UsersOnShopsListRelationFilter;
 
-    @Field(() => UsersOnShopsListRelationFilter, {nullable:true})
-    owners?: UsersOnShopsListRelationFilter;
+  @Field(() => DateTimeFilter, { nullable: true })
+  createdAt?: DateTimeFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    createdAt?: DateTimeFilter;
-
-    @Field(() => DateTimeFilter, {nullable:true})
-    updatedAt?: DateTimeFilter;
+  @Field(() => DateTimeFilter, { nullable: true })
+  updatedAt?: DateTimeFilter;
 }

@@ -6,13 +6,12 @@ import { CurrenciesOnProductsUpdateInput } from './currencies-on-products-update
 
 @ArgsType()
 export class UpsertOneCurrenciesOnProductsArgs {
+  @Field(() => CurrenciesOnProductsWhereUniqueInput, { nullable: false })
+  where!: CurrenciesOnProductsWhereUniqueInput;
 
-    @Field(() => CurrenciesOnProductsWhereUniqueInput, {nullable:false})
-    where!: CurrenciesOnProductsWhereUniqueInput;
+  @Field(() => CurrenciesOnProductsCreateInput, { nullable: false })
+  create!: CurrenciesOnProductsCreateInput;
 
-    @Field(() => CurrenciesOnProductsCreateInput, {nullable:false})
-    create!: CurrenciesOnProductsCreateInput;
-
-    @Field(() => CurrenciesOnProductsUpdateInput, {nullable:false})
-    update!: CurrenciesOnProductsUpdateInput;
+  @Field(() => CurrenciesOnProductsUpdateInput, { nullable: false })
+  update!: CurrenciesOnProductsUpdateInput;
 }

@@ -5,10 +5,9 @@ import { UsersOnShopsUpdateWithoutShopInput } from './users-on-shops-update-with
 
 @InputType()
 export class UsersOnShopsUpdateWithWhereUniqueWithoutShopInput {
+  @Field(() => UsersOnShopsWhereUniqueInput, { nullable: false })
+  where!: UsersOnShopsWhereUniqueInput;
 
-    @Field(() => UsersOnShopsWhereUniqueInput, {nullable:false})
-    where!: UsersOnShopsWhereUniqueInput;
-
-    @Field(() => UsersOnShopsUpdateWithoutShopInput, {nullable:false})
-    data!: UsersOnShopsUpdateWithoutShopInput;
+  @Field(() => UsersOnShopsUpdateWithoutShopInput, { nullable: false })
+  data!: UsersOnShopsUpdateWithoutShopInput;
 }

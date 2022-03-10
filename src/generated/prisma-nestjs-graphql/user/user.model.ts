@@ -7,31 +7,30 @@ import { UserCount } from './user-count.output';
 
 @ObjectType()
 export class User {
+  @Field(() => ID, { nullable: false })
+  id!: number;
 
-    @Field(() => ID, {nullable:false})
-    id!: number;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+  @Field(() => String, { nullable: false })
+  email!: string;
 
-    @Field(() => String, {nullable:false})
-    email!: string;
+  @Field(() => String, { nullable: false })
+  password!: string;
 
-    @Field(() => String, {nullable:false})
-    password!: string;
+  @Field(() => UserType, { nullable: false, defaultValue: 'USER' })
+  role!: keyof typeof UserType;
 
-    @Field(() => UserType, {nullable:false,defaultValue:'USER'})
-    role!: keyof typeof UserType;
+  @Field(() => [UsersOnShops], { nullable: true })
+  shops?: Array<UsersOnShops>;
 
-    @Field(() => [UsersOnShops], {nullable:true})
-    shops?: Array<UsersOnShops>;
+  @Field(() => Date, { nullable: false })
+  createdAt!: Date;
 
-    @Field(() => Date, {nullable:false})
-    createdAt!: Date;
+  @Field(() => Date, { nullable: false })
+  updatedAt!: Date;
 
-    @Field(() => Date, {nullable:false})
-    updatedAt!: Date;
-
-    @Field(() => UserCount, {nullable:false})
-    _count?: UserCount;
+  @Field(() => UserCount, { nullable: false })
+  _count?: UserCount;
 }

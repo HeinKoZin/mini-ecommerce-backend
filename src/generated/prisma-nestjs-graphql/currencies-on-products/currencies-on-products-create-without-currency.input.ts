@@ -5,16 +5,17 @@ import { ProductCreateNestedOneWithoutCurrenciesInput } from '../product/product
 
 @InputType()
 export class CurrenciesOnProductsCreateWithoutCurrencyInput {
+  @Field(() => Float, { nullable: false })
+  sell_price!: number;
 
-    @Field(() => Float, {nullable:false})
-    sell_price!: number;
+  @Field(() => ProductCreateNestedOneWithoutCurrenciesInput, {
+    nullable: false,
+  })
+  product!: ProductCreateNestedOneWithoutCurrenciesInput;
 
-    @Field(() => ProductCreateNestedOneWithoutCurrenciesInput, {nullable:false})
-    product!: ProductCreateNestedOneWithoutCurrenciesInput;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 }

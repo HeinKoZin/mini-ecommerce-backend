@@ -8,19 +8,18 @@ import { ShopMaxAggregate } from './shop-max-aggregate.output';
 
 @ObjectType()
 export class AggregateShop {
+  @Field(() => ShopCountAggregate, { nullable: true })
+  _count?: ShopCountAggregate;
 
-    @Field(() => ShopCountAggregate, {nullable:true})
-    _count?: ShopCountAggregate;
+  @Field(() => ShopAvgAggregate, { nullable: true })
+  _avg?: ShopAvgAggregate;
 
-    @Field(() => ShopAvgAggregate, {nullable:true})
-    _avg?: ShopAvgAggregate;
+  @Field(() => ShopSumAggregate, { nullable: true })
+  _sum?: ShopSumAggregate;
 
-    @Field(() => ShopSumAggregate, {nullable:true})
-    _sum?: ShopSumAggregate;
+  @Field(() => ShopMinAggregate, { nullable: true })
+  _min?: ShopMinAggregate;
 
-    @Field(() => ShopMinAggregate, {nullable:true})
-    _min?: ShopMinAggregate;
-
-    @Field(() => ShopMaxAggregate, {nullable:true})
-    _max?: ShopMaxAggregate;
+  @Field(() => ShopMaxAggregate, { nullable: true })
+  _max?: ShopMaxAggregate;
 }

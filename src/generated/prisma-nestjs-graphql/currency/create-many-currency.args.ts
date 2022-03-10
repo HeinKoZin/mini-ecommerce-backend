@@ -4,10 +4,9 @@ import { CurrencyCreateManyInput } from './currency-create-many.input';
 
 @ArgsType()
 export class CreateManyCurrencyArgs {
+  @Field(() => [CurrencyCreateManyInput], { nullable: false })
+  data!: Array<CurrencyCreateManyInput>;
 
-    @Field(() => [CurrencyCreateManyInput], {nullable:false})
-    data!: Array<CurrencyCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

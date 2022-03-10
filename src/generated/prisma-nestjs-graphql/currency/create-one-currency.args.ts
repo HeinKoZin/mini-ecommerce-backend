@@ -4,7 +4,6 @@ import { CurrencyCreateInput } from './currency-create.input';
 
 @ArgsType()
 export class CreateOneCurrencyArgs {
-
-    @Field(() => CurrencyCreateInput, {nullable:false})
-    data!: CurrencyCreateInput;
+  @Field(() => CurrencyCreateInput, { nullable: false })
+  data!: CurrencyCreateInput;
 }

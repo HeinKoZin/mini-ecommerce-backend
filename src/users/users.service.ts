@@ -1,7 +1,7 @@
 import { UserCreateInput } from '@dtos/user/user-create.input';
-import { UserUpdateInput } from '@dtos/user/user-update.input';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma.service';
+import { UpdateUserInput } from './dto/update-user.input';
 
 @Injectable()
 export class UsersService {
@@ -35,14 +35,20 @@ export class UsersService {
   }
 
   async getShops(userId: number) {
-    const shops = await this.prismaService.usersOnShops.findMany({
+    const shops = [];
+    const res = await this.prismaService.usersOnShops.findMany({
       where: {
         userId,
       },
-      include: {
+      select: {
         shop: true,
-        user: true,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+    res.forEach(async (shop) => {
+      await shops.push(shop.shop);
     });
     return shops;
   }
@@ -56,9 +62,9 @@ export class UsersService {
     });
   }
 
-  async update(id: number, updateUserInput: UserUpdateInput) {
+  async update(updateUserInput: UpdateUserInput) {
     const updatedUser = await this.prismaService.user.update({
-      where: { id },
+      where: { id: updateUserInput.id },
       data: {
         ...updateUserInput,
       },

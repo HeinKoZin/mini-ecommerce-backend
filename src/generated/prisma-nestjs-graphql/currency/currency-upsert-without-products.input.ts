@@ -5,10 +5,9 @@ import { CurrencyCreateWithoutProductsInput } from './currency-create-without-pr
 
 @InputType()
 export class CurrencyUpsertWithoutProductsInput {
+  @Field(() => CurrencyUpdateWithoutProductsInput, { nullable: false })
+  update!: CurrencyUpdateWithoutProductsInput;
 
-    @Field(() => CurrencyUpdateWithoutProductsInput, {nullable:false})
-    update!: CurrencyUpdateWithoutProductsInput;
-
-    @Field(() => CurrencyCreateWithoutProductsInput, {nullable:false})
-    create!: CurrencyCreateWithoutProductsInput;
+  @Field(() => CurrencyCreateWithoutProductsInput, { nullable: false })
+  create!: CurrencyCreateWithoutProductsInput;
 }

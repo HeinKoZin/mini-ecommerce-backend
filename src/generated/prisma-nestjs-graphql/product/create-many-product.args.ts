@@ -4,10 +4,9 @@ import { ProductCreateManyInput } from './product-create-many.input';
 
 @ArgsType()
 export class CreateManyProductArgs {
+  @Field(() => [ProductCreateManyInput], { nullable: false })
+  data!: Array<ProductCreateManyInput>;
 
-    @Field(() => [ProductCreateManyInput], {nullable:false})
-    data!: Array<ProductCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

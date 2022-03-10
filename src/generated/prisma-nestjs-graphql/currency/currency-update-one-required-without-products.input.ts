@@ -8,19 +8,18 @@ import { CurrencyUpdateWithoutProductsInput } from './currency-update-without-pr
 
 @InputType()
 export class CurrencyUpdateOneRequiredWithoutProductsInput {
+  @Field(() => CurrencyCreateWithoutProductsInput, { nullable: true })
+  create?: CurrencyCreateWithoutProductsInput;
 
-    @Field(() => CurrencyCreateWithoutProductsInput, {nullable:true})
-    create?: CurrencyCreateWithoutProductsInput;
+  @Field(() => CurrencyCreateOrConnectWithoutProductsInput, { nullable: true })
+  connectOrCreate?: CurrencyCreateOrConnectWithoutProductsInput;
 
-    @Field(() => CurrencyCreateOrConnectWithoutProductsInput, {nullable:true})
-    connectOrCreate?: CurrencyCreateOrConnectWithoutProductsInput;
+  @Field(() => CurrencyUpsertWithoutProductsInput, { nullable: true })
+  upsert?: CurrencyUpsertWithoutProductsInput;
 
-    @Field(() => CurrencyUpsertWithoutProductsInput, {nullable:true})
-    upsert?: CurrencyUpsertWithoutProductsInput;
+  @Field(() => CurrencyWhereUniqueInput, { nullable: true })
+  connect?: CurrencyWhereUniqueInput;
 
-    @Field(() => CurrencyWhereUniqueInput, {nullable:true})
-    connect?: CurrencyWhereUniqueInput;
-
-    @Field(() => CurrencyUpdateWithoutProductsInput, {nullable:true})
-    update?: CurrencyUpdateWithoutProductsInput;
+  @Field(() => CurrencyUpdateWithoutProductsInput, { nullable: true })
+  update?: CurrencyUpdateWithoutProductsInput;
 }

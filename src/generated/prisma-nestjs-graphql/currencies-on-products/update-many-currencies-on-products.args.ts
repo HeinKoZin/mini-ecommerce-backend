@@ -5,10 +5,9 @@ import { CurrenciesOnProductsWhereInput } from './currencies-on-products-where.i
 
 @ArgsType()
 export class UpdateManyCurrenciesOnProductsArgs {
+  @Field(() => CurrenciesOnProductsUpdateManyMutationInput, { nullable: false })
+  data!: CurrenciesOnProductsUpdateManyMutationInput;
 
-    @Field(() => CurrenciesOnProductsUpdateManyMutationInput, {nullable:false})
-    data!: CurrenciesOnProductsUpdateManyMutationInput;
-
-    @Field(() => CurrenciesOnProductsWhereInput, {nullable:true})
-    where?: CurrenciesOnProductsWhereInput;
+  @Field(() => CurrenciesOnProductsWhereInput, { nullable: true })
+  where?: CurrenciesOnProductsWhereInput;
 }

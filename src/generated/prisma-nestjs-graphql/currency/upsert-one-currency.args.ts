@@ -6,13 +6,12 @@ import { CurrencyUpdateInput } from './currency-update.input';
 
 @ArgsType()
 export class UpsertOneCurrencyArgs {
+  @Field(() => CurrencyWhereUniqueInput, { nullable: false })
+  where!: CurrencyWhereUniqueInput;
 
-    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
-    where!: CurrencyWhereUniqueInput;
+  @Field(() => CurrencyCreateInput, { nullable: false })
+  create!: CurrencyCreateInput;
 
-    @Field(() => CurrencyCreateInput, {nullable:false})
-    create!: CurrencyCreateInput;
-
-    @Field(() => CurrencyUpdateInput, {nullable:false})
-    update!: CurrencyUpdateInput;
+  @Field(() => CurrencyUpdateInput, { nullable: false })
+  update!: CurrencyUpdateInput;
 }

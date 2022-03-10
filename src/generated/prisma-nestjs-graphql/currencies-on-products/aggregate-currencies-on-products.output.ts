@@ -8,19 +8,18 @@ import { CurrenciesOnProductsMaxAggregate } from './currencies-on-products-max-a
 
 @ObjectType()
 export class AggregateCurrenciesOnProducts {
+  @Field(() => CurrenciesOnProductsCountAggregate, { nullable: true })
+  _count?: CurrenciesOnProductsCountAggregate;
 
-    @Field(() => CurrenciesOnProductsCountAggregate, {nullable:true})
-    _count?: CurrenciesOnProductsCountAggregate;
+  @Field(() => CurrenciesOnProductsAvgAggregate, { nullable: true })
+  _avg?: CurrenciesOnProductsAvgAggregate;
 
-    @Field(() => CurrenciesOnProductsAvgAggregate, {nullable:true})
-    _avg?: CurrenciesOnProductsAvgAggregate;
+  @Field(() => CurrenciesOnProductsSumAggregate, { nullable: true })
+  _sum?: CurrenciesOnProductsSumAggregate;
 
-    @Field(() => CurrenciesOnProductsSumAggregate, {nullable:true})
-    _sum?: CurrenciesOnProductsSumAggregate;
+  @Field(() => CurrenciesOnProductsMinAggregate, { nullable: true })
+  _min?: CurrenciesOnProductsMinAggregate;
 
-    @Field(() => CurrenciesOnProductsMinAggregate, {nullable:true})
-    _min?: CurrenciesOnProductsMinAggregate;
-
-    @Field(() => CurrenciesOnProductsMaxAggregate, {nullable:true})
-    _max?: CurrenciesOnProductsMaxAggregate;
+  @Field(() => CurrenciesOnProductsMaxAggregate, { nullable: true })
+  _max?: CurrenciesOnProductsMaxAggregate;
 }

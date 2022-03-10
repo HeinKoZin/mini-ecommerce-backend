@@ -5,19 +5,18 @@ import { Float } from '@nestjs/graphql';
 
 @InputType()
 export class CurrenciesOnProductsCreateManyCurrencyInput {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
+  @Field(() => Float, { nullable: false })
+  sell_price!: number;
 
-    @Field(() => Float, {nullable:false})
-    sell_price!: number;
+  @Field(() => Int, { nullable: false })
+  productId!: number;
 
-    @Field(() => Int, {nullable:false})
-    productId!: number;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 }

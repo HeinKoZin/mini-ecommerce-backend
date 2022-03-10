@@ -4,19 +4,20 @@ import { CurrenciesOnProductsCreateNestedManyWithoutCurrencyInput } from '../cur
 
 @InputType()
 export class CurrencyCreateInput {
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+  @Field(() => String, { nullable: false })
+  code!: string;
 
-    @Field(() => String, {nullable:false})
-    code!: string;
+  @Field(() => CurrenciesOnProductsCreateNestedManyWithoutCurrencyInput, {
+    nullable: true,
+  })
+  products?: CurrenciesOnProductsCreateNestedManyWithoutCurrencyInput;
 
-    @Field(() => CurrenciesOnProductsCreateNestedManyWithoutCurrencyInput, {nullable:true})
-    products?: CurrenciesOnProductsCreateNestedManyWithoutCurrencyInput;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 }

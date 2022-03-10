@@ -4,10 +4,9 @@ import { ProductWhereInput } from './product-where.input';
 
 @InputType()
 export class ProductRelationFilter {
+  @Field(() => ProductWhereInput, { nullable: true })
+  is?: ProductWhereInput;
 
-    @Field(() => ProductWhereInput, {nullable:true})
-    is?: ProductWhereInput;
-
-    @Field(() => ProductWhereInput, {nullable:true})
-    isNot?: ProductWhereInput;
+  @Field(() => ProductWhereInput, { nullable: true })
+  isNot?: ProductWhereInput;
 }

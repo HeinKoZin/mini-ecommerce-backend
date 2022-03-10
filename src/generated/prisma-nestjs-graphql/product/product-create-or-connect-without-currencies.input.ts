@@ -5,10 +5,9 @@ import { ProductCreateWithoutCurrenciesInput } from './product-create-without-cu
 
 @InputType()
 export class ProductCreateOrConnectWithoutCurrenciesInput {
+  @Field(() => ProductWhereUniqueInput, { nullable: false })
+  where!: ProductWhereUniqueInput;
 
-    @Field(() => ProductWhereUniqueInput, {nullable:false})
-    where!: ProductWhereUniqueInput;
-
-    @Field(() => ProductCreateWithoutCurrenciesInput, {nullable:false})
-    create!: ProductCreateWithoutCurrenciesInput;
+  @Field(() => ProductCreateWithoutCurrenciesInput, { nullable: false })
+  create!: ProductCreateWithoutCurrenciesInput;
 }

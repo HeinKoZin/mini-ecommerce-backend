@@ -5,31 +5,30 @@ import { ProductStatus } from '../prisma/product-status.enum';
 
 @InputType()
 export class ProductUncheckedCreateWithoutCurrenciesInput {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+  @Field(() => String, { nullable: false })
+  description!: string;
 
-    @Field(() => String, {nullable:false})
-    description!: string;
+  @Field(() => Int, { nullable: false })
+  quantity!: number;
 
-    @Field(() => Int, {nullable:false})
-    quantity!: number;
+  @Field(() => String, { nullable: false })
+  product_code!: string;
 
-    @Field(() => String, {nullable:false})
-    product_code!: string;
+  @Field(() => ProductStatus, { nullable: false })
+  status!: keyof typeof ProductStatus;
 
-    @Field(() => ProductStatus, {nullable:false})
-    status!: keyof typeof ProductStatus;
+  @Field(() => Int, { nullable: false })
+  shopId!: number;
 
-    @Field(() => Int, {nullable:false})
-    shopId!: number;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 }

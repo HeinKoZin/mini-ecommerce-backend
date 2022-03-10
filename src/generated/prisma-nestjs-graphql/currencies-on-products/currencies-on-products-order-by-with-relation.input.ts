@@ -6,28 +6,27 @@ import { CurrencyOrderByWithRelationInput } from '../currency/currency-order-by-
 
 @InputType()
 export class CurrenciesOnProductsOrderByWithRelationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  sell_price?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    sell_price?: keyof typeof SortOrder;
+  @Field(() => ProductOrderByWithRelationInput, { nullable: true })
+  product?: ProductOrderByWithRelationInput;
 
-    @Field(() => ProductOrderByWithRelationInput, {nullable:true})
-    product?: ProductOrderByWithRelationInput;
+  @Field(() => CurrencyOrderByWithRelationInput, { nullable: true })
+  currency?: CurrencyOrderByWithRelationInput;
 
-    @Field(() => CurrencyOrderByWithRelationInput, {nullable:true})
-    currency?: CurrencyOrderByWithRelationInput;
+  @Field(() => SortOrder, { nullable: true })
+  productId?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    productId?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  currencyId?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    currencyId?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  createdAt?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  updatedAt?: keyof typeof SortOrder;
 }

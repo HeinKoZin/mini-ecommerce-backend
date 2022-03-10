@@ -4,16 +4,15 @@ import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class UsersOnShopsUncheckedCreateWithoutShopInput {
+  @Field(() => Int, { nullable: false })
+  userId!: number;
 
-    @Field(() => Int, {nullable:false})
-    userId!: number;
+  @Field(() => String, { nullable: false })
+  assignedby!: string;
 
-    @Field(() => String, {nullable:false})
-    assignedby!: string;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 }

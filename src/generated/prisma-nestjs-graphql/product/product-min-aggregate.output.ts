@@ -5,31 +5,30 @@ import { ProductStatus } from '../prisma/product-status.enum';
 
 @ObjectType()
 export class ProductMinAggregate {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
+  @Field(() => String, { nullable: true })
+  name?: string;
 
-    @Field(() => String, {nullable:true})
-    name?: string;
+  @Field(() => String, { nullable: true })
+  description?: string;
 
-    @Field(() => String, {nullable:true})
-    description?: string;
+  @Field(() => Int, { nullable: true })
+  quantity?: number;
 
-    @Field(() => Int, {nullable:true})
-    quantity?: number;
+  @Field(() => String, { nullable: true })
+  product_code?: string;
 
-    @Field(() => String, {nullable:true})
-    product_code?: string;
+  @Field(() => ProductStatus, { nullable: true })
+  status?: keyof typeof ProductStatus;
 
-    @Field(() => ProductStatus, {nullable:true})
-    status?: keyof typeof ProductStatus;
+  @Field(() => Int, { nullable: true })
+  shopId?: number;
 
-    @Field(() => Int, {nullable:true})
-    shopId?: number;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 }

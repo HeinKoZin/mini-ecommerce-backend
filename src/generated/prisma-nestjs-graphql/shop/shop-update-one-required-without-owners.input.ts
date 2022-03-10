@@ -8,19 +8,18 @@ import { ShopUpdateWithoutOwnersInput } from './shop-update-without-owners.input
 
 @InputType()
 export class ShopUpdateOneRequiredWithoutOwnersInput {
+  @Field(() => ShopCreateWithoutOwnersInput, { nullable: true })
+  create?: ShopCreateWithoutOwnersInput;
 
-    @Field(() => ShopCreateWithoutOwnersInput, {nullable:true})
-    create?: ShopCreateWithoutOwnersInput;
+  @Field(() => ShopCreateOrConnectWithoutOwnersInput, { nullable: true })
+  connectOrCreate?: ShopCreateOrConnectWithoutOwnersInput;
 
-    @Field(() => ShopCreateOrConnectWithoutOwnersInput, {nullable:true})
-    connectOrCreate?: ShopCreateOrConnectWithoutOwnersInput;
+  @Field(() => ShopUpsertWithoutOwnersInput, { nullable: true })
+  upsert?: ShopUpsertWithoutOwnersInput;
 
-    @Field(() => ShopUpsertWithoutOwnersInput, {nullable:true})
-    upsert?: ShopUpsertWithoutOwnersInput;
+  @Field(() => ShopWhereUniqueInput, { nullable: true })
+  connect?: ShopWhereUniqueInput;
 
-    @Field(() => ShopWhereUniqueInput, {nullable:true})
-    connect?: ShopWhereUniqueInput;
-
-    @Field(() => ShopUpdateWithoutOwnersInput, {nullable:true})
-    update?: ShopUpdateWithoutOwnersInput;
+  @Field(() => ShopUpdateWithoutOwnersInput, { nullable: true })
+  update?: ShopUpdateWithoutOwnersInput;
 }

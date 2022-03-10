@@ -5,10 +5,11 @@ import { CurrenciesOnProductsUpdateWithoutProductInput } from './currencies-on-p
 
 @InputType()
 export class CurrenciesOnProductsUpdateWithWhereUniqueWithoutProductInput {
+  @Field(() => CurrenciesOnProductsWhereUniqueInput, { nullable: false })
+  where!: CurrenciesOnProductsWhereUniqueInput;
 
-    @Field(() => CurrenciesOnProductsWhereUniqueInput, {nullable:false})
-    where!: CurrenciesOnProductsWhereUniqueInput;
-
-    @Field(() => CurrenciesOnProductsUpdateWithoutProductInput, {nullable:false})
-    data!: CurrenciesOnProductsUpdateWithoutProductInput;
+  @Field(() => CurrenciesOnProductsUpdateWithoutProductInput, {
+    nullable: false,
+  })
+  data!: CurrenciesOnProductsUpdateWithoutProductInput;
 }

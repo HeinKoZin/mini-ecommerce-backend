@@ -5,16 +5,15 @@ import { NestedEnumProductStatusFilter } from './nested-enum-product-status-filt
 
 @InputType()
 export class EnumProductStatusFilter {
+  @Field(() => ProductStatus, { nullable: true })
+  equals?: keyof typeof ProductStatus;
 
-    @Field(() => ProductStatus, {nullable:true})
-    equals?: keyof typeof ProductStatus;
+  @Field(() => [ProductStatus], { nullable: true })
+  in?: Array<keyof typeof ProductStatus>;
 
-    @Field(() => [ProductStatus], {nullable:true})
-    in?: Array<keyof typeof ProductStatus>;
+  @Field(() => [ProductStatus], { nullable: true })
+  notIn?: Array<keyof typeof ProductStatus>;
 
-    @Field(() => [ProductStatus], {nullable:true})
-    notIn?: Array<keyof typeof ProductStatus>;
-
-    @Field(() => NestedEnumProductStatusFilter, {nullable:true})
-    not?: NestedEnumProductStatusFilter;
+  @Field(() => NestedEnumProductStatusFilter, { nullable: true })
+  not?: NestedEnumProductStatusFilter;
 }

@@ -9,34 +9,33 @@ import { UsersOnShopsSumOrderByAggregateInput } from './users-on-shops-sum-order
 
 @InputType()
 export class UsersOnShopsOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  shopId?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    shopId?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  userId?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  assignedby?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    assignedby?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  createdAt?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  updatedAt?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
+  @Field(() => UsersOnShopsCountOrderByAggregateInput, { nullable: true })
+  _count?: UsersOnShopsCountOrderByAggregateInput;
 
-    @Field(() => UsersOnShopsCountOrderByAggregateInput, {nullable:true})
-    _count?: UsersOnShopsCountOrderByAggregateInput;
+  @Field(() => UsersOnShopsAvgOrderByAggregateInput, { nullable: true })
+  _avg?: UsersOnShopsAvgOrderByAggregateInput;
 
-    @Field(() => UsersOnShopsAvgOrderByAggregateInput, {nullable:true})
-    _avg?: UsersOnShopsAvgOrderByAggregateInput;
+  @Field(() => UsersOnShopsMaxOrderByAggregateInput, { nullable: true })
+  _max?: UsersOnShopsMaxOrderByAggregateInput;
 
-    @Field(() => UsersOnShopsMaxOrderByAggregateInput, {nullable:true})
-    _max?: UsersOnShopsMaxOrderByAggregateInput;
+  @Field(() => UsersOnShopsMinOrderByAggregateInput, { nullable: true })
+  _min?: UsersOnShopsMinOrderByAggregateInput;
 
-    @Field(() => UsersOnShopsMinOrderByAggregateInput, {nullable:true})
-    _min?: UsersOnShopsMinOrderByAggregateInput;
-
-    @Field(() => UsersOnShopsSumOrderByAggregateInput, {nullable:true})
-    _sum?: UsersOnShopsSumOrderByAggregateInput;
+  @Field(() => UsersOnShopsSumOrderByAggregateInput, { nullable: true })
+  _sum?: UsersOnShopsSumOrderByAggregateInput;
 }

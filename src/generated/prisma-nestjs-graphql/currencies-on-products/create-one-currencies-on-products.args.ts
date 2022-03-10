@@ -4,7 +4,6 @@ import { CurrenciesOnProductsCreateInput } from './currencies-on-products-create
 
 @ArgsType()
 export class CreateOneCurrenciesOnProductsArgs {
-
-    @Field(() => CurrenciesOnProductsCreateInput, {nullable:false})
-    data!: CurrenciesOnProductsCreateInput;
+  @Field(() => CurrenciesOnProductsCreateInput, { nullable: false })
+  data!: CurrenciesOnProductsCreateInput;
 }

@@ -4,7 +4,6 @@ import { UsersOnShopsWhereUniqueInput } from './users-on-shops-where-unique.inpu
 
 @ArgsType()
 export class FindUniqueUsersOnShopsArgs {
-
-    @Field(() => UsersOnShopsWhereUniqueInput, {nullable:false})
-    where!: UsersOnShopsWhereUniqueInput;
+  @Field(() => UsersOnShopsWhereUniqueInput, { nullable: false })
+  where!: UsersOnShopsWhereUniqueInput;
 }

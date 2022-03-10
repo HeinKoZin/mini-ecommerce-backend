@@ -4,7 +4,6 @@ import { CurrenciesOnProductsWhereUniqueInput } from './currencies-on-products-w
 
 @ArgsType()
 export class FindUniqueCurrenciesOnProductsArgs {
-
-    @Field(() => CurrenciesOnProductsWhereUniqueInput, {nullable:false})
-    where!: CurrenciesOnProductsWhereUniqueInput;
+  @Field(() => CurrenciesOnProductsWhereUniqueInput, { nullable: false })
+  where!: CurrenciesOnProductsWhereUniqueInput;
 }

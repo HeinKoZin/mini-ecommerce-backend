@@ -4,7 +4,6 @@ import { CurrencyWhereInput } from './currency-where.input';
 
 @ArgsType()
 export class DeleteManyCurrencyArgs {
-
-    @Field(() => CurrencyWhereInput, {nullable:true})
-    where?: CurrencyWhereInput;
+  @Field(() => CurrencyWhereInput, { nullable: true })
+  where?: CurrencyWhereInput;
 }
