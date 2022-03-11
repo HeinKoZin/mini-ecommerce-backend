@@ -1,22 +1,5 @@
-import { InputType, Field } from '@nestjs/graphql';
-import { Shop } from '@shops/entities/shop.entity';
+import { ShopCreateInput } from '@generated/prisma-nestjs-graphql/shop/shop-create.input';
+import { InputType } from '@nestjs/graphql';
 
 @InputType()
-export class CreateShopInput implements CreateShopInputType {
-  @Field(() => String, { description: 'Shop name field' })
-  name: string;
-
-  @Field(() => String, { description: 'Shop slug field' })
-  slug: string;
-
-  @Field(() => String, { description: 'Shop address field' })
-  address: string;
-
-  @Field(() => String, { description: 'Shop phone field' })
-  phone: string;
-}
-
-type CreateShopInputType = Omit<
-  Shop,
-  'id' | 'createdAt' | 'updatedAt' | 'products' | 'owners'
->;
+export class CreateShopInput extends ShopCreateInput {}

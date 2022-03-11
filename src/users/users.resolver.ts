@@ -10,9 +10,10 @@ import {
 import { UsersService } from './users.service';
 import { UserEntity } from './entities/user.entity';
 import { UserType } from '@generated/prisma-nestjs-graphql/prisma/user-type.enum';
-import { Shop } from '@generated/prisma-nestjs-graphql/shop/shop.model';
+// import { Shop } from '@generated/prisma-nestjs-graphql/shop/shop.model';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { ShopEntity } from '@shops/entities/shop.entity';
 
 @Resolver(() => UserEntity)
 export class UsersResolver {
@@ -33,7 +34,7 @@ export class UsersResolver {
     return await user.role;
   }
 
-  @ResolveField(() => [Shop])
+  @ResolveField(() => [ShopEntity])
   async shops(@Parent() user: UserEntity) {
     return await this.usersService.getShops(user.id);
   }

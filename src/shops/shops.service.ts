@@ -28,24 +28,29 @@ export class ShopsService {
   }
 
   async getOwners(shopId: number) {
-    // const owners = await this.prismaService.user.findMany({
-    //   where: {
-    //     shops: {
-    //       some: {
-    //         shopId: shopId,
-    //       },
-    //     },
-    //   },
-    // });
-    const owners = await this.prismaService.usersOnShops.findMany({
+    const owners = await this.prismaService.user.findMany({
       where: {
-        shopId: shopId,
-      },
-      include: {
-        user: true,
-        shop: true,
+        shops: {
+          some: {
+            shopId: shopId,
+          },
+        },
       },
     });
+    // const owners = [];
+    // const res = await this.prismaService.usersOnShops.findMany({
+    //   where: {
+    //     shopId: shopId,
+    //   },
+    //   include: {
+    //     user: true,
+    //     // shop: true,
+    //   },
+    // });
+    // res.forEach(async (owner) => {
+    //   await owners.push(owner.user);
+    // });
+    console.log(owners);
     return owners;
   }
 
@@ -89,11 +94,15 @@ export class ShopsService {
     return shop;
   }
 
-  update(id: number, updateShopInput: ShopUpdateInput) {
+  update(updateShopInput: ShopUpdateInput) {
+    console.log(updateShopInput);
     const updatedShop = this.prismaService.shop.update({
-      where: { id },
+      where: { id: 105 },
       data: {
         ...updateShopInput,
+      },
+      include: {
+        owners: true,
       },
     });
     return updatedShop;
