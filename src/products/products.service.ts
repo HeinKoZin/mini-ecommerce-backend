@@ -26,14 +26,22 @@ export class ProductsService {
     const products = await this.prismaService.product.findMany({
       include: {
         shop: true,
-        currencies: true,
+        currencies: {
+          include: {
+            currency: {
+              include: {
+                _count: true,
+              },
+            },
+          },
+        },
+        _count: true,
       },
       take,
       orderBy: {
         id: 'desc',
       },
     });
-    // console.log(products);
     return products;
   }
 
@@ -45,10 +53,13 @@ export class ProductsService {
         },
       },
       include: {
-        currency: true,
+        currency: {
+          include: {
+            _count: true,
+          },
+        },
       },
     });
-
     return currencies;
   }
 
@@ -58,10 +69,36 @@ export class ProductsService {
       include: {
         shop: true,
         currencies: true,
+        _count: true,
       },
     });
     // console.log(product);
     return product;
+  }
+
+  async getCounts(id: number) {
+    const counts = await this.prismaService.product.findMany({
+      where: {
+        id,
+      },
+      select: {
+        _count: true,
+      },
+    });
+    return counts[0]._count;
+  }
+
+  async getShop(productId: number) {
+    const shop = await this.prismaService.shop.findFirst({
+      where: {
+        products: {
+          some: {
+            id: productId,
+          },
+        },
+      },
+    });
+    return shop;
   }
 
   async update(id: number, updateProductInput: ProductUpdateInput) {

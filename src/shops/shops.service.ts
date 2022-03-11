@@ -36,6 +36,9 @@ export class ShopsService {
           },
         },
       },
+      include: {
+        _count: true,
+      },
     });
     // const owners = [];
     // const res = await this.prismaService.usersOnShops.findMany({
@@ -50,39 +53,47 @@ export class ShopsService {
     // res.forEach(async (owner) => {
     //   await owners.push(owner.user);
     // });
-    console.log(owners);
     return owners;
   }
 
   async getProducts(shopId: number) {
     const products = await this.prismaService.product.findMany({
       where: {
-        shopId: shopId,
+        shopId,
+      },
+      include: {
+        _count: true,
       },
     });
     return products;
   }
 
-  async findAll() {
+  async findAll(take = 10) {
     const shops = await this.prismaService.shop.findMany({
       include: {
         _count: true,
+        products: true,
+        owners: true,
+      },
+      take,
+      orderBy: {
+        createdAt: 'desc',
       },
     });
     return shops;
   }
 
-  async getCounts(shopId: number) {
-    const counts = await this.prismaService.shop.findMany({
-      where: {
-        id: shopId,
-      },
-      select: {
-        _count: true,
-      },
-    });
-    return counts[0]._count;
-  }
+  // async getCounts(shopId: number) {
+  //   const counts = await this.prismaService.shop.findMany({
+  //     where: {
+  //       id: shopId,
+  //     },
+  //     select: {
+  //       _count: true,
+  //     },
+  //   });
+  //   return counts[0]._count;
+  // }
 
   async findOne(id: number) {
     const shop = await this.prismaService.shop.findUnique({

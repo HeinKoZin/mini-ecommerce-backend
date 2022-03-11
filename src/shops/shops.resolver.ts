@@ -16,8 +16,9 @@ import { ShopCreateInput } from '@dtos/shop/shop-create.input';
 import { ShopUpdateInput } from '@dtos/shop/shop-update.input';
 import { ShopEntity } from './entities/shop.entity';
 import { UserEntity } from '@users/entities/user.entity';
-import { Product } from '@generated/prisma-nestjs-graphql/product/product.model';
+// import { Product } from '@generated/prisma-nestjs-graphql/product/product.model';
 import { ShopCount } from '@generated/prisma-nestjs-graphql/shop/shop-count.output';
+import { ProductEntity } from '@products/entities/product.entity';
 
 @Resolver(() => ShopEntity)
 export class ShopsResolver {
@@ -32,24 +33,24 @@ export class ShopsResolver {
   }
 
   @Query(() => [ShopEntity], { name: 'shops' })
-  findAll() {
-    return this.shopsService.findAll();
+  findAll(@Args('take', { type: () => Int, nullable: true }) take?: number) {
+    return this.shopsService.findAll(take);
   }
 
   @ResolveField(() => [UserEntity])
   async owners(@Parent() shop: ShopEntity) {
     return await this.shopsService.getOwners(shop.id);
+    // return shop.owners;
   }
 
-  @ResolveField(() => Product)
+  @ResolveField(() => [ProductEntity])
   async products(@Parent() shop: ShopEntity) {
-    return await this.shopsService.getProducts(shop.id);
+    return shop.products || (await this.shopsService.getProducts(shop.id));
   }
 
   @ResolveField(() => ShopCount)
   async _count(@Parent() shop: ShopEntity) {
-    console.log('Count on shop', shop);
-    return await this.shopsService.getCounts(shop.id);
+    return shop._count;
   }
 
   @Query(() => ShopEntity, { name: 'shop' })
