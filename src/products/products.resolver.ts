@@ -52,7 +52,6 @@ export class ProductsResolver {
 
   @ResolveField(() => ShopEntity)
   async shop(@Parent() product: ProductEntity) {
-    console.log('product.shopId', product.shopId);
     return await this.productsService.getShop(product.id);
   }
 
