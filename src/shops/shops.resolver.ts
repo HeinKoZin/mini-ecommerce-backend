@@ -44,8 +44,11 @@ export class ShopsResolver {
   }
 
   @ResolveField(() => [ProductEntity])
-  async products(@Parent() shop: ShopEntity) {
-    return shop.products || (await this.shopsService.getProducts(shop.id));
+  async products(
+    @Parent() shop: ShopEntity,
+    @Args('take', { type: () => Int, nullable: true }) take?: number,
+  ) {
+    return await this.shopsService.getProducts(shop.id, take);
   }
 
   @ResolveField(() => ShopCount)

@@ -56,7 +56,7 @@ export class ShopsService {
     return owners;
   }
 
-  async getProducts(shopId: number) {
+  async getProducts(shopId: number, take: number) {
     const products = await this.prismaService.product.findMany({
       where: {
         shopId,
@@ -64,6 +64,7 @@ export class ShopsService {
       include: {
         _count: true,
       },
+      take,
     });
     return products;
   }
@@ -72,8 +73,8 @@ export class ShopsService {
     const shops = await this.prismaService.shop.findMany({
       include: {
         _count: true,
-        products: true,
-        owners: true,
+        // products: true,
+        // owners: true,
       },
       take,
       orderBy: {
