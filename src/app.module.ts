@@ -8,6 +8,7 @@ import { TestModule } from './test/test.module';
 import { UsersModule } from './users/users.module';
 import { ShopsModule } from './shops/shops.module';
 import { ProductsModule } from './products/products.module';
+import { WishlistsModule } from './wishlists/wishlists.module';
 
 @Global()
 @Module({
@@ -20,6 +21,7 @@ import { ProductsModule } from './products/products.module';
     UsersModule,
     ShopsModule,
     ProductsModule,
+    WishlistsModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

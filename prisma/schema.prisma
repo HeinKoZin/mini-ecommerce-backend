@@ -19,6 +19,12 @@ generator nestgraphql {
 }
 
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+  output = "./dbml"
+}
+
+
 model User {
   id          Int @id @default(autoincrement())
   /// @Validator.MinLength(3)
@@ -28,6 +34,7 @@ model User {
   password    String
   role        UserType @default(value: USER)
   shops       UsersOnShops[]
+  wishlists   UsersOnWishlists[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -50,7 +57,8 @@ model Product {
   shop         Shop          @relation(fields: [shopId], references: [id])
   status       ProductStatus
   shopId       Int
-  currencies   CurrenciesOnProducts[]     
+  currencies   CurrenciesOnProducts[]  
+  wishlistedBy UsersOnWishlists[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
@@ -119,4 +127,16 @@ model UsersOnShops{
   @@id([shopId, userId])
 }
 
+model UsersOnWishlists {
+  id        Int       @unique @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id])
+  product   Product   @relation(fields: [productId], references: [id])
+  userId    Int
+  productId Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
+  @@map("wish_lists")
+  @@index([userId, productId])
+  @@id([id, userId, productId])
+}
