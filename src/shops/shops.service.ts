@@ -1,13 +1,13 @@
-import { ShopCreateInput } from '@generated/prisma-nestjs-graphql/shop/shop-create.input';
-import { ShopUpdateInput } from '@generated/prisma-nestjs-graphql/shop/shop-update.input';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma.service';
+import { CreateShopInput } from './dto/create-shop.input';
+import { UpdateShopInput } from './dto/update-shop.input';
 
 @Injectable()
 export class ShopsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(createShopInput: ShopCreateInput, ownerId: number) {
+  async create(createShopInput: CreateShopInput, ownerId: number) {
     const createdShop = await this.prismaService.shop.create({
       data: {
         ...createShopInput,
@@ -106,10 +106,9 @@ export class ShopsService {
     return shop;
   }
 
-  update(updateShopInput: ShopUpdateInput) {
-    console.log(updateShopInput);
+  update(updateShopInput: UpdateShopInput) {
     const updatedShop = this.prismaService.shop.update({
-      where: { id: 105 },
+      where: { id: updateShopInput.id },
       data: {
         ...updateShopInput,
       },

@@ -14,10 +14,15 @@ import { UserType } from '@generated/prisma-nestjs-graphql/prisma/user-type.enum
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { ShopEntity } from '@shops/entities/shop.entity';
+import { Wishlist } from '@wishlists/entities/wishlist.entity';
+import { WishlistsService } from '@wishlists/wishlists.service';
 
 @Resolver(() => UserEntity)
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly wishlistService: WishlistsService,
+  ) {}
 
   @Mutation(() => UserEntity)
   createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
@@ -37,6 +42,11 @@ export class UsersResolver {
   @ResolveField(() => [ShopEntity])
   async shops(@Parent() user: UserEntity) {
     return await this.usersService.getShops(user.id);
+  }
+
+  @ResolveField(() => [Wishlist])
+  async wishlists(@Parent() user: UserEntity) {
+    return await this.wishlistService.findAll(user.id);
   }
 
   @Query(() => UserEntity, { name: 'user' })

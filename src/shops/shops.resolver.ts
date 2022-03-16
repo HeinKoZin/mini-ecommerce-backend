@@ -8,17 +8,12 @@ import {
   ResolveField,
 } from '@nestjs/graphql';
 import { ShopsService } from './shops.service';
-// import { Shop } from './entities/shop.entity';
-// import { CreateShopInput } from './dto/create-shop.input';
-// import { UpdateShopInput } from './dto/update-shop.input';
-// import { Shop } from '@dtos/shop/shop.model';
-import { ShopCreateInput } from '@dtos/shop/shop-create.input';
-import { ShopUpdateInput } from '@dtos/shop/shop-update.input';
 import { ShopEntity } from './entities/shop.entity';
 import { UserEntity } from '@users/entities/user.entity';
-// import { Product } from '@generated/prisma-nestjs-graphql/product/product.model';
 import { ShopCount } from '@generated/prisma-nestjs-graphql/shop/shop-count.output';
 import { ProductEntity } from '@products/entities/product.entity';
+import { UpdateShopInput } from './dto/update-shop.input';
+import { CreateShopInput } from './dto/create-shop.input';
 
 @Resolver(() => ShopEntity)
 export class ShopsResolver {
@@ -26,7 +21,7 @@ export class ShopsResolver {
 
   @Mutation(() => ShopEntity)
   createShop(
-    @Args('createShopInput') createShopInput: ShopCreateInput,
+    @Args('createShopInput') createShopInput: CreateShopInput,
     @Args('ownerId') ownerId: number,
   ) {
     return this.shopsService.create(createShopInput, ownerId);
@@ -62,7 +57,7 @@ export class ShopsResolver {
   }
 
   @Mutation(() => ShopEntity)
-  updateShop(@Args('updateShopInput') updateShopInput: ShopUpdateInput) {
+  updateShop(@Args('updateShopInput') updateShopInput: UpdateShopInput) {
     return this.shopsService.update(updateShopInput);
   }
 

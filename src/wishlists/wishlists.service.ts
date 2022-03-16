@@ -1,4 +1,3 @@
-import { Query } from '@nestjs/graphql';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma.service';
 import { UsersService } from '@users/users.service';
@@ -21,29 +20,32 @@ export class WishlistsService {
         },
       });
 
-    if (checkExistingWishlist) {
-      throw new Error('Wishlist already exists');
-    } else {
-      const wishlist = await this.prismaService.usersOnWishlists.create({
-        data: {
-          user: {
-            connect: {
-              id: createWishlistInput.user.connect.id,
+    checkExistingWishlist
+      ? () => {
+          throw new Error('Wishlist already exists');
+        }
+      : await this.prismaService.usersOnWishlists.create({
+          data: {
+            user: {
+              connect: {
+                id: createWishlistInput.user.connect.id,
+              },
+            },
+            product: {
+              connect: {
+                id: createWishlistInput.product.connect.id,
+              },
             },
           },
-          product: {
-            connect: {
-              id: createWishlistInput.product.connect.id,
-            },
-          },
-        },
-      });
-      return wishlist;
-    }
+        });
   }
 
-  async findAll() {
-    const allWishlists = await this.prismaService.usersOnWishlists.findMany({});
+  async findAll(userId?: number) {
+    const allWishlists = await this.prismaService.usersOnWishlists.findMany({
+      where: {
+        userId,
+      },
+    });
     return allWishlists;
   }
 
@@ -63,28 +65,27 @@ export class WishlistsService {
 
   async update(id: number, updateWishlistInput: UpdateWishlistInput) {
     const wishlist = await this.findOne(id);
-    if (wishlist) {
-      const updatedWishlist = await this.prismaService.usersOnWishlists.update({
-        where: {
-          id,
-        },
-        data: {
-          user: {
-            connect: {
-              id: updateWishlistInput.user.connect.id,
+    wishlist
+      ? await this.prismaService.usersOnWishlists.update({
+          where: {
+            id,
+          },
+          data: {
+            user: {
+              connect: {
+                id: updateWishlistInput.user.connect.id,
+              },
+            },
+            product: {
+              connect: {
+                id: updateWishlistInput.product.connect.id,
+              },
             },
           },
-          product: {
-            connect: {
-              id: updateWishlistInput.product.connect.id,
-            },
-          },
-        },
-      });
-      return updatedWishlist;
-    } else {
-      throw new Error('Wishlist does not exist');
-    }
+        })
+      : () => {
+          throw new Error('Wishlist not found');
+        };
   }
 
   async remove(id: number) {

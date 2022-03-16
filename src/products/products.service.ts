@@ -45,6 +45,19 @@ export class ProductsService {
     return products;
   }
 
+  async getProductsByUserWishlist(userId: number) {
+    const products = await this.prismaService.product.findFirst({
+      where: {
+        wishlistedBy: {
+          some: {
+            id: userId,
+          },
+        },
+      },
+    });
+    return products;
+  }
+
   async getCurrencies(productId: number) {
     const currencies = await this.prismaService.currenciesOnProducts.findMany({
       where: {
