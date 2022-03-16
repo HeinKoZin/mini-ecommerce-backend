@@ -9,6 +9,8 @@ import { UsersModule } from './users/users.module';
 import { ShopsModule } from './shops/shops.module';
 import { ProductsModule } from './products/products.module';
 import { WishlistsModule } from './wishlists/wishlists.module';
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
 
 @Global()
 @Module({
@@ -22,9 +24,10 @@ import { WishlistsModule } from './wishlists/wishlists.module';
     ShopsModule,
     ProductsModule,
     WishlistsModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService, PrismaService, AuthService],
   exports: [PrismaService],
 })
 export class AppModule {}

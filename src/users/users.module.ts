@@ -5,5 +5,6 @@ import { WishlistsService } from '@wishlists/wishlists.service';
 
 @Module({
   providers: [UsersResolver, UsersService, WishlistsService],
+  exports: [UsersService],
 })
 export class UsersModule {}
