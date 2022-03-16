@@ -8,7 +8,7 @@ import { UpdateWishlistInput } from './dto/update-wishlist.input';
 export class WishlistsService {
   constructor(
     private readonly prismaService: PrismaService,
-    private readonly userService: UsersService,
+    private readonly usersService: UsersService,
   ) {}
 
   async create(createWishlistInput: CreateWishlistInput) {
@@ -47,11 +47,6 @@ export class WishlistsService {
       },
     });
     return allWishlists;
-  }
-
-  async getUser(userId: number) {
-    const user = await this.userService.findOne(userId);
-    return user;
   }
 
   async findOne(id: number) {

@@ -14,12 +14,14 @@ import { UpdateWishlistInput } from './dto/update-wishlist.input';
 import { UserEntity } from '@users/entities/user.entity';
 import { ProductEntity } from '@products/entities/product.entity';
 import { ProductsService } from '@products/products.service';
+import { UsersService } from '@users/users.service';
 
 @Resolver(() => Wishlist)
 export class WishlistsResolver {
   constructor(
     private readonly wishlistsService: WishlistsService,
     private readonly productsService: ProductsService,
+    private readonly usersService: UsersService,
   ) {}
 
   @Mutation(() => Wishlist)
@@ -36,12 +38,11 @@ export class WishlistsResolver {
 
   @ResolveField(() => UserEntity)
   async user(@Parent() wishlist: Wishlist) {
-    return await this.wishlistsService.getUser(wishlist.userId);
+    return await this.usersService.findOne(wishlist.userId);
   }
 
   @ResolveField(() => ProductEntity)
   async product(@Parent() wishlist: Wishlist) {
-    console.log(wishlist);
     return await this.productsService.findOne(wishlist.productId);
   }
 
