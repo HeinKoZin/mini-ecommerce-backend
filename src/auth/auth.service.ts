@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from '@users/entities/user.entity';
 import { UsersService } from '@users/users.service';
 import { LoginResponse } from './dto/login-response';
@@ -6,7 +7,10 @@ import { LoginResponse } from './dto/login-response';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+  ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.usersService.findOneByEmail(email);
@@ -20,7 +24,7 @@ export class AuthService {
   async login(user: UserEntity): Promise<LoginResponse> {
     // const user = await this.usersService.findOneByEmail(loginUserInput.email);
     return {
-      token: 'fake-token',
+      token: this.jwtService.sign({ userId: user.id, sub: user.email }),
       user,
     };
   }
