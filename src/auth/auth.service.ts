@@ -24,7 +24,7 @@ export class AuthService {
   async login(user: UserEntity): Promise<LoginResponse> {
     // const user = await this.usersService.findOneByEmail(loginUserInput.email);
     return {
-      token: this.jwtService.sign({ userId: user.id, sub: user.email }),
+      token: this.jwtService.sign({ email: user.email, sub: user.id }),
       user,
     };
   }

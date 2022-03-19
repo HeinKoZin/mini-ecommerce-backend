@@ -16,6 +16,8 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { ShopEntity } from '@shops/entities/shop.entity';
 import { Wishlist } from '@wishlists/entities/wishlist.entity';
 import { WishlistsService } from '@wishlists/wishlists.service';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '@auth/jwt-auth.guard';
 
 @Resolver(() => UserEntity)
 export class UsersResolver {
@@ -30,6 +32,7 @@ export class UsersResolver {
   }
 
   @Query(() => [UserEntity], { name: 'users' })
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.usersService.findAll();
   }
