@@ -7,19 +7,26 @@ import { UpdateShopInput } from './dto/update-shop.input';
 export class ShopsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(createShopInput: CreateShopInput, ownerId: number) {
+  async create(createShopInput: CreateShopInput) {
     const createdShop = await this.prismaService.shop.create({
       data: {
         ...createShopInput,
       },
+      include: {
+        owners: true,
+      },
+    });
+
+    const owner = await this.prismaService.user.findUnique({
+      where: { id: createdShop.owners[0].userId },
     });
 
     createdShop
       ? await this.prismaService.usersOnShops.create({
           data: {
             shopId: createdShop.id,
-            userId: ownerId,
-            assignedby: 'Hein Ko Zin',
+            userId: createdShop.owners[0].userId,
+            assignedby: owner.name,
           },
         })
       : null;
@@ -74,7 +81,7 @@ export class ShopsService {
       include: {
         _count: true,
         // products: true,
-        // owners: true,
+        owners: true,
       },
       take,
       orderBy: {
@@ -83,18 +90,6 @@ export class ShopsService {
     });
     return shops;
   }
-
-  // async getCounts(shopId: number) {
-  //   const counts = await this.prismaService.shop.findMany({
-  //     where: {
-  //       id: shopId,
-  //     },
-  //     select: {
-  //       _count: true,
-  //     },
-  //   });
-  //   return counts[0]._count;
-  // }
 
   async findOne(id: number) {
     const shop = await this.prismaService.shop.findUnique({
@@ -106,8 +101,8 @@ export class ShopsService {
     return shop;
   }
 
-  update(updateShopInput: UpdateShopInput) {
-    const updatedShop = this.prismaService.shop.update({
+  async update(updateShopInput: UpdateShopInput) {
+    const updatedShop = await this.prismaService.shop.update({
       where: { id: updateShopInput.id },
       data: {
         ...updateShopInput,
@@ -119,8 +114,8 @@ export class ShopsService {
     return updatedShop;
   }
 
-  remove(id: number) {
-    const removedShop = this.prismaService.shop.delete({
+  async remove(id: number) {
+    const removedShop = await this.prismaService.shop.delete({
       where: { id },
     });
     return removedShop;

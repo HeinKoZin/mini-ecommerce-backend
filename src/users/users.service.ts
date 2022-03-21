@@ -15,62 +15,67 @@ export class UsersService {
       where: { email: createUserInput.email },
     });
 
-    if (user) {
-      throw new Error('User already exists');
-    } else {
-      const createdUser = await this.prismaService.user.create({
-        data: {
-          ...createUserInput,
-        },
-      });
-      return createdUser;
-    }
+    user
+      ? () => {
+          throw new Error('User already exists');
+        }
+      : async () => {
+          const createdUser = await this.prismaService.user.create({
+            data: {
+              ...createUserInput,
+            },
+          });
+          return createdUser;
+        };
   }
 
-  async findAll() {
+  async findAll(take = 10) {
     const users = await this.prismaService.user.findMany({
       include: {
         _count: true,
       },
+      take,
     });
     return users;
   }
 
-  async getShops(userId: number) {
-    const shops = [];
-    const res = await this.prismaService.usersOnShops.findMany({
+  async getShops(ownerId: number, take = 10) {
+    const shops = await this.prismaService.shop.findMany({
       where: {
-        userId,
+        owners: {
+          some: {
+            userId: ownerId,
+          },
+        },
       },
-      select: {
-        shop: true,
+      include: {
+        _count: true,
+        // products: true,
+        // owners: true,
       },
       orderBy: {
         createdAt: 'desc',
       },
-    });
-    res.forEach(async (shop) => {
-      await shops.push(shop.shop);
+      take,
     });
     return shops;
   }
 
   async findOne(id: number) {
-    return await this.prismaService.user.findUnique({
+    const shop = await this.prismaService.user.findUnique({
       where: { id },
       include: {
         _count: true,
       },
     });
+    return shop;
   }
 
   async findOneByEmail(email: string) {
-    return await this.prismaService.user.findUnique({
+    const user = await this.prismaService.user.findUnique({
       where: { email },
-      include: {
-        _count: true,
-      },
     });
+    return user;
   }
 
   async update(updateUserInput: UpdateUserInput) {
@@ -83,7 +88,10 @@ export class UsersService {
     return updatedUser;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    const deletedUser = await this.prismaService.user.delete({
+      where: { id },
+    });
+    return deletedUser;
   }
 }

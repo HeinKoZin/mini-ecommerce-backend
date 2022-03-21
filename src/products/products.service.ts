@@ -8,6 +8,7 @@ import { PrismaService } from '@prisma.service';
 @Injectable()
 export class ProductsService {
   constructor(private readonly prismaService: PrismaService) {}
+
   async create(createProductInput: ProductCreateInput) {
     console.log(createProductInput);
     const createdProduct = await this.prismaService.product.create({
@@ -110,6 +111,9 @@ export class ProductsService {
           },
         },
       },
+      include: {
+        _count: true,
+      },
     });
     return shop;
   }
@@ -124,8 +128,8 @@ export class ProductsService {
     return updatedProduct;
   }
 
-  remove(id: number) {
-    const removedProduct = this.prismaService.product.delete({
+  async remove(id: number) {
+    const removedProduct = await this.prismaService.product.delete({
       where: { id },
     });
     return removedProduct;

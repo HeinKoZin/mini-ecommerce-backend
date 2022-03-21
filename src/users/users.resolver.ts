@@ -27,24 +27,29 @@ export class UsersResolver {
   ) {}
 
   @Mutation(() => UserEntity)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.create(createUserInput);
+  async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
+    return await this.usersService.create(createUserInput);
   }
 
   @Query(() => [UserEntity], { name: 'users' })
   @UseGuards(JwtAuthGuard)
-  findAll() {
-    return this.usersService.findAll();
+  async findAll(
+    @Args('take', { type: () => Int, nullable: true }) take?: number,
+  ) {
+    return await this.usersService.findAll(take);
   }
 
-  @ResolveField(() => UserType)
-  async role(@Parent() user: UserEntity) {
-    return await user.role;
-  }
+  // @ResolveField(() => UserType)
+  // async role(@Parent() user: UserEntity) {
+  //   return await user.role;
+  // }
 
   @ResolveField(() => [ShopEntity])
-  async shops(@Parent() user: UserEntity) {
-    return await this.usersService.getShops(user.id);
+  async shops(
+    @Parent() user: UserEntity,
+    @Args('take', { type: () => Int, nullable: true }) take?: number,
+  ) {
+    return await this.usersService.getShops(user.id, take);
   }
 
   @ResolveField(() => [Wishlist])
@@ -53,17 +58,17 @@ export class UsersResolver {
   }
 
   @Query(() => UserEntity, { name: 'user' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.usersService.findOne(id);
+  async findOne(@Args('id', { type: () => Int }) id: number) {
+    return await this.usersService.findOne(id);
   }
 
   @Mutation(() => UserEntity)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput);
+  async updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
+    return await this.usersService.update(updateUserInput);
   }
 
   @Mutation(() => UserEntity)
-  removeUser(@Args('id', { type: () => Int }) id: number) {
-    return this.usersService.remove(id);
+  async removeUser(@Args('id', { type: () => Int }) id: number) {
+    return await this.usersService.remove(id);
   }
 }
