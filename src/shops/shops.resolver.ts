@@ -13,17 +13,22 @@ import { UserEntity } from '@users/entities/user.entity';
 import { ProductEntity } from '@products/entities/product.entity';
 import { UpdateShopInput } from './dto/update-shop.input';
 import { CreateShopInput } from './dto/create-shop.input';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '@auth/jwt-auth.guard';
+import { CurrentUser } from '@current-user.decorator';
+import { CurrentUserEntity } from '@users/entities/current-user.entity';
 
 @Resolver(() => ShopEntity)
 export class ShopsResolver {
   constructor(private readonly shopsService: ShopsService) {}
 
   @Mutation(() => ShopEntity)
+  @UseGuards(JwtAuthGuard)
   createShop(
     @Args('createShopInput') createShopInput: CreateShopInput,
-    @Args('ownerId', { nullable: true }) ownerId: number,
+    @CurrentUser() user: CurrentUserEntity,
   ) {
-    return this.shopsService.create(createShopInput);
+    return this.shopsService.create(createShopInput, user);
   }
 
   @Query(() => [ShopEntity], { name: 'shops' })

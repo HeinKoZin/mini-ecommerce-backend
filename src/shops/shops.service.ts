@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma.service';
+import { CurrentUserEntity } from '@users/entities/current-user.entity';
 import { CreateShopInput } from './dto/create-shop.input';
 import { UpdateShopInput } from './dto/update-shop.input';
 
@@ -7,7 +8,8 @@ import { UpdateShopInput } from './dto/update-shop.input';
 export class ShopsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(createShopInput: CreateShopInput) {
+  async create(createShopInput: CreateShopInput, user: CurrentUserEntity) {
+    // Fist create the shop
     const createdShop = await this.prismaService.shop.create({
       data: {
         ...createShopInput,
@@ -17,20 +19,20 @@ export class ShopsService {
       },
     });
 
-    const owner = await this.prismaService.user.findUnique({
-      where: { id: createdShop.owners[0].userId },
-    });
-
+    // Then connect user on shop
     createdShop
       ? await this.prismaService.usersOnShops.create({
+          // create ralation on usersOnShops table
+
           data: {
+            userId: user.id,
             shopId: createdShop.id,
-            userId: createdShop.owners[0].userId,
-            assignedby: owner.name,
+            assignedby: user.name,
           },
         })
       : null;
 
+    // And then return created shop
     return createdShop;
   }
 
