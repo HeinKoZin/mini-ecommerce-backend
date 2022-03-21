@@ -100,15 +100,15 @@ enum ProductStatus {
 }
 
 model Shop {
-  id        Int       @id @unique @default(autoincrement())
-  name      String
-  slug      String    @unique
-  address   String?
-  phone     String    @unique
-  products  Product[]
-  owners    UsersOnShops[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id                Int       @id @unique @default(autoincrement())
+  name              String
+  slug              String    @unique
+  address           String?
+  phone_numbers     PhoneOnShops[]    
+  products          Product[]
+  owners            UsersOnShops[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 
   @@map("shops")
   @@index([name, id])
@@ -128,6 +128,7 @@ model UsersOnShops{
   @@id([shopId, userId])
 }
 
+
 model UsersOnWishlists {
   id        Int       @unique @default(autoincrement())
   user      User      @relation(fields: [userId], references: [id])
@@ -140,4 +141,21 @@ model UsersOnWishlists {
   @@map("wish_lists")
   @@index([userId, productId])
   @@id([id, userId, productId])
+}
+
+
+
+
+
+model PhoneOnShops {
+  id        Int       @unique @default(autoincrement())
+  shop      Shop      @relation(fields: [shopId], references: [id])
+  phone     String
+  shopId    Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("phone_on_shops")
+  @@index([shopId, id])
+  @@id([id, shopId])
 }

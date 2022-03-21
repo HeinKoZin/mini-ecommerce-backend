@@ -17,6 +17,7 @@ import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '@auth/jwt-auth.guard';
 import { CurrentUser } from '@current-user.decorator';
 import { CurrentUserEntity } from '@users/entities/current-user.entity';
+import { PhoneOnShops } from '@generated/prisma-nestjs-graphql/phone-on-shops/phone-on-shops.model';
 
 @Resolver(() => ShopEntity)
 export class ShopsResolver {
@@ -49,9 +50,11 @@ export class ShopsResolver {
     return await this.shopsService.getProducts(shop.id, take);
   }
 
-  @Query(() => ShopEntity, { name: 'shop' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.shopsService.findOne(id);
+  @ResolveField(() => [PhoneOnShops])
+  async phone_numbers(@Parent() shop: ShopEntity) {
+    return (
+      shop.phone_numbers || (await this.shopsService.getPhoneNumbers(shop.id))
+    );
   }
 
   @Mutation(() => ShopEntity)

@@ -78,12 +78,27 @@ export class ShopsService {
     return products;
   }
 
+  async getPhoneNumbers(shopId: number) {
+    const phoneNumbers = [];
+    const res = await this.prismaService.phoneOnShops.findMany({
+      where: {
+        shopId,
+      },
+    });
+    res.forEach(async (phone) => {
+      await phoneNumbers.push(phone);
+    });
+    console.log(phoneNumbers);
+    return phoneNumbers;
+  }
+
   async findAll(take = 10) {
     const shops = await this.prismaService.shop.findMany({
       include: {
         _count: true,
         // products: true,
         owners: true,
+        phone_numbers: true,
       },
       take,
       orderBy: {

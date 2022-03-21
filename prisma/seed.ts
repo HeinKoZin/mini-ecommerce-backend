@@ -27,7 +27,7 @@ const generateShop = () => {
   return {
     name: faker.company.companyName(),
     address: faker.address.streetAddress(),
-    phone: faker.phone.phoneNumber('+95 ## ### ####'),
+    phone_numbers: faker.phone.phoneNumber(),
     // generate unique company name without spaces
     slug: faker.company
       .companyName()
@@ -83,13 +83,13 @@ const seedShops = async () => {
     {
       name: 'Kay Kay',
       address: 'No.253, St.51, Botahtaung',
-      phone: '0941097449',
+      // phone: '0941097449',
       slug: 'kaykay',
     },
     {
       name: 'Hein Hein',
       address: 'No.253, St.51, Botahtaung',
-      phone: '09950668891',
+      // phone: '09950668891',
       slug: 'heinhein',
     },
   ];
