@@ -1,5 +1,5 @@
 import { UserCreateInput } from '@dtos/user/user-create.input';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma.service';
 // import { LoginResponse } from './dto/login-response';
 // import { LoginUserInput } from '../auth/dto/login-user.input';
@@ -15,18 +15,21 @@ export class UsersService {
       where: { email: createUserInput.email },
     });
 
-    user
-      ? () => {
-          throw new Error('User already exists');
-        }
-      : async () => {
-          const createdUser = await this.prismaService.user.create({
-            data: {
-              ...createUserInput,
-            },
-          });
-          return createdUser;
-        };
+    // if user exists return error message
+    if (user) {
+      throw new HttpException('User already exists', 400);
+    } else {
+      const createdUser = await this.prismaService.user.create({
+        data: {
+          ...createUserInput,
+        },
+        include: {
+          _count: true,
+        },
+      });
+
+      return createdUser;
+    }
   }
 
   async findAll(take = 10) {

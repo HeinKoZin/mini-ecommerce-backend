@@ -39,10 +39,10 @@ export class UsersResolver {
     return await this.usersService.findAll(take);
   }
 
-  // @ResolveField(() => UserType)
-  // async role(@Parent() user: UserEntity) {
-  //   return await user.role;
-  // }
+  @ResolveField(() => UserType)
+  async role(@Parent() user: UserEntity) {
+    return await user.role;
+  }
 
   @ResolveField(() => [ShopEntity])
   async shops(

@@ -37,10 +37,7 @@ export class ProductsResolver {
 
   @ResolveField(() => [CurrenciesOnProducts])
   async currencies(@Parent() product: ProductEntity) {
-    return (
-      product.currencies ||
-      (await this.productsService.getCurrencies(product.id))
-    );
+    return await this.productsService.getCurrencies(product.id);
   }
 
   @ResolveField(() => ProductCount)

@@ -3,6 +3,6 @@ import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
 export class CreateProductInput extends ProductCreateInput {
-  @Field(() => Int, { description: 'Product id field' })
+  @Field(() => Int, { description: 'Product id field', nullable: true })
   id?: number;
 }

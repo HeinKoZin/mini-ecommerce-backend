@@ -86,7 +86,6 @@ export class ProductsService {
         _count: true,
       },
     });
-    // console.log(product);
     return product;
   }
 
