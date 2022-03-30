@@ -10,14 +10,13 @@ import {
 import { UsersService } from './users.service';
 import { UserEntity } from './entities/user.entity';
 import { UserType } from '@generated/prisma-nestjs-graphql/prisma/user-type.enum';
-// import { Shop } from '@generated/prisma-nestjs-graphql/shop/shop.model';
-import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { ShopEntity } from '@shops/entities/shop.entity';
 import { Wishlist } from '@wishlists/entities/wishlist.entity';
 import { WishlistsService } from '@wishlists/wishlists.service';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '@auth/jwt-auth.guard';
+import { CreateUserInput } from './dto/create-user.input';
 
 @Resolver(() => UserEntity)
 export class UsersResolver {

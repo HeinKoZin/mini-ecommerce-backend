@@ -1,3 +1,4 @@
+import { CreateOneUserArgs } from './../generated/prisma-nestjs-graphql/user/create-one-user.args';
 import { UserCreateInput } from '@dtos/user/user-create.input';
 import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma.service';
@@ -14,7 +15,6 @@ export class UsersService {
     const user = await this.prismaService.user.findUnique({
       where: { email: createUserInput.email },
     });
-
     // if user exists return error message
     if (user) {
       throw new HttpException('User already exists', 400);
@@ -27,7 +27,6 @@ export class UsersService {
           _count: true,
         },
       });
-
       return createdUser;
     }
   }
