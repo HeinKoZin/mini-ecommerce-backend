@@ -11,7 +11,8 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@*": ["./src/*"]
+      "@*": ["./src/*"],
+      "@dtos/*": ["./src/generated/prisma-nestjs-graphql/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

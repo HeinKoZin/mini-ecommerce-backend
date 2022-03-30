@@ -1,50 +1,8 @@
-import { ObjectType, Field, Int, registerEnumType } from '@nestjs/graphql';
-import { User, UserType } from '@prisma/client';
-
-// @ObjectType()
-// export class UserRole {
-//   @Field((type) => Int)
-//   id: number;
-
-//   @Field((type) => String)
-//   name: string;
-
-//   @Field((type) => String)
-//   createdAt: Date;
-
-//   @Field((type) => String)
-//   updatedAt: Date;
-// }
-
-registerEnumType(UserType, {
-  name: 'UserType',
-  description: 'The type of user',
-});
+import { User } from '@generated/prisma-nestjs-graphql/user/user.model';
+import { HideField, ObjectType, OmitType } from '@nestjs/graphql';
 
 @ObjectType()
-export class UserEntity implements User {
-  @Field(() => Int, { description: 'User id field' })
-  id: number;
-
-  @Field(() => String, { description: 'User name field' })
-  name: string;
-
-  @Field(() => String, { description: 'User email field' })
-  email: string;
-
-  @Field(() => String, { description: 'User password field' })
+export class UserEntity extends OmitType(User, ['password']) {
+  @HideField()
   password: string;
-
-  @Field(() => UserType, { description: 'User type field' })
-  role: UserType;
-
-  @Field(() => String, { description: 'User createdAt field' })
-  createdAt: Date;
-
-  @Field(() => String, { description: 'User updatedAt field' })
-  updatedAt: Date;
 }
-
-// type UserRole = Role;
-
-// type UserType = Required<Omit<User, 'id'>>;

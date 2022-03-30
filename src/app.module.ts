@@ -8,6 +8,10 @@ import { TestModule } from './test/test.module';
 import { UsersModule } from './users/users.module';
 import { ShopsModule } from './shops/shops.module';
 import { ProductsModule } from './products/products.module';
+import { WishlistsModule } from './wishlists/wishlists.module';
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Global()
 @Module({
@@ -16,13 +20,19 @@ import { ProductsModule } from './products/products.module';
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '7d' },
+    }),
     TestModule,
     UsersModule,
     ShopsModule,
     ProductsModule,
+    WishlistsModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
-  exports: [PrismaService],
+  providers: [AppService, PrismaService, AuthService],
+  exports: [PrismaService, JwtModule],
 })
 export class AppModule {}

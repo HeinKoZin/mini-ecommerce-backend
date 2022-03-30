@@ -1,29 +1,8 @@
-import { InputType, Field } from '@nestjs/graphql';
-import { ProductStatus } from '@prisma/client';
-import { Product } from '@products/entities/product.entity';
+import { ProductCreateInput } from '@generated/prisma-nestjs-graphql/product/product-create.input';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
-export class CreateProductInput implements CreateProductInputType {
-  @Field({ description: 'Product name' })
-  name: string;
-
-  @Field({ description: 'Product description' })
-  description: string;
-
-  @Field({ description: 'Product price' })
-  quantity: number;
-
-  @Field({ description: 'Product status' })
-  product_code: string;
-
-  @Field({ description: 'Product status' })
-  status: ProductStatus;
-
-  @Field({ description: "Product shop's ID" })
-  shopId: number;
+export class CreateProductInput extends ProductCreateInput {
+  @Field(() => Int, { description: 'Product id field', nullable: true })
+  id?: number;
 }
-
-type CreateProductInputType = Omit<
-  Product,
-  'id' | 'createdAt' | 'updatedAt' | 'shop'
->;
