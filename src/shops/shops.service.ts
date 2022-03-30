@@ -88,8 +88,19 @@ export class ShopsService {
     res.forEach(async (phone) => {
       await phoneNumbers.push(phone);
     });
-    console.log(phoneNumbers);
     return phoneNumbers;
+  }
+
+  async getStocks(shopId: number) {
+    const stocks = await this.prismaService.stock.findMany({
+      where: {
+        shopId,
+      },
+      include: {
+        product: true,
+      },
+    });
+    return stocks;
   }
 
   async findAll(take = 10) {
@@ -99,6 +110,7 @@ export class ShopsService {
         // products: true,
         owners: true,
         phone_numbers: true,
+        stocks: true,
       },
       take,
       orderBy: {

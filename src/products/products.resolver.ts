@@ -11,6 +11,7 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { ShopEntity } from '@shops/entities/shop.entity';
+import console from 'console';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { ProductEntity } from './entities/product.entity';

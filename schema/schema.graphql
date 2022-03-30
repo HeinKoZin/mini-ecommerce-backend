@@ -59,22 +59,34 @@ type UsersOnWishlists {
   updatedAt: DateTime!
 }
 
+type Stock {
+  id: Int!
+  shop: Shop!
+  product: Product!
+  quantity: Int!
+  shopId: Int!
+  productId: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type ProductCount {
   currencies: Int!
   wishlistedBy: Int!
+  stock: Int!
 }
 
 type Product {
   id: ID!
   name: String!
   description: String!
-  quantity: Int!
   product_code: String!
   shop: Shop!
   status: ProductStatus!
   shopId: Int!
   currencies: [CurrenciesOnProducts!]
   wishlistedBy: [UsersOnWishlists!]
+  stock: [Stock!]
   createdAt: DateTime!
   updatedAt: DateTime!
   _count: ProductCount!
@@ -90,6 +102,7 @@ type ShopCount {
   phone_numbers: Int!
   products: Int!
   owners: Int!
+  stocks: Int!
 }
 
 type Shop {
@@ -100,6 +113,7 @@ type Shop {
   phone_numbers: [PhoneOnShops!]
   products: [Product!]
   owners: [UsersOnShops!]
+  stocks: [Stock!]
   createdAt: DateTime!
   updatedAt: DateTime!
   _count: ShopCount!
@@ -158,6 +172,7 @@ type ShopEntity {
   phone_numbers: [PhoneOnShops!]!
   products(take: Int): [ProductEntity!]!
   owners: [UserEntity!]!
+  stocks: [Stock!]!
   createdAt: DateTime!
   updatedAt: DateTime!
   _count: ShopCount!
@@ -177,13 +192,13 @@ type ProductEntity {
   id: ID!
   name: String!
   description: String!
-  quantity: Int!
   product_code: String!
   shop: ShopEntity!
   status: ProductStatus!
   shopId: Int!
   currencies: [CurrenciesOnProducts!]!
   wishlistedBy: [UsersOnWishlists!]
+  stock: [Stock!]
   createdAt: DateTime!
   updatedAt: DateTime!
   _count: ProductCount!
@@ -285,6 +300,7 @@ input ShopCreateWithoutOwnersInput {
   address: String
   phone_numbers: PhoneOnShopsCreateNestedManyWithoutShopInput
   products: ProductCreateNestedManyWithoutShopInput
+  stocks: StockCreateNestedManyWithoutShopInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -340,11 +356,11 @@ input ProductCreateNestedManyWithoutShopInput {
 input ProductCreateWithoutShopInput {
   name: String!
   description: String!
-  quantity: Int!
   product_code: String!
   status: ProductStatus!
   currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
   wishlistedBy: UsersOnWishlistsCreateNestedManyWithoutProductInput
+  stock: StockCreateNestedManyWithoutProductInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -476,110 +492,33 @@ input UsersOnWishlistsCreateManyProductInput {
   updatedAt: DateTime
 }
 
-input ProductCreateOrConnectWithoutShopInput {
-  where: ProductWhereUniqueInput!
-  create: ProductCreateWithoutShopInput!
+input StockCreateNestedManyWithoutProductInput {
+  create: [StockCreateWithoutProductInput!]
+  connectOrCreate: [StockCreateOrConnectWithoutProductInput!]
+  createMany: StockCreateManyProductInputEnvelope
+  connect: [StockWhereUniqueInput!]
 }
 
-input ProductWhereUniqueInput {
+input StockCreateWithoutProductInput {
   id: Int
-}
-
-input ProductCreateManyShopInputEnvelope {
-  data: [ProductCreateManyShopInput!]!
-  skipDuplicates: Boolean
-}
-
-input ProductCreateManyShopInput {
-  id: Int
-  name: String!
-  description: String!
+  shop: ShopCreateNestedOneWithoutStocksInput!
   quantity: Int!
-  product_code: String!
-  status: ProductStatus!
   createdAt: DateTime
   updatedAt: DateTime
 }
 
-input ShopCreateOrConnectWithoutOwnersInput {
-  where: ShopWhereUniqueInput!
-  create: ShopCreateWithoutOwnersInput!
-}
-
-input ShopWhereUniqueInput {
-  id: Int
-  slug: String
-}
-
-input UsersOnShopsCreateOrConnectWithoutUserInput {
-  where: UsersOnShopsWhereUniqueInput!
-  create: UsersOnShopsCreateWithoutUserInput!
-}
-
-input UsersOnShopsWhereUniqueInput {
-  shopId_userId: UsersOnShopsShopIdUserIdCompoundUniqueInput
-}
-
-input UsersOnShopsShopIdUserIdCompoundUniqueInput {
-  shopId: Int!
-  userId: Int!
-}
-
-input UsersOnShopsCreateManyUserInputEnvelope {
-  data: [UsersOnShopsCreateManyUserInput!]!
-  skipDuplicates: Boolean
-}
-
-input UsersOnShopsCreateManyUserInput {
-  shopId: Int!
-  assignedby: String!
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input UsersOnWishlistsCreateNestedManyWithoutUserInput {
-  create: [UsersOnWishlistsCreateWithoutUserInput!]
-  connectOrCreate: [UsersOnWishlistsCreateOrConnectWithoutUserInput!]
-  createMany: UsersOnWishlistsCreateManyUserInputEnvelope
-  connect: [UsersOnWishlistsWhereUniqueInput!]
-}
-
-input UsersOnWishlistsCreateWithoutUserInput {
-  id: Int
-  product: ProductCreateNestedOneWithoutWishlistedByInput!
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input ProductCreateNestedOneWithoutWishlistedByInput {
-  create: ProductCreateWithoutWishlistedByInput
-  connectOrCreate: ProductCreateOrConnectWithoutWishlistedByInput
-  connect: ProductWhereUniqueInput
-}
-
-input ProductCreateWithoutWishlistedByInput {
-  name: String!
-  description: String!
-  quantity: Int!
-  product_code: String!
-  shop: ShopCreateNestedOneWithoutProductsInput!
-  status: ProductStatus!
-  currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input ShopCreateNestedOneWithoutProductsInput {
-  create: ShopCreateWithoutProductsInput
-  connectOrCreate: ShopCreateOrConnectWithoutProductsInput
+input ShopCreateNestedOneWithoutStocksInput {
+  create: ShopCreateWithoutStocksInput
+  connectOrCreate: ShopCreateOrConnectWithoutStocksInput
   connect: ShopWhereUniqueInput
 }
 
-input ShopCreateWithoutProductsInput {
+input ShopCreateWithoutStocksInput {
   name: String!
   slug: String!
   address: String
   phone_numbers: PhoneOnShopsCreateNestedManyWithoutShopInput
+  products: ProductCreateNestedManyWithoutShopInput
   owners: UsersOnShopsCreateNestedManyWithoutShopInput
   createdAt: DateTime
   updatedAt: DateTime
@@ -615,24 +554,122 @@ input UserCreateWithoutShopsInput {
   updatedAt: DateTime
 }
 
-input UserCreateOrConnectWithoutShopsInput {
-  where: UserWhereUniqueInput!
-  create: UserCreateWithoutShopsInput!
+input UsersOnWishlistsCreateNestedManyWithoutUserInput {
+  create: [UsersOnWishlistsCreateWithoutUserInput!]
+  connectOrCreate: [UsersOnWishlistsCreateOrConnectWithoutUserInput!]
+  createMany: UsersOnWishlistsCreateManyUserInputEnvelope
+  connect: [UsersOnWishlistsWhereUniqueInput!]
 }
 
-input UsersOnShopsCreateOrConnectWithoutShopInput {
-  where: UsersOnShopsWhereUniqueInput!
-  create: UsersOnShopsCreateWithoutShopInput!
+input UsersOnWishlistsCreateWithoutUserInput {
+  id: Int
+  product: ProductCreateNestedOneWithoutWishlistedByInput!
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
-input UsersOnShopsCreateManyShopInputEnvelope {
-  data: [UsersOnShopsCreateManyShopInput!]!
+input ProductCreateNestedOneWithoutWishlistedByInput {
+  create: ProductCreateWithoutWishlistedByInput
+  connectOrCreate: ProductCreateOrConnectWithoutWishlistedByInput
+  connect: ProductWhereUniqueInput
+}
+
+input ProductCreateWithoutWishlistedByInput {
+  name: String!
+  description: String!
+  product_code: String!
+  shop: ShopCreateNestedOneWithoutProductsInput!
+  status: ProductStatus!
+  currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
+  stock: StockCreateNestedManyWithoutProductInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ShopCreateNestedOneWithoutProductsInput {
+  create: ShopCreateWithoutProductsInput
+  connectOrCreate: ShopCreateOrConnectWithoutProductsInput
+  connect: ShopWhereUniqueInput
+}
+
+input ShopCreateWithoutProductsInput {
+  name: String!
+  slug: String!
+  address: String
+  phone_numbers: PhoneOnShopsCreateNestedManyWithoutShopInput
+  owners: UsersOnShopsCreateNestedManyWithoutShopInput
+  stocks: StockCreateNestedManyWithoutShopInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input StockCreateNestedManyWithoutShopInput {
+  create: [StockCreateWithoutShopInput!]
+  connectOrCreate: [StockCreateOrConnectWithoutShopInput!]
+  createMany: StockCreateManyShopInputEnvelope
+  connect: [StockWhereUniqueInput!]
+}
+
+input StockCreateWithoutShopInput {
+  id: Int
+  product: ProductCreateNestedOneWithoutStockInput!
+  quantity: Int!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ProductCreateNestedOneWithoutStockInput {
+  create: ProductCreateWithoutStockInput
+  connectOrCreate: ProductCreateOrConnectWithoutStockInput
+  connect: ProductWhereUniqueInput
+}
+
+input ProductCreateWithoutStockInput {
+  name: String!
+  description: String!
+  product_code: String!
+  shop: ShopCreateNestedOneWithoutProductsInput!
+  status: ProductStatus!
+  currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
+  wishlistedBy: UsersOnWishlistsCreateNestedManyWithoutProductInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ProductCreateOrConnectWithoutStockInput {
+  where: ProductWhereUniqueInput!
+  create: ProductCreateWithoutStockInput!
+}
+
+input ProductWhereUniqueInput {
+  id: Int
+}
+
+input StockCreateOrConnectWithoutShopInput {
+  where: StockWhereUniqueInput!
+  create: StockCreateWithoutShopInput!
+}
+
+input StockWhereUniqueInput {
+  id: Int
+  id_shopId_productId: StockIdShopIdProductIdCompoundUniqueInput
+}
+
+input StockIdShopIdProductIdCompoundUniqueInput {
+  id: Int!
+  shopId: Int!
+  productId: Int!
+}
+
+input StockCreateManyShopInputEnvelope {
+  data: [StockCreateManyShopInput!]!
   skipDuplicates: Boolean
 }
 
-input UsersOnShopsCreateManyShopInput {
-  userId: Int!
-  assignedby: String!
+input StockCreateManyShopInput {
+  id: Int
+  quantity: Int!
+  productId: Int!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -640,6 +677,11 @@ input UsersOnShopsCreateManyShopInput {
 input ShopCreateOrConnectWithoutProductsInput {
   where: ShopWhereUniqueInput!
   create: ShopCreateWithoutProductsInput!
+}
+
+input ShopWhereUniqueInput {
+  id: Int
+  slug: String
 }
 
 input ProductCreateOrConnectWithoutWishlistedByInput {
@@ -660,6 +702,102 @@ input UsersOnWishlistsCreateManyUserInputEnvelope {
 input UsersOnWishlistsCreateManyUserInput {
   id: Int
   productId: Int!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input UserCreateOrConnectWithoutShopsInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutShopsInput!
+}
+
+input UsersOnShopsCreateOrConnectWithoutShopInput {
+  where: UsersOnShopsWhereUniqueInput!
+  create: UsersOnShopsCreateWithoutShopInput!
+}
+
+input UsersOnShopsWhereUniqueInput {
+  shopId_userId: UsersOnShopsShopIdUserIdCompoundUniqueInput
+}
+
+input UsersOnShopsShopIdUserIdCompoundUniqueInput {
+  shopId: Int!
+  userId: Int!
+}
+
+input UsersOnShopsCreateManyShopInputEnvelope {
+  data: [UsersOnShopsCreateManyShopInput!]!
+  skipDuplicates: Boolean
+}
+
+input UsersOnShopsCreateManyShopInput {
+  userId: Int!
+  assignedby: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ShopCreateOrConnectWithoutStocksInput {
+  where: ShopWhereUniqueInput!
+  create: ShopCreateWithoutStocksInput!
+}
+
+input StockCreateOrConnectWithoutProductInput {
+  where: StockWhereUniqueInput!
+  create: StockCreateWithoutProductInput!
+}
+
+input StockCreateManyProductInputEnvelope {
+  data: [StockCreateManyProductInput!]!
+  skipDuplicates: Boolean
+}
+
+input StockCreateManyProductInput {
+  id: Int
+  quantity: Int!
+  shopId: Int!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ProductCreateOrConnectWithoutShopInput {
+  where: ProductWhereUniqueInput!
+  create: ProductCreateWithoutShopInput!
+}
+
+input ProductCreateManyShopInputEnvelope {
+  data: [ProductCreateManyShopInput!]!
+  skipDuplicates: Boolean
+}
+
+input ProductCreateManyShopInput {
+  id: Int
+  name: String!
+  description: String!
+  product_code: String!
+  status: ProductStatus!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ShopCreateOrConnectWithoutOwnersInput {
+  where: ShopWhereUniqueInput!
+  create: ShopCreateWithoutOwnersInput!
+}
+
+input UsersOnShopsCreateOrConnectWithoutUserInput {
+  where: UsersOnShopsWhereUniqueInput!
+  create: UsersOnShopsCreateWithoutUserInput!
+}
+
+input UsersOnShopsCreateManyUserInputEnvelope {
+  data: [UsersOnShopsCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input UsersOnShopsCreateManyUserInput {
+  shopId: Int!
+  assignedby: String!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -732,6 +870,7 @@ input ShopUpdateWithoutOwnersInput {
   address: NullableStringFieldUpdateOperationsInput
   phone_numbers: PhoneOnShopsUpdateManyWithoutShopInput
   products: ProductUpdateManyWithoutShopInput
+  stocks: StockUpdateManyWithoutShopInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -898,21 +1037,13 @@ input ProductUpsertWithWhereUniqueWithoutShopInput {
 input ProductUpdateWithoutShopInput {
   name: StringFieldUpdateOperationsInput
   description: StringFieldUpdateOperationsInput
-  quantity: IntFieldUpdateOperationsInput
   product_code: StringFieldUpdateOperationsInput
   status: EnumProductStatusFieldUpdateOperationsInput
   currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
   wishlistedBy: UsersOnWishlistsUpdateManyWithoutProductInput
+  stock: StockUpdateManyWithoutProductInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input IntFieldUpdateOperationsInput {
-  set: Int
-  increment: Int
-  decrement: Int
-  multiply: Int
-  divide: Int
 }
 
 input EnumProductStatusFieldUpdateOperationsInput {
@@ -1099,151 +1230,52 @@ input UsersOnWishlistsUpdateManyMutationInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input ProductUpdateWithWhereUniqueWithoutShopInput {
-  where: ProductWhereUniqueInput!
-  data: ProductUpdateWithoutShopInput!
+input StockUpdateManyWithoutProductInput {
+  create: [StockCreateWithoutProductInput!]
+  connectOrCreate: [StockCreateOrConnectWithoutProductInput!]
+  upsert: [StockUpsertWithWhereUniqueWithoutProductInput!]
+  createMany: StockCreateManyProductInputEnvelope
+  set: [StockWhereUniqueInput!]
+  disconnect: [StockWhereUniqueInput!]
+  delete: [StockWhereUniqueInput!]
+  connect: [StockWhereUniqueInput!]
+  update: [StockUpdateWithWhereUniqueWithoutProductInput!]
+  updateMany: [StockUpdateManyWithWhereWithoutProductInput!]
+  deleteMany: [StockScalarWhereInput!]
 }
 
-input ProductUpdateManyWithWhereWithoutShopInput {
-  where: ProductScalarWhereInput!
-  data: ProductUpdateManyMutationInput!
+input StockUpsertWithWhereUniqueWithoutProductInput {
+  where: StockWhereUniqueInput!
+  update: StockUpdateWithoutProductInput!
+  create: StockCreateWithoutProductInput!
 }
 
-input ProductScalarWhereInput {
-  AND: [ProductScalarWhereInput!]
-  OR: [ProductScalarWhereInput!]
-  NOT: [ProductScalarWhereInput!]
-  id: IntFilter
-  name: StringFilter
-  description: StringFilter
-  quantity: IntFilter
-  product_code: StringFilter
-  status: EnumProductStatusFilter
-  shopId: IntFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-}
-
-input EnumProductStatusFilter {
-  equals: ProductStatus
-  in: [ProductStatus!]
-  notIn: [ProductStatus!]
-  not: NestedEnumProductStatusFilter
-}
-
-input NestedEnumProductStatusFilter {
-  equals: ProductStatus
-  in: [ProductStatus!]
-  notIn: [ProductStatus!]
-  not: NestedEnumProductStatusFilter
-}
-
-input ProductUpdateManyMutationInput {
-  name: StringFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
+input StockUpdateWithoutProductInput {
+  shop: ShopUpdateOneRequiredWithoutStocksInput
   quantity: IntFieldUpdateOperationsInput
-  product_code: StringFieldUpdateOperationsInput
-  status: EnumProductStatusFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input UsersOnShopsUpdateWithWhereUniqueWithoutUserInput {
-  where: UsersOnShopsWhereUniqueInput!
-  data: UsersOnShopsUpdateWithoutUserInput!
-}
-
-input UsersOnShopsUpdateManyWithWhereWithoutUserInput {
-  where: UsersOnShopsScalarWhereInput!
-  data: UsersOnShopsUpdateManyMutationInput!
-}
-
-input UsersOnShopsScalarWhereInput {
-  AND: [UsersOnShopsScalarWhereInput!]
-  OR: [UsersOnShopsScalarWhereInput!]
-  NOT: [UsersOnShopsScalarWhereInput!]
-  shopId: IntFilter
-  userId: IntFilter
-  assignedby: StringFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-}
-
-input UsersOnShopsUpdateManyMutationInput {
-  assignedby: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input UsersOnWishlistsUpdateManyWithoutUserInput {
-  create: [UsersOnWishlistsCreateWithoutUserInput!]
-  connectOrCreate: [UsersOnWishlistsCreateOrConnectWithoutUserInput!]
-  upsert: [UsersOnWishlistsUpsertWithWhereUniqueWithoutUserInput!]
-  createMany: UsersOnWishlistsCreateManyUserInputEnvelope
-  set: [UsersOnWishlistsWhereUniqueInput!]
-  disconnect: [UsersOnWishlistsWhereUniqueInput!]
-  delete: [UsersOnWishlistsWhereUniqueInput!]
-  connect: [UsersOnWishlistsWhereUniqueInput!]
-  update: [UsersOnWishlistsUpdateWithWhereUniqueWithoutUserInput!]
-  updateMany: [UsersOnWishlistsUpdateManyWithWhereWithoutUserInput!]
-  deleteMany: [UsersOnWishlistsScalarWhereInput!]
-}
-
-input UsersOnWishlistsUpsertWithWhereUniqueWithoutUserInput {
-  where: UsersOnWishlistsWhereUniqueInput!
-  update: UsersOnWishlistsUpdateWithoutUserInput!
-  create: UsersOnWishlistsCreateWithoutUserInput!
-}
-
-input UsersOnWishlistsUpdateWithoutUserInput {
-  product: ProductUpdateOneRequiredWithoutWishlistedByInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input ProductUpdateOneRequiredWithoutWishlistedByInput {
-  create: ProductCreateWithoutWishlistedByInput
-  connectOrCreate: ProductCreateOrConnectWithoutWishlistedByInput
-  upsert: ProductUpsertWithoutWishlistedByInput
-  connect: ProductWhereUniqueInput
-  update: ProductUpdateWithoutWishlistedByInput
-}
-
-input ProductUpsertWithoutWishlistedByInput {
-  update: ProductUpdateWithoutWishlistedByInput!
-  create: ProductCreateWithoutWishlistedByInput!
-}
-
-input ProductUpdateWithoutWishlistedByInput {
-  name: StringFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  quantity: IntFieldUpdateOperationsInput
-  product_code: StringFieldUpdateOperationsInput
-  shop: ShopUpdateOneRequiredWithoutProductsInput
-  status: EnumProductStatusFieldUpdateOperationsInput
-  currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input ShopUpdateOneRequiredWithoutProductsInput {
-  create: ShopCreateWithoutProductsInput
-  connectOrCreate: ShopCreateOrConnectWithoutProductsInput
-  upsert: ShopUpsertWithoutProductsInput
+input ShopUpdateOneRequiredWithoutStocksInput {
+  create: ShopCreateWithoutStocksInput
+  connectOrCreate: ShopCreateOrConnectWithoutStocksInput
+  upsert: ShopUpsertWithoutStocksInput
   connect: ShopWhereUniqueInput
-  update: ShopUpdateWithoutProductsInput
+  update: ShopUpdateWithoutStocksInput
 }
 
-input ShopUpsertWithoutProductsInput {
-  update: ShopUpdateWithoutProductsInput!
-  create: ShopCreateWithoutProductsInput!
+input ShopUpsertWithoutStocksInput {
+  update: ShopUpdateWithoutStocksInput!
+  create: ShopCreateWithoutStocksInput!
 }
 
-input ShopUpdateWithoutProductsInput {
+input ShopUpdateWithoutStocksInput {
   name: StringFieldUpdateOperationsInput
   slug: StringFieldUpdateOperationsInput
   address: NullableStringFieldUpdateOperationsInput
   phone_numbers: PhoneOnShopsUpdateManyWithoutShopInput
+  products: ProductUpdateManyWithoutShopInput
   owners: UsersOnShopsUpdateManyWithoutShopInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1299,14 +1331,167 @@ input UserUpdateWithoutShopsInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input UsersOnShopsUpdateWithWhereUniqueWithoutShopInput {
-  where: UsersOnShopsWhereUniqueInput!
-  data: UsersOnShopsUpdateWithoutShopInput!
+input UsersOnWishlistsUpdateManyWithoutUserInput {
+  create: [UsersOnWishlistsCreateWithoutUserInput!]
+  connectOrCreate: [UsersOnWishlistsCreateOrConnectWithoutUserInput!]
+  upsert: [UsersOnWishlistsUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: UsersOnWishlistsCreateManyUserInputEnvelope
+  set: [UsersOnWishlistsWhereUniqueInput!]
+  disconnect: [UsersOnWishlistsWhereUniqueInput!]
+  delete: [UsersOnWishlistsWhereUniqueInput!]
+  connect: [UsersOnWishlistsWhereUniqueInput!]
+  update: [UsersOnWishlistsUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [UsersOnWishlistsUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [UsersOnWishlistsScalarWhereInput!]
 }
 
-input UsersOnShopsUpdateManyWithWhereWithoutShopInput {
-  where: UsersOnShopsScalarWhereInput!
-  data: UsersOnShopsUpdateManyMutationInput!
+input UsersOnWishlistsUpsertWithWhereUniqueWithoutUserInput {
+  where: UsersOnWishlistsWhereUniqueInput!
+  update: UsersOnWishlistsUpdateWithoutUserInput!
+  create: UsersOnWishlistsCreateWithoutUserInput!
+}
+
+input UsersOnWishlistsUpdateWithoutUserInput {
+  product: ProductUpdateOneRequiredWithoutWishlistedByInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProductUpdateOneRequiredWithoutWishlistedByInput {
+  create: ProductCreateWithoutWishlistedByInput
+  connectOrCreate: ProductCreateOrConnectWithoutWishlistedByInput
+  upsert: ProductUpsertWithoutWishlistedByInput
+  connect: ProductWhereUniqueInput
+  update: ProductUpdateWithoutWishlistedByInput
+}
+
+input ProductUpsertWithoutWishlistedByInput {
+  update: ProductUpdateWithoutWishlistedByInput!
+  create: ProductCreateWithoutWishlistedByInput!
+}
+
+input ProductUpdateWithoutWishlistedByInput {
+  name: StringFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  product_code: StringFieldUpdateOperationsInput
+  shop: ShopUpdateOneRequiredWithoutProductsInput
+  status: EnumProductStatusFieldUpdateOperationsInput
+  currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
+  stock: StockUpdateManyWithoutProductInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ShopUpdateOneRequiredWithoutProductsInput {
+  create: ShopCreateWithoutProductsInput
+  connectOrCreate: ShopCreateOrConnectWithoutProductsInput
+  upsert: ShopUpsertWithoutProductsInput
+  connect: ShopWhereUniqueInput
+  update: ShopUpdateWithoutProductsInput
+}
+
+input ShopUpsertWithoutProductsInput {
+  update: ShopUpdateWithoutProductsInput!
+  create: ShopCreateWithoutProductsInput!
+}
+
+input ShopUpdateWithoutProductsInput {
+  name: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  address: NullableStringFieldUpdateOperationsInput
+  phone_numbers: PhoneOnShopsUpdateManyWithoutShopInput
+  owners: UsersOnShopsUpdateManyWithoutShopInput
+  stocks: StockUpdateManyWithoutShopInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input StockUpdateManyWithoutShopInput {
+  create: [StockCreateWithoutShopInput!]
+  connectOrCreate: [StockCreateOrConnectWithoutShopInput!]
+  upsert: [StockUpsertWithWhereUniqueWithoutShopInput!]
+  createMany: StockCreateManyShopInputEnvelope
+  set: [StockWhereUniqueInput!]
+  disconnect: [StockWhereUniqueInput!]
+  delete: [StockWhereUniqueInput!]
+  connect: [StockWhereUniqueInput!]
+  update: [StockUpdateWithWhereUniqueWithoutShopInput!]
+  updateMany: [StockUpdateManyWithWhereWithoutShopInput!]
+  deleteMany: [StockScalarWhereInput!]
+}
+
+input StockUpsertWithWhereUniqueWithoutShopInput {
+  where: StockWhereUniqueInput!
+  update: StockUpdateWithoutShopInput!
+  create: StockCreateWithoutShopInput!
+}
+
+input StockUpdateWithoutShopInput {
+  product: ProductUpdateOneRequiredWithoutStockInput
+  quantity: IntFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProductUpdateOneRequiredWithoutStockInput {
+  create: ProductCreateWithoutStockInput
+  connectOrCreate: ProductCreateOrConnectWithoutStockInput
+  upsert: ProductUpsertWithoutStockInput
+  connect: ProductWhereUniqueInput
+  update: ProductUpdateWithoutStockInput
+}
+
+input ProductUpsertWithoutStockInput {
+  update: ProductUpdateWithoutStockInput!
+  create: ProductCreateWithoutStockInput!
+}
+
+input ProductUpdateWithoutStockInput {
+  name: StringFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  product_code: StringFieldUpdateOperationsInput
+  shop: ShopUpdateOneRequiredWithoutProductsInput
+  status: EnumProductStatusFieldUpdateOperationsInput
+  currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
+  wishlistedBy: UsersOnWishlistsUpdateManyWithoutProductInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input IntFieldUpdateOperationsInput {
+  set: Int
+  increment: Int
+  decrement: Int
+  multiply: Int
+  divide: Int
+}
+
+input StockUpdateWithWhereUniqueWithoutShopInput {
+  where: StockWhereUniqueInput!
+  data: StockUpdateWithoutShopInput!
+}
+
+input StockUpdateManyWithWhereWithoutShopInput {
+  where: StockScalarWhereInput!
+  data: StockUpdateManyMutationInput!
+}
+
+input StockScalarWhereInput {
+  AND: [StockScalarWhereInput!]
+  OR: [StockScalarWhereInput!]
+  NOT: [StockScalarWhereInput!]
+  id: IntFilter
+  quantity: IntFilter
+  shopId: IntFilter
+  productId: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input StockUpdateManyMutationInput {
+  quantity: IntFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input UsersOnWishlistsUpdateWithWhereUniqueWithoutUserInput {
@@ -1319,6 +1504,100 @@ input UsersOnWishlistsUpdateManyWithWhereWithoutUserInput {
   data: UsersOnWishlistsUpdateManyMutationInput!
 }
 
+input UsersOnShopsUpdateWithWhereUniqueWithoutShopInput {
+  where: UsersOnShopsWhereUniqueInput!
+  data: UsersOnShopsUpdateWithoutShopInput!
+}
+
+input UsersOnShopsUpdateManyWithWhereWithoutShopInput {
+  where: UsersOnShopsScalarWhereInput!
+  data: UsersOnShopsUpdateManyMutationInput!
+}
+
+input UsersOnShopsScalarWhereInput {
+  AND: [UsersOnShopsScalarWhereInput!]
+  OR: [UsersOnShopsScalarWhereInput!]
+  NOT: [UsersOnShopsScalarWhereInput!]
+  shopId: IntFilter
+  userId: IntFilter
+  assignedby: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input UsersOnShopsUpdateManyMutationInput {
+  assignedby: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input StockUpdateWithWhereUniqueWithoutProductInput {
+  where: StockWhereUniqueInput!
+  data: StockUpdateWithoutProductInput!
+}
+
+input StockUpdateManyWithWhereWithoutProductInput {
+  where: StockScalarWhereInput!
+  data: StockUpdateManyMutationInput!
+}
+
+input ProductUpdateWithWhereUniqueWithoutShopInput {
+  where: ProductWhereUniqueInput!
+  data: ProductUpdateWithoutShopInput!
+}
+
+input ProductUpdateManyWithWhereWithoutShopInput {
+  where: ProductScalarWhereInput!
+  data: ProductUpdateManyMutationInput!
+}
+
+input ProductScalarWhereInput {
+  AND: [ProductScalarWhereInput!]
+  OR: [ProductScalarWhereInput!]
+  NOT: [ProductScalarWhereInput!]
+  id: IntFilter
+  name: StringFilter
+  description: StringFilter
+  product_code: StringFilter
+  status: EnumProductStatusFilter
+  shopId: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input EnumProductStatusFilter {
+  equals: ProductStatus
+  in: [ProductStatus!]
+  notIn: [ProductStatus!]
+  not: NestedEnumProductStatusFilter
+}
+
+input NestedEnumProductStatusFilter {
+  equals: ProductStatus
+  in: [ProductStatus!]
+  notIn: [ProductStatus!]
+  not: NestedEnumProductStatusFilter
+}
+
+input ProductUpdateManyMutationInput {
+  name: StringFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  product_code: StringFieldUpdateOperationsInput
+  status: EnumProductStatusFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UsersOnShopsUpdateWithWhereUniqueWithoutUserInput {
+  where: UsersOnShopsWhereUniqueInput!
+  data: UsersOnShopsUpdateWithoutUserInput!
+}
+
+input UsersOnShopsUpdateManyWithWhereWithoutUserInput {
+  where: UsersOnShopsScalarWhereInput!
+  data: UsersOnShopsUpdateManyMutationInput!
+}
+
 input CreateShopInput {
   name: String!
   slug: String!
@@ -1326,6 +1605,7 @@ input CreateShopInput {
   phone_numbers: PhoneOnShopsCreateNestedManyWithoutShopInput
   products: ProductCreateNestedManyWithoutShopInput
   owners: UsersOnShopsCreateNestedManyWithoutShopInput
+  stocks: StockCreateNestedManyWithoutShopInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1337,6 +1617,7 @@ input UpdateShopInput {
   phone_numbers: PhoneOnShopsUpdateManyWithoutShopInput
   products: ProductUpdateManyWithoutShopInput
   owners: UsersOnShopsUpdateManyWithoutShopInput
+  stocks: StockUpdateManyWithoutShopInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 
@@ -1347,12 +1628,12 @@ input UpdateShopInput {
 input CreateProductInput {
   name: String!
   description: String!
-  quantity: Int!
   product_code: String!
   shop: ShopCreateNestedOneWithoutProductsInput!
   status: ProductStatus!
   currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
   wishlistedBy: UsersOnWishlistsCreateNestedManyWithoutProductInput
+  stock: StockCreateNestedManyWithoutProductInput
   createdAt: DateTime
   updatedAt: DateTime
 
@@ -1363,12 +1644,12 @@ input CreateProductInput {
 input UpdateProductInput {
   name: StringFieldUpdateOperationsInput
   description: StringFieldUpdateOperationsInput
-  quantity: IntFieldUpdateOperationsInput
   product_code: StringFieldUpdateOperationsInput
   shop: ShopUpdateOneRequiredWithoutProductsInput
   status: EnumProductStatusFieldUpdateOperationsInput
   currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
   wishlistedBy: UsersOnWishlistsUpdateManyWithoutProductInput
+  stock: StockUpdateManyWithoutProductInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 

@@ -18,13 +18,13 @@ Table Product {
   id Int [pk, increment, unique]
   name String [not null]
   description String [not null]
-  quantity Int [not null]
   product_code String [not null]
   shop Shop [not null]
   status ProductStatus [not null]
   shopId Int [not null]
   currencies CurrenciesOnProducts [not null]
   wishlistedBy UsersOnWishlists [not null]
+  stock Stock [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
@@ -57,6 +57,7 @@ Table Shop {
   phone_numbers PhoneOnShops [not null]
   products Product [not null]
   owners UsersOnShops [not null]
+  stocks Stock [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
@@ -102,6 +103,21 @@ Table PhoneOnShops {
   }
 }
 
+Table Stock {
+  id Int [increment, unique, not null]
+  shop Shop [not null]
+  product Product [not null]
+  quantity Int [not null]
+  shopId Int [not null]
+  productId Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+
+  indexes {
+    (id, shopId, productId) [pk]
+  }
+}
+
 Enum UserType {
   ADMIN
   USER
@@ -128,3 +144,7 @@ Ref: UsersOnWishlists.userId > User.id
 Ref: UsersOnWishlists.productId > Product.id
 
 Ref: PhoneOnShops.shopId > Shop.id
+
+Ref: Stock.shopId > Shop.id
+
+Ref: Stock.productId > Product.id

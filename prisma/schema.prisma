@@ -6,102 +6,98 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-
 generator nestgraphql {
-    provider = "node node_modules/prisma-nestjs-graphql"
-    output = "../src/generated/prisma-nestjs-graphql"
-    fields_Validator_from = "class-validator"
-    fields_Validator_input = true
-    // decorate_1_type = "CreateOneUserArgs"
-    // decorate_1_field = data
-    // decorate_1_name = ValidateNested
-    // decorate_1_from = "class-validator"
-    // decorate_1_arguments = "[]"
-    // decorate_2_type = "CreateOneUserArgs"
-    // decorate_2_field = data
-    // decorate_2_from = "class-transformer"
-    // decorate_2_arguments = "['() => {propertyType.0}']"
-    // decorate_2_name = Type
+  provider               = "node node_modules/prisma-nestjs-graphql"
+  output                 = "../src/generated/prisma-nestjs-graphql"
+  fields_Validator_from  = "class-validator"
+  fields_Validator_input = true
+  // decorate_1_type = "CreateOneUserArgs"
+  // decorate_1_field = data
+  // decorate_1_name = ValidateNested
+  // decorate_1_from = "class-validator"
+  // decorate_1_arguments = "[]"
+  // decorate_2_type = "CreateOneUserArgs"
+  // decorate_2_field = data
+  // decorate_2_from = "class-transformer"
+  // decorate_2_arguments = "['() => {propertyType.0}']"
+  // decorate_2_name = Type
 }
-
 
 generator dbml {
   provider = "prisma-dbml-generator"
-  output = "./dbml"
+  output   = "./dbml"
 }
 
-
 model User {
-  id          Int @id @default(autoincrement())
+  id        Int                @id @default(autoincrement())
   /// @Validator.MinLength(3)
-  name        String
+  name      String
   /// @Validator.IsEmail()
-  email       String @unique
+  email     String             @unique
   /// @Validator.MinLength(8)
-  password    String
-  role        UserType @default(value: USER)
-  shops       UsersOnShops[]
-  wishlists   UsersOnWishlists[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  password  String
+  role      UserType           @default(value: USER)
+  shops     UsersOnShops[]
+  wishlists UsersOnWishlists[]
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
 
-  @@map("users")
   @@index([email, id])
+  @@map("users")
 }
 
 enum UserType {
-  ADMIN 
+  ADMIN
   USER
 }
 
-
 model Product {
-  id           Int           @id @unique @default(autoincrement())
+  id           Int                    @id @unique @default(autoincrement())
   name         String
   description  String
-  quantity     Int
   product_code String
-  shop         Shop          @relation(fields: [shopId], references: [id])
+  shop         Shop                   @relation(fields: [shopId], references: [id])
   status       ProductStatus
   shopId       Int
-  currencies   CurrenciesOnProducts[]  
+  currencies   CurrenciesOnProducts[]
   wishlistedBy UsersOnWishlists[]
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  stock      Stock[]
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
 
-  @@map("products")
   @@index([name, id, product_code])
+  @@map("products")
 }
 
 model Currency {
-  id        Int @id @default(autoincrement())
+  id        Int                    @id @default(autoincrement())
   name      String
-  code      String @unique
+  code      String                 @unique
   products  CurrenciesOnProducts[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
 
-  @@map("currencies")
   @@index([name, id])
+  @@map("currencies")
 }
 
 model CurrenciesOnProducts {
-  id        Int @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   sell_price Float
-  product   Product @relation(fields: [productId], references: [id])
-  currency  Currency @relation(fields: [currencyId], references: [id])
-  productId Int
+  product    Product  @relation(fields: [productId], references: [id])
+  currency   Currency @relation(fields: [currencyId], references: [id])
+  productId  Int
   currencyId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  @@map("currencies_on_products")
   @@index([productId, currencyId])
+  @@map("currencies_on_products")
 }
 
 enum ProductStatus {
@@ -111,62 +107,73 @@ enum ProductStatus {
 }
 
 model Shop {
-  id                Int       @id @unique @default(autoincrement())
-  name              String
-  slug              String    @unique
-  address           String?
-  phone_numbers     PhoneOnShops[]    
-  products          Product[]
-  owners            UsersOnShops[]
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  id            Int            @id @unique @default(autoincrement())
+  name          String
+  slug          String         @unique
+  address       String?
+  phone_numbers PhoneOnShops[]
+  products      Product[]
+  owners        UsersOnShops[]
+  stocks        Stock[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 
-  @@map("shops")
   @@index([name, id])
+  @@map("shops")
 }
 
-model UsersOnShops{
-  shop        Shop      @relation(fields: [shopId], references: [id])
-  user        User      @relation(fields: [userId], references: [id])
-  shopId      Int
-  userId      Int
-  assignedby  String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+model UsersOnShops {
+  shop       Shop     @relation(fields: [shopId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+  shopId     Int
+  userId     Int
+  assignedby String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  @@map("owners_on_shops")
-  @@index([shopId, userId])
   @@id([shopId, userId])
+  @@index([shopId, userId])
+  @@map("owners_on_shops")
 }
-
 
 model UsersOnWishlists {
-  id        Int       @unique @default(autoincrement())
-  user      User      @relation(fields: [userId], references: [id])
-  product   Product   @relation(fields: [productId], references: [id])
+  id        Int      @unique @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
   userId    Int
   productId Int
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@map("wish_lists")
-  @@index([userId, productId])
   @@id([id, userId, productId])
+  @@index([userId, productId])
+  @@map("wish_lists")
 }
 
-
-
-
-
 model PhoneOnShops {
-  id        Int       @unique @default(autoincrement())
-  shop      Shop      @relation(fields: [shopId], references: [id])
+  id        Int      @unique @default(autoincrement())
+  shop      Shop     @relation(fields: [shopId], references: [id])
   phone     String
   shopId    Int
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@map("phone_on_shops")
-  @@index([shopId, id])
   @@id([id, shopId])
+  @@index([shopId, id])
+  @@map("phone_on_shops")
+}
+
+model Stock {
+  id        Int      @unique @default(autoincrement())
+  shop      Shop     @relation(fields: [shopId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  shopId    Int
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id, shopId, productId])
+  @@index([shopId, productId])
+  @@map("stocks")
 }

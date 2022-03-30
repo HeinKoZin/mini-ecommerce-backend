@@ -15,6 +15,7 @@ export class ProductsService {
       include: {
         shop: true,
         currencies: true,
+        stock: true,
       },
       data: {
         ...createProductInput,
@@ -37,6 +38,7 @@ export class ProductsService {
           },
         },
         _count: true,
+        stock: true,
       },
       take,
       orderBy: {
@@ -75,6 +77,17 @@ export class ProductsService {
       },
     });
     return currencies;
+  }
+
+  async getStock(productId: number) {
+    const stock = await this.prismaService.stock.findFirst({
+      where: {
+        product: {
+          id: productId,
+        },
+      },
+    });
+    return stock;
   }
 
   async findOne(id: number) {
