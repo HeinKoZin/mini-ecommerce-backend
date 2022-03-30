@@ -40,6 +40,7 @@ model User {
   id          Int @id @default(autoincrement())
   /// @Validator.MinLength(3)
   name        String
+  /// @Validator.IsEmail()
   email       String @unique
   /// @Validator.MinLength(8)
   password    String

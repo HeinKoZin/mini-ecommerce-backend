@@ -1,4 +1,3 @@
-import { CreateOneUserArgs } from './../generated/prisma-nestjs-graphql/user/create-one-user.args';
 import { UserCreateInput } from '@dtos/user/user-create.input';
 import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma.service';

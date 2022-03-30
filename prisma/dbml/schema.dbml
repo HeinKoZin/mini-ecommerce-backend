@@ -5,7 +5,7 @@
 Table User {
   id Int [pk, increment]
   name String [not null, note: '@Validator.MinLength(3)']
-  email String [unique, not null]
+  email String [unique, not null, note: '@Validator.IsEmail()']
   password String [not null, note: '@Validator.MinLength(8)']
   role UserType [not null, default: 'USER']
   shops UsersOnShops [not null]
