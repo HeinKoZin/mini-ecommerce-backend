@@ -61,10 +61,8 @@ type UsersOnWishlists {
 
 type Stock {
   id: Int!
-  shop: Shop!
   product: Product!
   quantity: Int!
-  shopId: Int!
   productId: Int!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -114,7 +112,6 @@ type ShopCount {
   phone_numbers: Int!
   products: Int!
   owners: Int!
-  stocks: Int!
 }
 
 type Shop {
@@ -125,7 +122,6 @@ type Shop {
   phone_numbers: [PhoneOnShops!]
   products: [Product!]
   owners: [UsersOnShops!]
-  stocks: [Stock!]
   createdAt: DateTime!
   updatedAt: DateTime!
   _count: ShopCount!
@@ -184,7 +180,6 @@ type ShopEntity {
   phone_numbers: [PhoneOnShops!]!
   products(take: Int): [ProductEntity!]!
   owners: [UserEntity!]!
-  stocks: [Stock!]!
   createdAt: DateTime!
   updatedAt: DateTime!
   _count: ShopCount!
@@ -314,7 +309,6 @@ input ShopCreateWithoutOwnersInput {
   address: String
   phone_numbers: PhoneOnShopsCreateNestedManyWithoutShopInput
   products: ProductCreateNestedManyWithoutShopInput
-  stocks: StockCreateNestedManyWithoutShopInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -517,55 +511,136 @@ input StockCreateNestedManyWithoutProductInput {
 
 input StockCreateWithoutProductInput {
   id: Int
-  shop: ShopCreateNestedOneWithoutStocksInput!
   quantity: Int!
   createdAt: DateTime
   updatedAt: DateTime
 }
 
-input ShopCreateNestedOneWithoutStocksInput {
-  create: ShopCreateWithoutStocksInput
-  connectOrCreate: ShopCreateOrConnectWithoutStocksInput
-  connect: ShopWhereUniqueInput
+input StockCreateOrConnectWithoutProductInput {
+  where: StockWhereUniqueInput!
+  create: StockCreateWithoutProductInput!
 }
 
-input ShopCreateWithoutStocksInput {
-  name: String!
-  slug: String!
-  address: String
-  phone_numbers: PhoneOnShopsCreateNestedManyWithoutShopInput
-  products: ProductCreateNestedManyWithoutShopInput
-  owners: UsersOnShopsCreateNestedManyWithoutShopInput
+input StockWhereUniqueInput {
+  id: Int
+  id_productId: StockIdProductIdCompoundUniqueInput
+}
+
+input StockIdProductIdCompoundUniqueInput {
+  id: Int!
+  productId: Int!
+}
+
+input StockCreateManyProductInputEnvelope {
+  data: [StockCreateManyProductInput!]!
+  skipDuplicates: Boolean
+}
+
+input StockCreateManyProductInput {
+  id: Int
+  quantity: Int!
   createdAt: DateTime
   updatedAt: DateTime
 }
 
-input UsersOnShopsCreateNestedManyWithoutShopInput {
-  create: [UsersOnShopsCreateWithoutShopInput!]
-  connectOrCreate: [UsersOnShopsCreateOrConnectWithoutShopInput!]
-  createMany: UsersOnShopsCreateManyShopInputEnvelope
-  connect: [UsersOnShopsWhereUniqueInput!]
+input FeaturePhotoCreateNestedManyWithoutProductInput {
+  create: [FeaturePhotoCreateWithoutProductInput!]
+  connectOrCreate: [FeaturePhotoCreateOrConnectWithoutProductInput!]
+  createMany: FeaturePhotoCreateManyProductInputEnvelope
+  connect: [FeaturePhotoWhereUniqueInput!]
 }
 
-input UsersOnShopsCreateWithoutShopInput {
-  user: UserCreateNestedOneWithoutShopsInput!
+input FeaturePhotoCreateWithoutProductInput {
+  id: Int
+  photo: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input FeaturePhotoCreateOrConnectWithoutProductInput {
+  where: FeaturePhotoWhereUniqueInput!
+  create: FeaturePhotoCreateWithoutProductInput!
+}
+
+input FeaturePhotoWhereUniqueInput {
+  id: Int
+  id_productId: FeaturePhotoIdProductIdCompoundUniqueInput
+}
+
+input FeaturePhotoIdProductIdCompoundUniqueInput {
+  id: Int!
+  productId: Int!
+}
+
+input FeaturePhotoCreateManyProductInputEnvelope {
+  data: [FeaturePhotoCreateManyProductInput!]!
+  skipDuplicates: Boolean
+}
+
+input FeaturePhotoCreateManyProductInput {
+  id: Int
+  photo: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ProductCreateOrConnectWithoutShopInput {
+  where: ProductWhereUniqueInput!
+  create: ProductCreateWithoutShopInput!
+}
+
+input ProductWhereUniqueInput {
+  id: Int
+}
+
+input ProductCreateManyShopInputEnvelope {
+  data: [ProductCreateManyShopInput!]!
+  skipDuplicates: Boolean
+}
+
+input ProductCreateManyShopInput {
+  id: Int
+  name: String!
+  description: String!
+  product_code: String!
+  status: ProductStatus!
+  cover_photo: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ShopCreateOrConnectWithoutOwnersInput {
+  where: ShopWhereUniqueInput!
+  create: ShopCreateWithoutOwnersInput!
+}
+
+input ShopWhereUniqueInput {
+  id: Int
+  slug: String
+}
+
+input UsersOnShopsCreateOrConnectWithoutUserInput {
+  where: UsersOnShopsWhereUniqueInput!
+  create: UsersOnShopsCreateWithoutUserInput!
+}
+
+input UsersOnShopsWhereUniqueInput {
+  shopId_userId: UsersOnShopsShopIdUserIdCompoundUniqueInput
+}
+
+input UsersOnShopsShopIdUserIdCompoundUniqueInput {
+  shopId: Int!
+  userId: Int!
+}
+
+input UsersOnShopsCreateManyUserInputEnvelope {
+  data: [UsersOnShopsCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input UsersOnShopsCreateManyUserInput {
+  shopId: Int!
   assignedby: String!
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input UserCreateNestedOneWithoutShopsInput {
-  create: UserCreateWithoutShopsInput
-  connectOrCreate: UserCreateOrConnectWithoutShopsInput
-  connect: UserWhereUniqueInput
-}
-
-input UserCreateWithoutShopsInput {
-  name: String!
-  email: String!
-  password: String!
-  role: UserType
-  wishlists: UsersOnWishlistsCreateNestedManyWithoutUserInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -616,121 +691,58 @@ input ShopCreateWithoutProductsInput {
   address: String
   phone_numbers: PhoneOnShopsCreateNestedManyWithoutShopInput
   owners: UsersOnShopsCreateNestedManyWithoutShopInput
-  stocks: StockCreateNestedManyWithoutShopInput
   createdAt: DateTime
   updatedAt: DateTime
 }
 
-input StockCreateNestedManyWithoutShopInput {
-  create: [StockCreateWithoutShopInput!]
-  connectOrCreate: [StockCreateOrConnectWithoutShopInput!]
-  createMany: StockCreateManyShopInputEnvelope
-  connect: [StockWhereUniqueInput!]
+input UsersOnShopsCreateNestedManyWithoutShopInput {
+  create: [UsersOnShopsCreateWithoutShopInput!]
+  connectOrCreate: [UsersOnShopsCreateOrConnectWithoutShopInput!]
+  createMany: UsersOnShopsCreateManyShopInputEnvelope
+  connect: [UsersOnShopsWhereUniqueInput!]
 }
 
-input StockCreateWithoutShopInput {
-  id: Int
-  product: ProductCreateNestedOneWithoutStockInput!
-  quantity: Int!
+input UsersOnShopsCreateWithoutShopInput {
+  user: UserCreateNestedOneWithoutShopsInput!
+  assignedby: String!
   createdAt: DateTime
   updatedAt: DateTime
 }
 
-input ProductCreateNestedOneWithoutStockInput {
-  create: ProductCreateWithoutStockInput
-  connectOrCreate: ProductCreateOrConnectWithoutStockInput
-  connect: ProductWhereUniqueInput
+input UserCreateNestedOneWithoutShopsInput {
+  create: UserCreateWithoutShopsInput
+  connectOrCreate: UserCreateOrConnectWithoutShopsInput
+  connect: UserWhereUniqueInput
 }
 
-input ProductCreateWithoutStockInput {
+input UserCreateWithoutShopsInput {
   name: String!
-  description: String!
-  product_code: String!
-  shop: ShopCreateNestedOneWithoutProductsInput!
-  status: ProductStatus!
-  currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
-  wishlistedBy: UsersOnWishlistsCreateNestedManyWithoutProductInput
-  cover_photo: String!
-  feature_photos: FeaturePhotoCreateNestedManyWithoutProductInput
+  email: String!
+  password: String!
+  role: UserType
+  wishlists: UsersOnWishlistsCreateNestedManyWithoutUserInput
   createdAt: DateTime
   updatedAt: DateTime
 }
 
-input FeaturePhotoCreateNestedManyWithoutProductInput {
-  create: [FeaturePhotoCreateWithoutProductInput!]
-  connectOrCreate: [FeaturePhotoCreateOrConnectWithoutProductInput!]
-  createMany: FeaturePhotoCreateManyProductInputEnvelope
-  connect: [FeaturePhotoWhereUniqueInput!]
+input UserCreateOrConnectWithoutShopsInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutShopsInput!
 }
 
-input FeaturePhotoCreateWithoutProductInput {
-  id: Int
-  photo: String!
-  createdAt: DateTime
-  updatedAt: DateTime
+input UsersOnShopsCreateOrConnectWithoutShopInput {
+  where: UsersOnShopsWhereUniqueInput!
+  create: UsersOnShopsCreateWithoutShopInput!
 }
 
-input FeaturePhotoCreateOrConnectWithoutProductInput {
-  where: FeaturePhotoWhereUniqueInput!
-  create: FeaturePhotoCreateWithoutProductInput!
-}
-
-input FeaturePhotoWhereUniqueInput {
-  id: Int
-  id_productId: FeaturePhotoIdProductIdCompoundUniqueInput
-}
-
-input FeaturePhotoIdProductIdCompoundUniqueInput {
-  id: Int!
-  productId: Int!
-}
-
-input FeaturePhotoCreateManyProductInputEnvelope {
-  data: [FeaturePhotoCreateManyProductInput!]!
+input UsersOnShopsCreateManyShopInputEnvelope {
+  data: [UsersOnShopsCreateManyShopInput!]!
   skipDuplicates: Boolean
 }
 
-input FeaturePhotoCreateManyProductInput {
-  id: Int
-  photo: String!
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input ProductCreateOrConnectWithoutStockInput {
-  where: ProductWhereUniqueInput!
-  create: ProductCreateWithoutStockInput!
-}
-
-input ProductWhereUniqueInput {
-  id: Int
-}
-
-input StockCreateOrConnectWithoutShopInput {
-  where: StockWhereUniqueInput!
-  create: StockCreateWithoutShopInput!
-}
-
-input StockWhereUniqueInput {
-  id: Int
-  id_shopId_productId: StockIdShopIdProductIdCompoundUniqueInput
-}
-
-input StockIdShopIdProductIdCompoundUniqueInput {
-  id: Int!
-  shopId: Int!
-  productId: Int!
-}
-
-input StockCreateManyShopInputEnvelope {
-  data: [StockCreateManyShopInput!]!
-  skipDuplicates: Boolean
-}
-
-input StockCreateManyShopInput {
-  id: Int
-  quantity: Int!
-  productId: Int!
+input UsersOnShopsCreateManyShopInput {
+  userId: Int!
+  assignedby: String!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -738,11 +750,6 @@ input StockCreateManyShopInput {
 input ShopCreateOrConnectWithoutProductsInput {
   where: ShopWhereUniqueInput!
   create: ShopCreateWithoutProductsInput!
-}
-
-input ShopWhereUniqueInput {
-  id: Int
-  slug: String
 }
 
 input ProductCreateOrConnectWithoutWishlistedByInput {
@@ -763,103 +770,6 @@ input UsersOnWishlistsCreateManyUserInputEnvelope {
 input UsersOnWishlistsCreateManyUserInput {
   id: Int
   productId: Int!
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input UserCreateOrConnectWithoutShopsInput {
-  where: UserWhereUniqueInput!
-  create: UserCreateWithoutShopsInput!
-}
-
-input UsersOnShopsCreateOrConnectWithoutShopInput {
-  where: UsersOnShopsWhereUniqueInput!
-  create: UsersOnShopsCreateWithoutShopInput!
-}
-
-input UsersOnShopsWhereUniqueInput {
-  shopId_userId: UsersOnShopsShopIdUserIdCompoundUniqueInput
-}
-
-input UsersOnShopsShopIdUserIdCompoundUniqueInput {
-  shopId: Int!
-  userId: Int!
-}
-
-input UsersOnShopsCreateManyShopInputEnvelope {
-  data: [UsersOnShopsCreateManyShopInput!]!
-  skipDuplicates: Boolean
-}
-
-input UsersOnShopsCreateManyShopInput {
-  userId: Int!
-  assignedby: String!
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input ShopCreateOrConnectWithoutStocksInput {
-  where: ShopWhereUniqueInput!
-  create: ShopCreateWithoutStocksInput!
-}
-
-input StockCreateOrConnectWithoutProductInput {
-  where: StockWhereUniqueInput!
-  create: StockCreateWithoutProductInput!
-}
-
-input StockCreateManyProductInputEnvelope {
-  data: [StockCreateManyProductInput!]!
-  skipDuplicates: Boolean
-}
-
-input StockCreateManyProductInput {
-  id: Int
-  quantity: Int!
-  shopId: Int!
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input ProductCreateOrConnectWithoutShopInput {
-  where: ProductWhereUniqueInput!
-  create: ProductCreateWithoutShopInput!
-}
-
-input ProductCreateManyShopInputEnvelope {
-  data: [ProductCreateManyShopInput!]!
-  skipDuplicates: Boolean
-}
-
-input ProductCreateManyShopInput {
-  id: Int
-  name: String!
-  description: String!
-  product_code: String!
-  status: ProductStatus!
-  cover_photo: String!
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input ShopCreateOrConnectWithoutOwnersInput {
-  where: ShopWhereUniqueInput!
-  create: ShopCreateWithoutOwnersInput!
-}
-
-input UsersOnShopsCreateOrConnectWithoutUserInput {
-  where: UsersOnShopsWhereUniqueInput!
-  create: UsersOnShopsCreateWithoutUserInput!
-}
-
-input UsersOnShopsCreateManyUserInputEnvelope {
-  data: [UsersOnShopsCreateManyUserInput!]!
-  skipDuplicates: Boolean
-}
-
-input UsersOnShopsCreateManyUserInput {
-  shopId: Int!
-  assignedby: String!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -932,7 +842,6 @@ input ShopUpdateWithoutOwnersInput {
   address: NullableStringFieldUpdateOperationsInput
   phone_numbers: PhoneOnShopsUpdateManyWithoutShopInput
   products: ProductUpdateManyWithoutShopInput
-  stocks: StockUpdateManyWithoutShopInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -1315,82 +1224,171 @@ input StockUpsertWithWhereUniqueWithoutProductInput {
 }
 
 input StockUpdateWithoutProductInput {
-  shop: ShopUpdateOneRequiredWithoutStocksInput
   quantity: IntFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input ShopUpdateOneRequiredWithoutStocksInput {
-  create: ShopCreateWithoutStocksInput
-  connectOrCreate: ShopCreateOrConnectWithoutStocksInput
-  upsert: ShopUpsertWithoutStocksInput
-  connect: ShopWhereUniqueInput
-  update: ShopUpdateWithoutStocksInput
+input IntFieldUpdateOperationsInput {
+  set: Int
+  increment: Int
+  decrement: Int
+  multiply: Int
+  divide: Int
 }
 
-input ShopUpsertWithoutStocksInput {
-  update: ShopUpdateWithoutStocksInput!
-  create: ShopCreateWithoutStocksInput!
+input StockUpdateWithWhereUniqueWithoutProductInput {
+  where: StockWhereUniqueInput!
+  data: StockUpdateWithoutProductInput!
 }
 
-input ShopUpdateWithoutStocksInput {
-  name: StringFieldUpdateOperationsInput
-  slug: StringFieldUpdateOperationsInput
-  address: NullableStringFieldUpdateOperationsInput
-  phone_numbers: PhoneOnShopsUpdateManyWithoutShopInput
-  products: ProductUpdateManyWithoutShopInput
-  owners: UsersOnShopsUpdateManyWithoutShopInput
+input StockUpdateManyWithWhereWithoutProductInput {
+  where: StockScalarWhereInput!
+  data: StockUpdateManyMutationInput!
+}
+
+input StockScalarWhereInput {
+  AND: [StockScalarWhereInput!]
+  OR: [StockScalarWhereInput!]
+  NOT: [StockScalarWhereInput!]
+  id: IntFilter
+  quantity: IntFilter
+  productId: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input StockUpdateManyMutationInput {
+  quantity: IntFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input UsersOnShopsUpdateManyWithoutShopInput {
-  create: [UsersOnShopsCreateWithoutShopInput!]
-  connectOrCreate: [UsersOnShopsCreateOrConnectWithoutShopInput!]
-  upsert: [UsersOnShopsUpsertWithWhereUniqueWithoutShopInput!]
-  createMany: UsersOnShopsCreateManyShopInputEnvelope
-  set: [UsersOnShopsWhereUniqueInput!]
-  disconnect: [UsersOnShopsWhereUniqueInput!]
-  delete: [UsersOnShopsWhereUniqueInput!]
-  connect: [UsersOnShopsWhereUniqueInput!]
-  update: [UsersOnShopsUpdateWithWhereUniqueWithoutShopInput!]
-  updateMany: [UsersOnShopsUpdateManyWithWhereWithoutShopInput!]
-  deleteMany: [UsersOnShopsScalarWhereInput!]
+input FeaturePhotoUpdateManyWithoutProductInput {
+  create: [FeaturePhotoCreateWithoutProductInput!]
+  connectOrCreate: [FeaturePhotoCreateOrConnectWithoutProductInput!]
+  upsert: [FeaturePhotoUpsertWithWhereUniqueWithoutProductInput!]
+  createMany: FeaturePhotoCreateManyProductInputEnvelope
+  set: [FeaturePhotoWhereUniqueInput!]
+  disconnect: [FeaturePhotoWhereUniqueInput!]
+  delete: [FeaturePhotoWhereUniqueInput!]
+  connect: [FeaturePhotoWhereUniqueInput!]
+  update: [FeaturePhotoUpdateWithWhereUniqueWithoutProductInput!]
+  updateMany: [FeaturePhotoUpdateManyWithWhereWithoutProductInput!]
+  deleteMany: [FeaturePhotoScalarWhereInput!]
 }
 
-input UsersOnShopsUpsertWithWhereUniqueWithoutShopInput {
+input FeaturePhotoUpsertWithWhereUniqueWithoutProductInput {
+  where: FeaturePhotoWhereUniqueInput!
+  update: FeaturePhotoUpdateWithoutProductInput!
+  create: FeaturePhotoCreateWithoutProductInput!
+}
+
+input FeaturePhotoUpdateWithoutProductInput {
+  photo: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeaturePhotoUpdateWithWhereUniqueWithoutProductInput {
+  where: FeaturePhotoWhereUniqueInput!
+  data: FeaturePhotoUpdateWithoutProductInput!
+}
+
+input FeaturePhotoUpdateManyWithWhereWithoutProductInput {
+  where: FeaturePhotoScalarWhereInput!
+  data: FeaturePhotoUpdateManyMutationInput!
+}
+
+input FeaturePhotoScalarWhereInput {
+  AND: [FeaturePhotoScalarWhereInput!]
+  OR: [FeaturePhotoScalarWhereInput!]
+  NOT: [FeaturePhotoScalarWhereInput!]
+  id: IntFilter
+  photo: StringFilter
+  productId: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input FeaturePhotoUpdateManyMutationInput {
+  photo: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProductUpdateWithWhereUniqueWithoutShopInput {
+  where: ProductWhereUniqueInput!
+  data: ProductUpdateWithoutShopInput!
+}
+
+input ProductUpdateManyWithWhereWithoutShopInput {
+  where: ProductScalarWhereInput!
+  data: ProductUpdateManyMutationInput!
+}
+
+input ProductScalarWhereInput {
+  AND: [ProductScalarWhereInput!]
+  OR: [ProductScalarWhereInput!]
+  NOT: [ProductScalarWhereInput!]
+  id: IntFilter
+  name: StringFilter
+  description: StringFilter
+  product_code: StringFilter
+  status: EnumProductStatusFilter
+  shopId: IntFilter
+  cover_photo: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input EnumProductStatusFilter {
+  equals: ProductStatus
+  in: [ProductStatus!]
+  notIn: [ProductStatus!]
+  not: NestedEnumProductStatusFilter
+}
+
+input NestedEnumProductStatusFilter {
+  equals: ProductStatus
+  in: [ProductStatus!]
+  notIn: [ProductStatus!]
+  not: NestedEnumProductStatusFilter
+}
+
+input ProductUpdateManyMutationInput {
+  name: StringFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  product_code: StringFieldUpdateOperationsInput
+  status: EnumProductStatusFieldUpdateOperationsInput
+  cover_photo: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UsersOnShopsUpdateWithWhereUniqueWithoutUserInput {
   where: UsersOnShopsWhereUniqueInput!
-  update: UsersOnShopsUpdateWithoutShopInput!
-  create: UsersOnShopsCreateWithoutShopInput!
+  data: UsersOnShopsUpdateWithoutUserInput!
 }
 
-input UsersOnShopsUpdateWithoutShopInput {
-  user: UserUpdateOneRequiredWithoutShopsInput
+input UsersOnShopsUpdateManyWithWhereWithoutUserInput {
+  where: UsersOnShopsScalarWhereInput!
+  data: UsersOnShopsUpdateManyMutationInput!
+}
+
+input UsersOnShopsScalarWhereInput {
+  AND: [UsersOnShopsScalarWhereInput!]
+  OR: [UsersOnShopsScalarWhereInput!]
+  NOT: [UsersOnShopsScalarWhereInput!]
+  shopId: IntFilter
+  userId: IntFilter
+  assignedby: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input UsersOnShopsUpdateManyMutationInput {
   assignedby: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input UserUpdateOneRequiredWithoutShopsInput {
-  create: UserCreateWithoutShopsInput
-  connectOrCreate: UserCreateOrConnectWithoutShopsInput
-  upsert: UserUpsertWithoutShopsInput
-  connect: UserWhereUniqueInput
-  update: UserUpdateWithoutShopsInput
-}
-
-input UserUpsertWithoutShopsInput {
-  update: UserUpdateWithoutShopsInput!
-  create: UserCreateWithoutShopsInput!
-}
-
-input UserUpdateWithoutShopsInput {
-  name: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  role: EnumUserTypeFieldUpdateOperationsInput
-  wishlists: UsersOnWishlistsUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -1467,162 +1465,58 @@ input ShopUpdateWithoutProductsInput {
   address: NullableStringFieldUpdateOperationsInput
   phone_numbers: PhoneOnShopsUpdateManyWithoutShopInput
   owners: UsersOnShopsUpdateManyWithoutShopInput
-  stocks: StockUpdateManyWithoutShopInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input StockUpdateManyWithoutShopInput {
-  create: [StockCreateWithoutShopInput!]
-  connectOrCreate: [StockCreateOrConnectWithoutShopInput!]
-  upsert: [StockUpsertWithWhereUniqueWithoutShopInput!]
-  createMany: StockCreateManyShopInputEnvelope
-  set: [StockWhereUniqueInput!]
-  disconnect: [StockWhereUniqueInput!]
-  delete: [StockWhereUniqueInput!]
-  connect: [StockWhereUniqueInput!]
-  update: [StockUpdateWithWhereUniqueWithoutShopInput!]
-  updateMany: [StockUpdateManyWithWhereWithoutShopInput!]
-  deleteMany: [StockScalarWhereInput!]
+input UsersOnShopsUpdateManyWithoutShopInput {
+  create: [UsersOnShopsCreateWithoutShopInput!]
+  connectOrCreate: [UsersOnShopsCreateOrConnectWithoutShopInput!]
+  upsert: [UsersOnShopsUpsertWithWhereUniqueWithoutShopInput!]
+  createMany: UsersOnShopsCreateManyShopInputEnvelope
+  set: [UsersOnShopsWhereUniqueInput!]
+  disconnect: [UsersOnShopsWhereUniqueInput!]
+  delete: [UsersOnShopsWhereUniqueInput!]
+  connect: [UsersOnShopsWhereUniqueInput!]
+  update: [UsersOnShopsUpdateWithWhereUniqueWithoutShopInput!]
+  updateMany: [UsersOnShopsUpdateManyWithWhereWithoutShopInput!]
+  deleteMany: [UsersOnShopsScalarWhereInput!]
 }
 
-input StockUpsertWithWhereUniqueWithoutShopInput {
-  where: StockWhereUniqueInput!
-  update: StockUpdateWithoutShopInput!
-  create: StockCreateWithoutShopInput!
+input UsersOnShopsUpsertWithWhereUniqueWithoutShopInput {
+  where: UsersOnShopsWhereUniqueInput!
+  update: UsersOnShopsUpdateWithoutShopInput!
+  create: UsersOnShopsCreateWithoutShopInput!
 }
 
-input StockUpdateWithoutShopInput {
-  product: ProductUpdateOneRequiredWithoutStockInput
-  quantity: IntFieldUpdateOperationsInput
+input UsersOnShopsUpdateWithoutShopInput {
+  user: UserUpdateOneRequiredWithoutShopsInput
+  assignedby: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input ProductUpdateOneRequiredWithoutStockInput {
-  create: ProductCreateWithoutStockInput
-  connectOrCreate: ProductCreateOrConnectWithoutStockInput
-  upsert: ProductUpsertWithoutStockInput
-  connect: ProductWhereUniqueInput
-  update: ProductUpdateWithoutStockInput
+input UserUpdateOneRequiredWithoutShopsInput {
+  create: UserCreateWithoutShopsInput
+  connectOrCreate: UserCreateOrConnectWithoutShopsInput
+  upsert: UserUpsertWithoutShopsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutShopsInput
 }
 
-input ProductUpsertWithoutStockInput {
-  update: ProductUpdateWithoutStockInput!
-  create: ProductCreateWithoutStockInput!
+input UserUpsertWithoutShopsInput {
+  update: UserUpdateWithoutShopsInput!
+  create: UserCreateWithoutShopsInput!
 }
 
-input ProductUpdateWithoutStockInput {
+input UserUpdateWithoutShopsInput {
   name: StringFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  product_code: StringFieldUpdateOperationsInput
-  shop: ShopUpdateOneRequiredWithoutProductsInput
-  status: EnumProductStatusFieldUpdateOperationsInput
-  currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
-  wishlistedBy: UsersOnWishlistsUpdateManyWithoutProductInput
-  cover_photo: StringFieldUpdateOperationsInput
-  feature_photos: FeaturePhotoUpdateManyWithoutProductInput
+  email: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  role: EnumUserTypeFieldUpdateOperationsInput
+  wishlists: UsersOnWishlistsUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input FeaturePhotoUpdateManyWithoutProductInput {
-  create: [FeaturePhotoCreateWithoutProductInput!]
-  connectOrCreate: [FeaturePhotoCreateOrConnectWithoutProductInput!]
-  upsert: [FeaturePhotoUpsertWithWhereUniqueWithoutProductInput!]
-  createMany: FeaturePhotoCreateManyProductInputEnvelope
-  set: [FeaturePhotoWhereUniqueInput!]
-  disconnect: [FeaturePhotoWhereUniqueInput!]
-  delete: [FeaturePhotoWhereUniqueInput!]
-  connect: [FeaturePhotoWhereUniqueInput!]
-  update: [FeaturePhotoUpdateWithWhereUniqueWithoutProductInput!]
-  updateMany: [FeaturePhotoUpdateManyWithWhereWithoutProductInput!]
-  deleteMany: [FeaturePhotoScalarWhereInput!]
-}
-
-input FeaturePhotoUpsertWithWhereUniqueWithoutProductInput {
-  where: FeaturePhotoWhereUniqueInput!
-  update: FeaturePhotoUpdateWithoutProductInput!
-  create: FeaturePhotoCreateWithoutProductInput!
-}
-
-input FeaturePhotoUpdateWithoutProductInput {
-  photo: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input FeaturePhotoUpdateWithWhereUniqueWithoutProductInput {
-  where: FeaturePhotoWhereUniqueInput!
-  data: FeaturePhotoUpdateWithoutProductInput!
-}
-
-input FeaturePhotoUpdateManyWithWhereWithoutProductInput {
-  where: FeaturePhotoScalarWhereInput!
-  data: FeaturePhotoUpdateManyMutationInput!
-}
-
-input FeaturePhotoScalarWhereInput {
-  AND: [FeaturePhotoScalarWhereInput!]
-  OR: [FeaturePhotoScalarWhereInput!]
-  NOT: [FeaturePhotoScalarWhereInput!]
-  id: IntFilter
-  photo: StringFilter
-  productId: IntFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-}
-
-input FeaturePhotoUpdateManyMutationInput {
-  photo: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input IntFieldUpdateOperationsInput {
-  set: Int
-  increment: Int
-  decrement: Int
-  multiply: Int
-  divide: Int
-}
-
-input StockUpdateWithWhereUniqueWithoutShopInput {
-  where: StockWhereUniqueInput!
-  data: StockUpdateWithoutShopInput!
-}
-
-input StockUpdateManyWithWhereWithoutShopInput {
-  where: StockScalarWhereInput!
-  data: StockUpdateManyMutationInput!
-}
-
-input StockScalarWhereInput {
-  AND: [StockScalarWhereInput!]
-  OR: [StockScalarWhereInput!]
-  NOT: [StockScalarWhereInput!]
-  id: IntFilter
-  quantity: IntFilter
-  shopId: IntFilter
-  productId: IntFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-}
-
-input StockUpdateManyMutationInput {
-  quantity: IntFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input UsersOnWishlistsUpdateWithWhereUniqueWithoutUserInput {
-  where: UsersOnWishlistsWhereUniqueInput!
-  data: UsersOnWishlistsUpdateWithoutUserInput!
-}
-
-input UsersOnWishlistsUpdateManyWithWhereWithoutUserInput {
-  where: UsersOnWishlistsScalarWhereInput!
-  data: UsersOnWishlistsUpdateManyMutationInput!
 }
 
 input UsersOnShopsUpdateWithWhereUniqueWithoutShopInput {
@@ -1635,90 +1529,14 @@ input UsersOnShopsUpdateManyWithWhereWithoutShopInput {
   data: UsersOnShopsUpdateManyMutationInput!
 }
 
-input UsersOnShopsScalarWhereInput {
-  AND: [UsersOnShopsScalarWhereInput!]
-  OR: [UsersOnShopsScalarWhereInput!]
-  NOT: [UsersOnShopsScalarWhereInput!]
-  shopId: IntFilter
-  userId: IntFilter
-  assignedby: StringFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
+input UsersOnWishlistsUpdateWithWhereUniqueWithoutUserInput {
+  where: UsersOnWishlistsWhereUniqueInput!
+  data: UsersOnWishlistsUpdateWithoutUserInput!
 }
 
-input UsersOnShopsUpdateManyMutationInput {
-  assignedby: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input StockUpdateWithWhereUniqueWithoutProductInput {
-  where: StockWhereUniqueInput!
-  data: StockUpdateWithoutProductInput!
-}
-
-input StockUpdateManyWithWhereWithoutProductInput {
-  where: StockScalarWhereInput!
-  data: StockUpdateManyMutationInput!
-}
-
-input ProductUpdateWithWhereUniqueWithoutShopInput {
-  where: ProductWhereUniqueInput!
-  data: ProductUpdateWithoutShopInput!
-}
-
-input ProductUpdateManyWithWhereWithoutShopInput {
-  where: ProductScalarWhereInput!
-  data: ProductUpdateManyMutationInput!
-}
-
-input ProductScalarWhereInput {
-  AND: [ProductScalarWhereInput!]
-  OR: [ProductScalarWhereInput!]
-  NOT: [ProductScalarWhereInput!]
-  id: IntFilter
-  name: StringFilter
-  description: StringFilter
-  product_code: StringFilter
-  status: EnumProductStatusFilter
-  shopId: IntFilter
-  cover_photo: StringFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-}
-
-input EnumProductStatusFilter {
-  equals: ProductStatus
-  in: [ProductStatus!]
-  notIn: [ProductStatus!]
-  not: NestedEnumProductStatusFilter
-}
-
-input NestedEnumProductStatusFilter {
-  equals: ProductStatus
-  in: [ProductStatus!]
-  notIn: [ProductStatus!]
-  not: NestedEnumProductStatusFilter
-}
-
-input ProductUpdateManyMutationInput {
-  name: StringFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  product_code: StringFieldUpdateOperationsInput
-  status: EnumProductStatusFieldUpdateOperationsInput
-  cover_photo: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input UsersOnShopsUpdateWithWhereUniqueWithoutUserInput {
-  where: UsersOnShopsWhereUniqueInput!
-  data: UsersOnShopsUpdateWithoutUserInput!
-}
-
-input UsersOnShopsUpdateManyWithWhereWithoutUserInput {
-  where: UsersOnShopsScalarWhereInput!
-  data: UsersOnShopsUpdateManyMutationInput!
+input UsersOnWishlistsUpdateManyWithWhereWithoutUserInput {
+  where: UsersOnWishlistsScalarWhereInput!
+  data: UsersOnWishlistsUpdateManyMutationInput!
 }
 
 input CreateShopInput {
@@ -1728,7 +1546,6 @@ input CreateShopInput {
   phone_numbers: PhoneOnShopsCreateNestedManyWithoutShopInput
   products: ProductCreateNestedManyWithoutShopInput
   owners: UsersOnShopsCreateNestedManyWithoutShopInput
-  stocks: StockCreateNestedManyWithoutShopInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1740,7 +1557,6 @@ input UpdateShopInput {
   phone_numbers: PhoneOnShopsUpdateManyWithoutShopInput
   products: ProductUpdateManyWithoutShopInput
   owners: UsersOnShopsUpdateManyWithoutShopInput
-  stocks: StockUpdateManyWithoutShopInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 

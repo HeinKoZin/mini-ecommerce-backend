@@ -1,3 +1,4 @@
+import { CurrenciesOnProducts } from '@generated/prisma-nestjs-graphql/currencies-on-products/currencies-on-products.model';
 import {
   PrismaClient,
   Product,
@@ -7,6 +8,7 @@ import {
   UserType,
 } from '@prisma/client';
 import { faker } from '@faker-js/faker';
+import { CreateShopInput } from '@shops/dto/create-shop.input';
 
 type InputUserType = Omit<User, 'id' | 'createdAt' | 'updatedAt'>;
 type InputShopType = Omit<Shop, 'id' | 'createdAt' | 'updatedAt'>;
@@ -27,7 +29,7 @@ const generateShop = () => {
   return {
     name: faker.company.companyName(),
     address: faker.address.streetAddress(),
-    phone_numbers: faker.phone.phoneNumber(),
+
     // generate unique company name without spaces
     slug: faker.company
       .companyName()
@@ -42,7 +44,10 @@ const generateProduct = () => {
   return {
     name: faker.commerce.productName(),
     description: faker.commerce.productDescription(),
-    quantity: faker.datatype.number({ max: 25 }),
+    // quantity: faker.datatype.number({ max: 25 }),
+    // stock: {
+    //   quantity: faker.datatype.number({ max: 25 }),
+    // },
     product_code: faker.random.alphaNumeric(10).toUpperCase(),
     status: faker.random.arrayElement([
       ProductStatus.AVAILABLE,
@@ -50,9 +55,15 @@ const generateProduct = () => {
       ProductStatus.PRE_ORDER,
     ]),
     cover_photo: faker.image.imageUrl(),
-    shopId: faker.datatype.number({ min: 1, max: 100 }),
+    shopId: 1,
   };
 };
+
+const prisma = new PrismaClient();
+const products = prisma.product.findMany({});
+const currencies = prisma.currency.findMany({});
+const users = prisma.user.findMany({});
+const shops = prisma.shop.findMany({});
 
 // insert data into database with prisma
 const seedUsers = async () => {
@@ -76,11 +87,15 @@ const seedUsers = async () => {
     users.push(generateUser());
   }
   await prisma.user.createMany({ data: users, skipDuplicates: true });
+
+  const isUserExist = prisma.user.findMany({});
+
+  isUserExist ? seedShops() : console.log('User not found');
 };
 
 const seedShops = async () => {
   const prisma = new PrismaClient();
-  const shops: InputShopType[] = [
+  const shops: CreateShopInput[] = [
     {
       name: 'Kay Kay',
       address: 'No.253, St.51, Botahtaung',
@@ -113,7 +128,39 @@ const seedProducts = async () => {
     products.push(generateProduct());
   }
   await prisma.product.createMany({ data: products, skipDuplicates: true });
+
+  const isProductExist = prisma.product.findMany({});
+  isProductExist ? seedCurrencies() : console.log('Product not found');
+};
+
+const seedCurrencies = async () => {
+  const isCurrencyExist = await prisma.currency.create({
+    data: {
+      name: 'Kyat',
+      code: 'MMK',
+    },
+  });
+
+  isCurrencyExist ? seedPrices() : console.log('Currency not found');
+};
+
+const seedPrices = async () => {
+  const prisma = new PrismaClient();
+  const pro = [];
+
+  (await products).forEach((product) => {
+    pro.push(product);
+  });
+
+  pro.forEach(async (product) => {
+    await prisma.currenciesOnProducts.create({
+      data: {
+        sell_price: +faker.commerce.price(),
+        productId: product.id,
+        currencyId: 1,
+      },
+    });
+  });
 };
 
 seedUsers();
-seedShops();
