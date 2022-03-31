@@ -70,10 +70,20 @@ type Stock {
   updatedAt: DateTime!
 }
 
+type FeaturePhoto {
+  id: Int!
+  product: Product!
+  photo: String!
+  productId: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type ProductCount {
   currencies: Int!
   wishlistedBy: Int!
   stock: Int!
+  feature_photos: Int!
 }
 
 type Product {
@@ -87,6 +97,8 @@ type Product {
   currencies: [CurrenciesOnProducts!]
   wishlistedBy: [UsersOnWishlists!]
   stock: [Stock!]
+  cover_photo: String!
+  feature_photos: [FeaturePhoto!]
   createdAt: DateTime!
   updatedAt: DateTime!
   _count: ProductCount!
@@ -199,6 +211,8 @@ type ProductEntity {
   currencies: [CurrenciesOnProducts!]!
   wishlistedBy: [UsersOnWishlists!]
   stock: [Stock!]
+  cover_photo: String!
+  feature_photos: [FeaturePhoto!]
   createdAt: DateTime!
   updatedAt: DateTime!
   _count: ProductCount!
@@ -361,6 +375,8 @@ input ProductCreateWithoutShopInput {
   currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
   wishlistedBy: UsersOnWishlistsCreateNestedManyWithoutProductInput
   stock: StockCreateNestedManyWithoutProductInput
+  cover_photo: String!
+  feature_photos: FeaturePhotoCreateNestedManyWithoutProductInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -582,6 +598,8 @@ input ProductCreateWithoutWishlistedByInput {
   status: ProductStatus!
   currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
   stock: StockCreateNestedManyWithoutProductInput
+  cover_photo: String!
+  feature_photos: FeaturePhotoCreateNestedManyWithoutProductInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -632,6 +650,49 @@ input ProductCreateWithoutStockInput {
   status: ProductStatus!
   currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
   wishlistedBy: UsersOnWishlistsCreateNestedManyWithoutProductInput
+  cover_photo: String!
+  feature_photos: FeaturePhotoCreateNestedManyWithoutProductInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input FeaturePhotoCreateNestedManyWithoutProductInput {
+  create: [FeaturePhotoCreateWithoutProductInput!]
+  connectOrCreate: [FeaturePhotoCreateOrConnectWithoutProductInput!]
+  createMany: FeaturePhotoCreateManyProductInputEnvelope
+  connect: [FeaturePhotoWhereUniqueInput!]
+}
+
+input FeaturePhotoCreateWithoutProductInput {
+  id: Int
+  photo: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input FeaturePhotoCreateOrConnectWithoutProductInput {
+  where: FeaturePhotoWhereUniqueInput!
+  create: FeaturePhotoCreateWithoutProductInput!
+}
+
+input FeaturePhotoWhereUniqueInput {
+  id: Int
+  id_productId: FeaturePhotoIdProductIdCompoundUniqueInput
+}
+
+input FeaturePhotoIdProductIdCompoundUniqueInput {
+  id: Int!
+  productId: Int!
+}
+
+input FeaturePhotoCreateManyProductInputEnvelope {
+  data: [FeaturePhotoCreateManyProductInput!]!
+  skipDuplicates: Boolean
+}
+
+input FeaturePhotoCreateManyProductInput {
+  id: Int
+  photo: String!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -776,6 +837,7 @@ input ProductCreateManyShopInput {
   description: String!
   product_code: String!
   status: ProductStatus!
+  cover_photo: String!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1042,6 +1104,8 @@ input ProductUpdateWithoutShopInput {
   currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
   wishlistedBy: UsersOnWishlistsUpdateManyWithoutProductInput
   stock: StockUpdateManyWithoutProductInput
+  cover_photo: StringFieldUpdateOperationsInput
+  feature_photos: FeaturePhotoUpdateManyWithoutProductInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -1378,6 +1442,8 @@ input ProductUpdateWithoutWishlistedByInput {
   status: EnumProductStatusFieldUpdateOperationsInput
   currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
   stock: StockUpdateManyWithoutProductInput
+  cover_photo: StringFieldUpdateOperationsInput
+  feature_photos: FeaturePhotoUpdateManyWithoutProductInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -1454,6 +1520,61 @@ input ProductUpdateWithoutStockInput {
   status: EnumProductStatusFieldUpdateOperationsInput
   currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
   wishlistedBy: UsersOnWishlistsUpdateManyWithoutProductInput
+  cover_photo: StringFieldUpdateOperationsInput
+  feature_photos: FeaturePhotoUpdateManyWithoutProductInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeaturePhotoUpdateManyWithoutProductInput {
+  create: [FeaturePhotoCreateWithoutProductInput!]
+  connectOrCreate: [FeaturePhotoCreateOrConnectWithoutProductInput!]
+  upsert: [FeaturePhotoUpsertWithWhereUniqueWithoutProductInput!]
+  createMany: FeaturePhotoCreateManyProductInputEnvelope
+  set: [FeaturePhotoWhereUniqueInput!]
+  disconnect: [FeaturePhotoWhereUniqueInput!]
+  delete: [FeaturePhotoWhereUniqueInput!]
+  connect: [FeaturePhotoWhereUniqueInput!]
+  update: [FeaturePhotoUpdateWithWhereUniqueWithoutProductInput!]
+  updateMany: [FeaturePhotoUpdateManyWithWhereWithoutProductInput!]
+  deleteMany: [FeaturePhotoScalarWhereInput!]
+}
+
+input FeaturePhotoUpsertWithWhereUniqueWithoutProductInput {
+  where: FeaturePhotoWhereUniqueInput!
+  update: FeaturePhotoUpdateWithoutProductInput!
+  create: FeaturePhotoCreateWithoutProductInput!
+}
+
+input FeaturePhotoUpdateWithoutProductInput {
+  photo: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input FeaturePhotoUpdateWithWhereUniqueWithoutProductInput {
+  where: FeaturePhotoWhereUniqueInput!
+  data: FeaturePhotoUpdateWithoutProductInput!
+}
+
+input FeaturePhotoUpdateManyWithWhereWithoutProductInput {
+  where: FeaturePhotoScalarWhereInput!
+  data: FeaturePhotoUpdateManyMutationInput!
+}
+
+input FeaturePhotoScalarWhereInput {
+  AND: [FeaturePhotoScalarWhereInput!]
+  OR: [FeaturePhotoScalarWhereInput!]
+  NOT: [FeaturePhotoScalarWhereInput!]
+  id: IntFilter
+  photo: StringFilter
+  productId: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input FeaturePhotoUpdateManyMutationInput {
+  photo: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -1561,6 +1682,7 @@ input ProductScalarWhereInput {
   product_code: StringFilter
   status: EnumProductStatusFilter
   shopId: IntFilter
+  cover_photo: StringFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
 }
@@ -1584,6 +1706,7 @@ input ProductUpdateManyMutationInput {
   description: StringFieldUpdateOperationsInput
   product_code: StringFieldUpdateOperationsInput
   status: EnumProductStatusFieldUpdateOperationsInput
+  cover_photo: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -1634,6 +1757,8 @@ input CreateProductInput {
   currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
   wishlistedBy: UsersOnWishlistsCreateNestedManyWithoutProductInput
   stock: StockCreateNestedManyWithoutProductInput
+  cover_photo: String!
+  feature_photos: FeaturePhotoCreateNestedManyWithoutProductInput
   createdAt: DateTime
   updatedAt: DateTime
 
@@ -1650,6 +1775,8 @@ input UpdateProductInput {
   currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
   wishlistedBy: UsersOnWishlistsUpdateManyWithoutProductInput
   stock: StockUpdateManyWithoutProductInput
+  cover_photo: StringFieldUpdateOperationsInput
+  feature_photos: FeaturePhotoUpdateManyWithoutProductInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 

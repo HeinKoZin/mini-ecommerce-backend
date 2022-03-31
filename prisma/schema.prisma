@@ -66,7 +66,9 @@ model Product {
   shopId       Int
   currencies   CurrenciesOnProducts[]
   wishlistedBy UsersOnWishlists[]
-  stock      Stock[]
+  stock        Stock[]
+  cover_photo  String
+  feature_photos FeaturePhoto[]
   createdAt    DateTime               @default(now())
   updatedAt    DateTime               @updatedAt
 
@@ -114,7 +116,6 @@ model Shop {
   phone_numbers PhoneOnShops[]
   products      Product[]
   owners        UsersOnShops[]
-  stocks        Stock[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 
@@ -165,15 +166,27 @@ model PhoneOnShops {
 
 model Stock {
   id        Int      @unique @default(autoincrement())
-  shop      Shop     @relation(fields: [shopId], references: [id])
   product   Product  @relation(fields: [productId], references: [id])
   quantity  Int
-  shopId    Int
   productId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@id([id, shopId, productId])
-  @@index([shopId, productId])
+  @@id([id, productId])
+  @@index([ productId])
   @@map("stocks")
+}
+
+
+model FeaturePhoto {
+  id        Int      @unique @default(autoincrement())
+  product   Product  @relation(fields: [productId], references: [id])
+  photo     String
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id, productId])
+  @@index([productId, id])
+  @@map("feature_photos")
 }

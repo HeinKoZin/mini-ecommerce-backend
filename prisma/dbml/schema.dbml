@@ -25,6 +25,8 @@ Table Product {
   currencies CurrenciesOnProducts [not null]
   wishlistedBy UsersOnWishlists [not null]
   stock Stock [not null]
+  cover_photo String [not null]
+  feature_photos FeaturePhoto [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
@@ -57,7 +59,6 @@ Table Shop {
   phone_numbers PhoneOnShops [not null]
   products Product [not null]
   owners UsersOnShops [not null]
-  stocks Stock [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
@@ -105,16 +106,27 @@ Table PhoneOnShops {
 
 Table Stock {
   id Int [increment, unique, not null]
-  shop Shop [not null]
   product Product [not null]
   quantity Int [not null]
-  shopId Int [not null]
   productId Int [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 
   indexes {
-    (id, shopId, productId) [pk]
+    (id, productId) [pk]
+  }
+}
+
+Table FeaturePhoto {
+  id Int [increment, unique, not null]
+  product Product [not null]
+  photo String [not null]
+  productId Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+
+  indexes {
+    (id, productId) [pk]
   }
 }
 
@@ -145,6 +157,6 @@ Ref: UsersOnWishlists.productId > Product.id
 
 Ref: PhoneOnShops.shopId > Shop.id
 
-Ref: Stock.shopId > Shop.id
-
 Ref: Stock.productId > Product.id
+
+Ref: FeaturePhoto.productId > Product.id

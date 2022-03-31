@@ -49,6 +49,7 @@ const generateProduct = () => {
       ProductStatus.STOCK_OUT,
       ProductStatus.PRE_ORDER,
     ]),
+    cover_photo: faker.image.imageUrl(),
     shopId: faker.datatype.number({ min: 1, max: 100 }),
   };
 };
