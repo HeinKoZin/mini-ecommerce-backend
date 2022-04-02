@@ -227,7 +227,7 @@ type Query {
   users(take: Int): [UserEntity!]!
   user(id: Int!): UserEntity!
   shops(take: Int): [ShopEntity!]!
-  products(take: Int): [ProductEntity!]!
+  products(take: Int, cursor: Int): [ProductEntity!]!
   product(id: Int!): ProductEntity!
   wishlists: [Wishlist!]!
   wishlist(id: Int!): Wishlist!
