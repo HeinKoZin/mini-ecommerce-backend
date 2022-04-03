@@ -12,6 +12,7 @@ import { WishlistsModule } from './wishlists/wishlists.module';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
 
 @Global()
 @Module({
@@ -20,6 +21,7 @@ import { JwtModule } from '@nestjs/jwt';
       driver: ApolloDriver,
       autoSchemaFile: './schema/schema.graphql',
     }),
+    ConfigModule.forRoot(),
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '7d' },
