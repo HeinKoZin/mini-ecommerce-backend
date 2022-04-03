@@ -88,7 +88,6 @@ export class ShopsService {
     res.forEach(async (phone) => {
       await phoneNumbers.push(phone);
     });
-    console.log(phoneNumbers);
     return phoneNumbers;
   }
 

@@ -11,6 +11,7 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { ShopEntity } from '@shops/entities/shop.entity';
+import console from 'console';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { ProductEntity } from './entities/product.entity';
@@ -31,8 +32,12 @@ export class ProductsResolver {
   }
 
   @Query(() => [ProductEntity], { name: 'products' })
-  findAll(@Args('take', { type: () => Int, nullable: true }) take?: number) {
-    return this.productsService.findAll(take);
+  findAll(
+    @Args('take', { type: () => Int, nullable: true }) take?: number,
+    @Args('cursor', { type: () => Int, nullable: true })
+    cursor?: number,
+  ) {
+    return this.productsService.findAll(take, cursor);
   }
 
   @ResolveField(() => [CurrenciesOnProducts])

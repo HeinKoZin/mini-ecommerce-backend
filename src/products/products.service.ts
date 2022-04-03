@@ -15,6 +15,7 @@ export class ProductsService {
       include: {
         shop: true,
         currencies: true,
+        stock: true,
       },
       data: {
         ...createProductInput,
@@ -23,27 +24,35 @@ export class ProductsService {
     return createdProduct;
   }
 
-  async findAll(take = 10) {
-    const products = await this.prismaService.product.findMany({
-      include: {
-        shop: true,
-        currencies: {
+  async findAll(take = 10, cursor: number) {
+    return cursor
+      ? await this.prismaService.product.findMany({
           include: {
-            currency: {
-              include: {
-                _count: true,
-              },
-            },
+            shop: true,
+            currencies: true,
+            _count: true,
+            stock: true,
           },
-        },
-        _count: true,
-      },
-      take,
-      orderBy: {
-        id: 'desc',
-      },
-    });
-    return products;
+          cursor: {
+            id: cursor,
+          },
+          take,
+          orderBy: {
+            id: 'desc',
+          },
+        })
+      : await this.prismaService.product.findMany({
+          include: {
+            shop: true,
+            currencies: true,
+            _count: true,
+            stock: true,
+          },
+          take,
+          orderBy: {
+            id: 'desc',
+          },
+        });
   }
 
   async getProductsByUserWishlist(userId: number) {
@@ -75,6 +84,17 @@ export class ProductsService {
       },
     });
     return currencies;
+  }
+
+  async getStock(productId: number) {
+    const stock = await this.prismaService.stock.findFirst({
+      where: {
+        product: {
+          id: productId,
+        },
+      },
+    });
+    return stock;
   }
 
   async findOne(id: number) {

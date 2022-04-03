@@ -14,7 +14,6 @@ export class UsersService {
     const user = await this.prismaService.user.findUnique({
       where: { email: createUserInput.email },
     });
-
     // if user exists return error message
     if (user) {
       throw new HttpException('User already exists', 400);
@@ -27,7 +26,6 @@ export class UsersService {
           _count: true,
         },
       });
-
       return createdUser;
     }
   }

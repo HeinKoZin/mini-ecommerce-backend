@@ -52,9 +52,7 @@ export class ShopsResolver {
 
   @ResolveField(() => [PhoneOnShops])
   async phone_numbers(@Parent() shop: ShopEntity) {
-    return (
-      shop.phone_numbers || (await this.shopsService.getPhoneNumbers(shop.id))
-    );
+    return await this.shopsService.getPhoneNumbers(shop.id);
   }
 
   @Mutation(() => ShopEntity)
