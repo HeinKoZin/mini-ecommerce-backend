@@ -195,6 +195,13 @@ type Wishlist {
   updatedAt: DateTime!
 }
 
+type CurrentUserEntity {
+  id: ID!
+  name: String!
+  email: String!
+  role: UserType!
+}
+
 type ProductEntity {
   id: ID!
   name: String!
@@ -225,6 +232,7 @@ type Query {
   tests: [Test!]
   test(id: Int!): Test
   users(take: Int): [UserEntity!]!
+  me: CurrentUserEntity!
   user(id: Int!): UserEntity!
   shops(take: Int): [ShopEntity!]!
   products(take: Int, cursor: Int): [ProductEntity!]!

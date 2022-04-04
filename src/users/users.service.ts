@@ -4,6 +4,7 @@ import { PrismaService } from '@prisma.service';
 // import { LoginResponse } from './dto/login-response';
 // import { LoginUserInput } from '../auth/dto/login-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { CurrentUserEntity } from './entities/current-user.entity';
 
 @Injectable()
 export class UsersService {

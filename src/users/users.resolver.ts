@@ -17,6 +17,8 @@ import { WishlistsService } from '@wishlists/wishlists.service';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '@auth/jwt-auth.guard';
 import { CreateUserInput } from './dto/create-user.input';
+import { CurrentUser } from '@current-user.decorator';
+import { CurrentUserEntity } from './entities/current-user.entity';
 
 @Resolver(() => UserEntity)
 export class UsersResolver {
@@ -36,6 +38,12 @@ export class UsersResolver {
     @Args('take', { type: () => Int, nullable: true }) take?: number,
   ) {
     return await this.usersService.findAll(take);
+  }
+
+  @Query(() => CurrentUserEntity, { name: 'me' })
+  @UseGuards(JwtAuthGuard)
+  async me(@CurrentUser() user: CurrentUserEntity) {
+    return user;
   }
 
   @ResolveField(() => UserType)
