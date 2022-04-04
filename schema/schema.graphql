@@ -49,7 +49,7 @@ type CurrenciesOnProducts {
   updatedAt: DateTime!
 }
 
-type UsersOnWishlists {
+type Wishlists {
   id: Int!
   user: User!
   product: Product!
@@ -93,7 +93,7 @@ type Product {
   status: ProductStatus!
   shopId: Int!
   currencies: [CurrenciesOnProducts!]
-  wishlistedBy: [UsersOnWishlists!]
+  wishlistedBy: [Wishlists!]
   stock: [Stock!]
   cover_photo: String!
   feature_photos: [FeaturePhoto!]
@@ -149,7 +149,7 @@ type User {
   password: String!
   role: UserType!
   shops: [UsersOnShops!]
-  wishlists: [UsersOnWishlists!]
+  wishlists: [Wishlists!]
   createdAt: DateTime!
   updatedAt: DateTime!
   _count: UserCount!
@@ -211,7 +211,7 @@ type ProductEntity {
   status: ProductStatus!
   shopId: Int!
   currencies: [CurrenciesOnProducts!]!
-  wishlistedBy: [UsersOnWishlists!]
+  wishlistedBy: [Wishlists!]
   stock: [Stock!]
   cover_photo: String!
   feature_photos: [FeaturePhoto!]
@@ -283,7 +283,7 @@ input CreateUserInput {
   password: String!
   role: UserType
   shops: UsersOnShopsCreateNestedManyWithoutUserInput
-  wishlists: UsersOnWishlistsCreateNestedManyWithoutUserInput
+  wishlists: WishlistsCreateNestedManyWithoutUserInput
   createdAt: DateTime
   updatedAt: DateTime
 
@@ -375,7 +375,7 @@ input ProductCreateWithoutShopInput {
   product_code: String!
   status: ProductStatus!
   currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
-  wishlistedBy: UsersOnWishlistsCreateNestedManyWithoutProductInput
+  wishlistedBy: WishlistsCreateNestedManyWithoutProductInput
   stock: StockCreateNestedManyWithoutProductInput
   cover_photo: String!
   feature_photos: FeaturePhotoCreateNestedManyWithoutProductInput
@@ -442,14 +442,14 @@ input CurrenciesOnProductsCreateManyProductInput {
   updatedAt: DateTime
 }
 
-input UsersOnWishlistsCreateNestedManyWithoutProductInput {
-  create: [UsersOnWishlistsCreateWithoutProductInput!]
-  connectOrCreate: [UsersOnWishlistsCreateOrConnectWithoutProductInput!]
-  createMany: UsersOnWishlistsCreateManyProductInputEnvelope
-  connect: [UsersOnWishlistsWhereUniqueInput!]
+input WishlistsCreateNestedManyWithoutProductInput {
+  create: [WishlistsCreateWithoutProductInput!]
+  connectOrCreate: [WishlistsCreateOrConnectWithoutProductInput!]
+  createMany: WishlistsCreateManyProductInputEnvelope
+  connect: [WishlistsWhereUniqueInput!]
 }
 
-input UsersOnWishlistsCreateWithoutProductInput {
+input WishlistsCreateWithoutProductInput {
   id: Int
   user: UserCreateNestedOneWithoutWishlistsInput!
   createdAt: DateTime
@@ -482,28 +482,28 @@ input UserWhereUniqueInput {
   email: String
 }
 
-input UsersOnWishlistsCreateOrConnectWithoutProductInput {
-  where: UsersOnWishlistsWhereUniqueInput!
-  create: UsersOnWishlistsCreateWithoutProductInput!
+input WishlistsCreateOrConnectWithoutProductInput {
+  where: WishlistsWhereUniqueInput!
+  create: WishlistsCreateWithoutProductInput!
 }
 
-input UsersOnWishlistsWhereUniqueInput {
+input WishlistsWhereUniqueInput {
   id: Int
-  id_userId_productId: UsersOnWishlistsIdUserIdProductIdCompoundUniqueInput
+  id_userId_productId: WishlistsIdUserIdProductIdCompoundUniqueInput
 }
 
-input UsersOnWishlistsIdUserIdProductIdCompoundUniqueInput {
+input WishlistsIdUserIdProductIdCompoundUniqueInput {
   id: Int!
   userId: Int!
   productId: Int!
 }
 
-input UsersOnWishlistsCreateManyProductInputEnvelope {
-  data: [UsersOnWishlistsCreateManyProductInput!]!
+input WishlistsCreateManyProductInputEnvelope {
+  data: [WishlistsCreateManyProductInput!]!
   skipDuplicates: Boolean
 }
 
-input UsersOnWishlistsCreateManyProductInput {
+input WishlistsCreateManyProductInput {
   id: Int
   userId: Int!
   createdAt: DateTime
@@ -653,14 +653,14 @@ input UsersOnShopsCreateManyUserInput {
   updatedAt: DateTime
 }
 
-input UsersOnWishlistsCreateNestedManyWithoutUserInput {
-  create: [UsersOnWishlistsCreateWithoutUserInput!]
-  connectOrCreate: [UsersOnWishlistsCreateOrConnectWithoutUserInput!]
-  createMany: UsersOnWishlistsCreateManyUserInputEnvelope
-  connect: [UsersOnWishlistsWhereUniqueInput!]
+input WishlistsCreateNestedManyWithoutUserInput {
+  create: [WishlistsCreateWithoutUserInput!]
+  connectOrCreate: [WishlistsCreateOrConnectWithoutUserInput!]
+  createMany: WishlistsCreateManyUserInputEnvelope
+  connect: [WishlistsWhereUniqueInput!]
 }
 
-input UsersOnWishlistsCreateWithoutUserInput {
+input WishlistsCreateWithoutUserInput {
   id: Int
   product: ProductCreateNestedOneWithoutWishlistedByInput!
   createdAt: DateTime
@@ -728,7 +728,7 @@ input UserCreateWithoutShopsInput {
   email: String!
   password: String!
   role: UserType
-  wishlists: UsersOnWishlistsCreateNestedManyWithoutUserInput
+  wishlists: WishlistsCreateNestedManyWithoutUserInput
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -765,17 +765,17 @@ input ProductCreateOrConnectWithoutWishlistedByInput {
   create: ProductCreateWithoutWishlistedByInput!
 }
 
-input UsersOnWishlistsCreateOrConnectWithoutUserInput {
-  where: UsersOnWishlistsWhereUniqueInput!
-  create: UsersOnWishlistsCreateWithoutUserInput!
+input WishlistsCreateOrConnectWithoutUserInput {
+  where: WishlistsWhereUniqueInput!
+  create: WishlistsCreateWithoutUserInput!
 }
 
-input UsersOnWishlistsCreateManyUserInputEnvelope {
-  data: [UsersOnWishlistsCreateManyUserInput!]!
+input WishlistsCreateManyUserInputEnvelope {
+  data: [WishlistsCreateManyUserInput!]!
   skipDuplicates: Boolean
 }
 
-input UsersOnWishlistsCreateManyUserInput {
+input WishlistsCreateManyUserInput {
   id: Int
   productId: Int!
   createdAt: DateTime
@@ -788,7 +788,7 @@ input UpdateUserInput {
   password: StringFieldUpdateOperationsInput
   role: EnumUserTypeFieldUpdateOperationsInput
   shops: UsersOnShopsUpdateManyWithoutUserInput
-  wishlists: UsersOnWishlistsUpdateManyWithoutUserInput
+  wishlists: WishlistsUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 
@@ -1019,7 +1019,7 @@ input ProductUpdateWithoutShopInput {
   product_code: StringFieldUpdateOperationsInput
   status: EnumProductStatusFieldUpdateOperationsInput
   currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
-  wishlistedBy: UsersOnWishlistsUpdateManyWithoutProductInput
+  wishlistedBy: WishlistsUpdateManyWithoutProductInput
   stock: StockUpdateManyWithoutProductInput
   cover_photo: StringFieldUpdateOperationsInput
   feature_photos: FeaturePhotoUpdateManyWithoutProductInput
@@ -1136,27 +1136,27 @@ input CurrenciesOnProductsUpdateManyMutationInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input UsersOnWishlistsUpdateManyWithoutProductInput {
-  create: [UsersOnWishlistsCreateWithoutProductInput!]
-  connectOrCreate: [UsersOnWishlistsCreateOrConnectWithoutProductInput!]
-  upsert: [UsersOnWishlistsUpsertWithWhereUniqueWithoutProductInput!]
-  createMany: UsersOnWishlistsCreateManyProductInputEnvelope
-  set: [UsersOnWishlistsWhereUniqueInput!]
-  disconnect: [UsersOnWishlistsWhereUniqueInput!]
-  delete: [UsersOnWishlistsWhereUniqueInput!]
-  connect: [UsersOnWishlistsWhereUniqueInput!]
-  update: [UsersOnWishlistsUpdateWithWhereUniqueWithoutProductInput!]
-  updateMany: [UsersOnWishlistsUpdateManyWithWhereWithoutProductInput!]
-  deleteMany: [UsersOnWishlistsScalarWhereInput!]
+input WishlistsUpdateManyWithoutProductInput {
+  create: [WishlistsCreateWithoutProductInput!]
+  connectOrCreate: [WishlistsCreateOrConnectWithoutProductInput!]
+  upsert: [WishlistsUpsertWithWhereUniqueWithoutProductInput!]
+  createMany: WishlistsCreateManyProductInputEnvelope
+  set: [WishlistsWhereUniqueInput!]
+  disconnect: [WishlistsWhereUniqueInput!]
+  delete: [WishlistsWhereUniqueInput!]
+  connect: [WishlistsWhereUniqueInput!]
+  update: [WishlistsUpdateWithWhereUniqueWithoutProductInput!]
+  updateMany: [WishlistsUpdateManyWithWhereWithoutProductInput!]
+  deleteMany: [WishlistsScalarWhereInput!]
 }
 
-input UsersOnWishlistsUpsertWithWhereUniqueWithoutProductInput {
-  where: UsersOnWishlistsWhereUniqueInput!
-  update: UsersOnWishlistsUpdateWithoutProductInput!
-  create: UsersOnWishlistsCreateWithoutProductInput!
+input WishlistsUpsertWithWhereUniqueWithoutProductInput {
+  where: WishlistsWhereUniqueInput!
+  update: WishlistsUpdateWithoutProductInput!
+  create: WishlistsCreateWithoutProductInput!
 }
 
-input UsersOnWishlistsUpdateWithoutProductInput {
+input WishlistsUpdateWithoutProductInput {
   user: UserUpdateOneRequiredWithoutWishlistsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1185,20 +1185,20 @@ input UserUpdateWithoutWishlistsInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input UsersOnWishlistsUpdateWithWhereUniqueWithoutProductInput {
-  where: UsersOnWishlistsWhereUniqueInput!
-  data: UsersOnWishlistsUpdateWithoutProductInput!
+input WishlistsUpdateWithWhereUniqueWithoutProductInput {
+  where: WishlistsWhereUniqueInput!
+  data: WishlistsUpdateWithoutProductInput!
 }
 
-input UsersOnWishlistsUpdateManyWithWhereWithoutProductInput {
-  where: UsersOnWishlistsScalarWhereInput!
-  data: UsersOnWishlistsUpdateManyMutationInput!
+input WishlistsUpdateManyWithWhereWithoutProductInput {
+  where: WishlistsScalarWhereInput!
+  data: WishlistsUpdateManyMutationInput!
 }
 
-input UsersOnWishlistsScalarWhereInput {
-  AND: [UsersOnWishlistsScalarWhereInput!]
-  OR: [UsersOnWishlistsScalarWhereInput!]
-  NOT: [UsersOnWishlistsScalarWhereInput!]
+input WishlistsScalarWhereInput {
+  AND: [WishlistsScalarWhereInput!]
+  OR: [WishlistsScalarWhereInput!]
+  NOT: [WishlistsScalarWhereInput!]
   id: IntFilter
   userId: IntFilter
   productId: IntFilter
@@ -1206,7 +1206,7 @@ input UsersOnWishlistsScalarWhereInput {
   updatedAt: DateTimeFilter
 }
 
-input UsersOnWishlistsUpdateManyMutationInput {
+input WishlistsUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -1401,27 +1401,27 @@ input UsersOnShopsUpdateManyMutationInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input UsersOnWishlistsUpdateManyWithoutUserInput {
-  create: [UsersOnWishlistsCreateWithoutUserInput!]
-  connectOrCreate: [UsersOnWishlistsCreateOrConnectWithoutUserInput!]
-  upsert: [UsersOnWishlistsUpsertWithWhereUniqueWithoutUserInput!]
-  createMany: UsersOnWishlistsCreateManyUserInputEnvelope
-  set: [UsersOnWishlistsWhereUniqueInput!]
-  disconnect: [UsersOnWishlistsWhereUniqueInput!]
-  delete: [UsersOnWishlistsWhereUniqueInput!]
-  connect: [UsersOnWishlistsWhereUniqueInput!]
-  update: [UsersOnWishlistsUpdateWithWhereUniqueWithoutUserInput!]
-  updateMany: [UsersOnWishlistsUpdateManyWithWhereWithoutUserInput!]
-  deleteMany: [UsersOnWishlistsScalarWhereInput!]
+input WishlistsUpdateManyWithoutUserInput {
+  create: [WishlistsCreateWithoutUserInput!]
+  connectOrCreate: [WishlistsCreateOrConnectWithoutUserInput!]
+  upsert: [WishlistsUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: WishlistsCreateManyUserInputEnvelope
+  set: [WishlistsWhereUniqueInput!]
+  disconnect: [WishlistsWhereUniqueInput!]
+  delete: [WishlistsWhereUniqueInput!]
+  connect: [WishlistsWhereUniqueInput!]
+  update: [WishlistsUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [WishlistsUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [WishlistsScalarWhereInput!]
 }
 
-input UsersOnWishlistsUpsertWithWhereUniqueWithoutUserInput {
-  where: UsersOnWishlistsWhereUniqueInput!
-  update: UsersOnWishlistsUpdateWithoutUserInput!
-  create: UsersOnWishlistsCreateWithoutUserInput!
+input WishlistsUpsertWithWhereUniqueWithoutUserInput {
+  where: WishlistsWhereUniqueInput!
+  update: WishlistsUpdateWithoutUserInput!
+  create: WishlistsCreateWithoutUserInput!
 }
 
-input UsersOnWishlistsUpdateWithoutUserInput {
+input WishlistsUpdateWithoutUserInput {
   product: ProductUpdateOneRequiredWithoutWishlistedByInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1522,7 +1522,7 @@ input UserUpdateWithoutShopsInput {
   email: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumUserTypeFieldUpdateOperationsInput
-  wishlists: UsersOnWishlistsUpdateManyWithoutUserInput
+  wishlists: WishlistsUpdateManyWithoutUserInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -1537,14 +1537,14 @@ input UsersOnShopsUpdateManyWithWhereWithoutShopInput {
   data: UsersOnShopsUpdateManyMutationInput!
 }
 
-input UsersOnWishlistsUpdateWithWhereUniqueWithoutUserInput {
-  where: UsersOnWishlistsWhereUniqueInput!
-  data: UsersOnWishlistsUpdateWithoutUserInput!
+input WishlistsUpdateWithWhereUniqueWithoutUserInput {
+  where: WishlistsWhereUniqueInput!
+  data: WishlistsUpdateWithoutUserInput!
 }
 
-input UsersOnWishlistsUpdateManyWithWhereWithoutUserInput {
-  where: UsersOnWishlistsScalarWhereInput!
-  data: UsersOnWishlistsUpdateManyMutationInput!
+input WishlistsUpdateManyWithWhereWithoutUserInput {
+  where: WishlistsScalarWhereInput!
+  data: WishlistsUpdateManyMutationInput!
 }
 
 input CreateShopInput {
@@ -1579,7 +1579,7 @@ input CreateProductInput {
   shop: ShopCreateNestedOneWithoutProductsInput!
   status: ProductStatus!
   currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
-  wishlistedBy: UsersOnWishlistsCreateNestedManyWithoutProductInput
+  wishlistedBy: WishlistsCreateNestedManyWithoutProductInput
   stock: StockCreateNestedManyWithoutProductInput
   cover_photo: String!
   feature_photos: FeaturePhotoCreateNestedManyWithoutProductInput
@@ -1597,7 +1597,7 @@ input UpdateProductInput {
   shop: ShopUpdateOneRequiredWithoutProductsInput
   status: EnumProductStatusFieldUpdateOperationsInput
   currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
-  wishlistedBy: UsersOnWishlistsUpdateManyWithoutProductInput
+  wishlistedBy: WishlistsUpdateManyWithoutProductInput
   stock: StockUpdateManyWithoutProductInput
   cover_photo: StringFieldUpdateOperationsInput
   feature_photos: FeaturePhotoUpdateManyWithoutProductInput

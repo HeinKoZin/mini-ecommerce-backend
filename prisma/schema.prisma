@@ -11,22 +11,22 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-// generator nestgraphql {
-//   provider               = "node node_modules/prisma-nestjs-graphql"
-//   output                 = "../src/generated/prisma-nestjs-graphql"
-//   fields_Validator_from  = "class-validator"
-//   fields_Validator_input = true
-//   // decorate_1_type = "CreateOneUserArgs"
-//   // decorate_1_field = data
-//   // decorate_1_name = ValidateNested
-//   // decorate_1_from = "class-validator"
-//   // decorate_1_arguments = "[]"
-//   // decorate_2_type = "CreateOneUserArgs"
-//   // decorate_2_field = data
-//   // decorate_2_from = "class-transformer"
-//   // decorate_2_arguments = "['() => {propertyType.0}']"
-//   // decorate_2_name = Type
-// }
+generator nestgraphql {
+  provider               = "node node_modules/prisma-nestjs-graphql"
+  output                 = "../src/generated/prisma-nestjs-graphql"
+  fields_Validator_from  = "class-validator"
+  fields_Validator_input = true
+  // decorate_1_type = "CreateOneUserArgs"
+  // decorate_1_field = data
+  // decorate_1_name = ValidateNested
+  // decorate_1_from = "class-validator"
+  // decorate_1_arguments = "[]"
+  // decorate_2_type = "CreateOneUserArgs"
+  // decorate_2_field = data
+  // decorate_2_from = "class-transformer"
+  // decorate_2_arguments = "['() => {propertyType.0}']"
+  // decorate_2_name = Type
+}
 
 generator dbml {
   provider = "prisma-dbml-generator"
@@ -43,7 +43,7 @@ model User {
   password  String
   role      UserType           @default(value: USER)
   shops     UsersOnShops[]
-  wishlists UsersOnWishlists[]
+  wishlists Wishlists[]
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt
 
@@ -65,7 +65,7 @@ model Product {
   status       ProductStatus
   shopId       Int
   currencies   CurrenciesOnProducts[]
-  wishlistedBy UsersOnWishlists[]
+  wishlistedBy Wishlists[]
   stock        Stock[]
   cover_photo  String
   feature_photos FeaturePhoto[]
@@ -137,7 +137,7 @@ model UsersOnShops {
   @@map("owners_on_shops")
 }
 
-model UsersOnWishlists {
+model Wishlists {
   id        Int      @unique @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
   product   Product  @relation(fields: [productId], references: [id])

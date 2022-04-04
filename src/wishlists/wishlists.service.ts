@@ -12,19 +12,18 @@ export class WishlistsService {
   ) {}
 
   async create(createWishlistInput: CreateWishlistInput) {
-    const checkExistingWishlist =
-      await this.prismaService.usersOnWishlists.findFirst({
-        where: {
-          userId: createWishlistInput.user.connect.id,
-          productId: createWishlistInput.product.connect.id,
-        },
-      });
+    const checkExistingWishlist = await this.prismaService.wishlists.findFirst({
+      where: {
+        userId: createWishlistInput.user.connect.id,
+        productId: createWishlistInput.product.connect.id,
+      },
+    });
 
     checkExistingWishlist
       ? () => {
           throw new Error('Wishlist already exists');
         }
-      : await this.prismaService.usersOnWishlists.create({
+      : await this.prismaService.wishlists.create({
           data: {
             user: {
               connect: {
@@ -41,7 +40,7 @@ export class WishlistsService {
   }
 
   async findAll(userId?: number) {
-    const allWishlists = await this.prismaService.usersOnWishlists.findMany({
+    const allWishlists = await this.prismaService.wishlists.findMany({
       where: {
         userId,
       },
@@ -50,7 +49,7 @@ export class WishlistsService {
   }
 
   async findOne(id: number) {
-    const wishlist = await this.prismaService.usersOnWishlists.findUnique({
+    const wishlist = await this.prismaService.wishlists.findUnique({
       where: {
         id,
       },
@@ -61,7 +60,7 @@ export class WishlistsService {
   async update(id: number, updateWishlistInput: UpdateWishlistInput) {
     const wishlist = await this.findOne(id);
     wishlist
-      ? await this.prismaService.usersOnWishlists.update({
+      ? await this.prismaService.wishlists.update({
           where: {
             id,
           },
@@ -86,7 +85,7 @@ export class WishlistsService {
   async remove(id: number) {
     const wishlist = await this.findOne(id);
     wishlist
-      ? await this.prismaService.usersOnWishlists.delete({
+      ? await this.prismaService.wishlists.delete({
           where: {
             id,
           },
