@@ -1,5 +1,5 @@
 import { Product } from '@generated/prisma-nestjs-graphql/product/product.model';
-import { ObjectType } from '@nestjs/graphql';
+import { ObjectType, OmitType } from '@nestjs/graphql';
 
 // @ObjectType()
 // export class ShopObj extends OmitType(Shop, ['products']) {}
@@ -38,4 +38,4 @@ import { ObjectType } from '@nestjs/graphql';
 // }
 
 @ObjectType()
-export class ProductEntity extends Product {}
+export class ProductEntity extends OmitType(Product, ['wishlistedBy']) {}

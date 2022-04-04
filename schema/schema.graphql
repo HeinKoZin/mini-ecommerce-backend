@@ -80,7 +80,6 @@ type FeaturePhoto {
 type ProductCount {
   currencies: Int!
   wishlistedBy: Int!
-  stock: Int!
   feature_photos: Int!
 }
 
@@ -94,7 +93,7 @@ type Product {
   shopId: Int!
   currencies: [CurrenciesOnProducts!]
   wishlistedBy: [Wishlists!]
-  stock: [Stock!]
+  stock: Stock
   cover_photo: String!
   feature_photos: [FeaturePhoto!]
   createdAt: DateTime!
@@ -211,8 +210,7 @@ type ProductEntity {
   status: ProductStatus!
   shopId: Int!
   currencies: [CurrenciesOnProducts!]!
-  wishlistedBy: [Wishlists!]
-  stock: [Stock!]
+  stock: Stock!
   cover_photo: String!
   feature_photos: [FeaturePhoto!]
   createdAt: DateTime!
@@ -376,7 +374,7 @@ input ProductCreateWithoutShopInput {
   status: ProductStatus!
   currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
   wishlistedBy: WishlistsCreateNestedManyWithoutProductInput
-  stock: StockCreateNestedManyWithoutProductInput
+  stock: StockCreateNestedOneWithoutProductInput
   cover_photo: String!
   feature_photos: FeaturePhotoCreateNestedManyWithoutProductInput
   createdAt: DateTime
@@ -510,11 +508,10 @@ input WishlistsCreateManyProductInput {
   updatedAt: DateTime
 }
 
-input StockCreateNestedManyWithoutProductInput {
-  create: [StockCreateWithoutProductInput!]
-  connectOrCreate: [StockCreateOrConnectWithoutProductInput!]
-  createMany: StockCreateManyProductInputEnvelope
-  connect: [StockWhereUniqueInput!]
+input StockCreateNestedOneWithoutProductInput {
+  create: StockCreateWithoutProductInput
+  connectOrCreate: StockCreateOrConnectWithoutProductInput
+  connect: StockWhereUniqueInput
 }
 
 input StockCreateWithoutProductInput {
@@ -531,24 +528,13 @@ input StockCreateOrConnectWithoutProductInput {
 
 input StockWhereUniqueInput {
   id: Int
+  productId: Int
   id_productId: StockIdProductIdCompoundUniqueInput
 }
 
 input StockIdProductIdCompoundUniqueInput {
   id: Int!
   productId: Int!
-}
-
-input StockCreateManyProductInputEnvelope {
-  data: [StockCreateManyProductInput!]!
-  skipDuplicates: Boolean
-}
-
-input StockCreateManyProductInput {
-  id: Int
-  quantity: Int!
-  createdAt: DateTime
-  updatedAt: DateTime
 }
 
 input FeaturePhotoCreateNestedManyWithoutProductInput {
@@ -680,7 +666,7 @@ input ProductCreateWithoutWishlistedByInput {
   shop: ShopCreateNestedOneWithoutProductsInput!
   status: ProductStatus!
   currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
-  stock: StockCreateNestedManyWithoutProductInput
+  stock: StockCreateNestedOneWithoutProductInput
   cover_photo: String!
   feature_photos: FeaturePhotoCreateNestedManyWithoutProductInput
   createdAt: DateTime
@@ -1020,7 +1006,7 @@ input ProductUpdateWithoutShopInput {
   status: EnumProductStatusFieldUpdateOperationsInput
   currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
   wishlistedBy: WishlistsUpdateManyWithoutProductInput
-  stock: StockUpdateManyWithoutProductInput
+  stock: StockUpdateOneWithoutProductInput
   cover_photo: StringFieldUpdateOperationsInput
   feature_photos: FeaturePhotoUpdateManyWithoutProductInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -1211,22 +1197,17 @@ input WishlistsUpdateManyMutationInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input StockUpdateManyWithoutProductInput {
-  create: [StockCreateWithoutProductInput!]
-  connectOrCreate: [StockCreateOrConnectWithoutProductInput!]
-  upsert: [StockUpsertWithWhereUniqueWithoutProductInput!]
-  createMany: StockCreateManyProductInputEnvelope
-  set: [StockWhereUniqueInput!]
-  disconnect: [StockWhereUniqueInput!]
-  delete: [StockWhereUniqueInput!]
-  connect: [StockWhereUniqueInput!]
-  update: [StockUpdateWithWhereUniqueWithoutProductInput!]
-  updateMany: [StockUpdateManyWithWhereWithoutProductInput!]
-  deleteMany: [StockScalarWhereInput!]
+input StockUpdateOneWithoutProductInput {
+  create: StockCreateWithoutProductInput
+  connectOrCreate: StockCreateOrConnectWithoutProductInput
+  upsert: StockUpsertWithoutProductInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: StockWhereUniqueInput
+  update: StockUpdateWithoutProductInput
 }
 
-input StockUpsertWithWhereUniqueWithoutProductInput {
-  where: StockWhereUniqueInput!
+input StockUpsertWithoutProductInput {
   update: StockUpdateWithoutProductInput!
   create: StockCreateWithoutProductInput!
 }
@@ -1243,33 +1224,6 @@ input IntFieldUpdateOperationsInput {
   decrement: Int
   multiply: Int
   divide: Int
-}
-
-input StockUpdateWithWhereUniqueWithoutProductInput {
-  where: StockWhereUniqueInput!
-  data: StockUpdateWithoutProductInput!
-}
-
-input StockUpdateManyWithWhereWithoutProductInput {
-  where: StockScalarWhereInput!
-  data: StockUpdateManyMutationInput!
-}
-
-input StockScalarWhereInput {
-  AND: [StockScalarWhereInput!]
-  OR: [StockScalarWhereInput!]
-  NOT: [StockScalarWhereInput!]
-  id: IntFilter
-  quantity: IntFilter
-  productId: IntFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-}
-
-input StockUpdateManyMutationInput {
-  quantity: IntFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input FeaturePhotoUpdateManyWithoutProductInput {
@@ -1447,7 +1401,7 @@ input ProductUpdateWithoutWishlistedByInput {
   shop: ShopUpdateOneRequiredWithoutProductsInput
   status: EnumProductStatusFieldUpdateOperationsInput
   currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
-  stock: StockUpdateManyWithoutProductInput
+  stock: StockUpdateOneWithoutProductInput
   cover_photo: StringFieldUpdateOperationsInput
   feature_photos: FeaturePhotoUpdateManyWithoutProductInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -1580,7 +1534,7 @@ input CreateProductInput {
   status: ProductStatus!
   currencies: CurrenciesOnProductsCreateNestedManyWithoutProductInput
   wishlistedBy: WishlistsCreateNestedManyWithoutProductInput
-  stock: StockCreateNestedManyWithoutProductInput
+  stock: StockCreateNestedOneWithoutProductInput
   cover_photo: String!
   feature_photos: FeaturePhotoCreateNestedManyWithoutProductInput
   createdAt: DateTime
@@ -1598,7 +1552,7 @@ input UpdateProductInput {
   status: EnumProductStatusFieldUpdateOperationsInput
   currencies: CurrenciesOnProductsUpdateManyWithoutProductInput
   wishlistedBy: WishlistsUpdateManyWithoutProductInput
-  stock: StockUpdateManyWithoutProductInput
+  stock: StockUpdateOneWithoutProductInput
   cover_photo: StringFieldUpdateOperationsInput
   feature_photos: FeaturePhotoUpdateManyWithoutProductInput
   createdAt: DateTimeFieldUpdateOperationsInput

@@ -45,9 +45,9 @@ const generateProduct = () => {
     name: faker.commerce.productName(),
     description: faker.commerce.productDescription(),
     // quantity: faker.datatype.number({ max: 25 }),
-    // stock: {
-    //   quantity: faker.datatype.number({ max: 25 }),
-    // },
+    stock: {
+      quantity: faker.datatype.number({ max: 25 }),
+    },
     product_code: faker.random.alphaNumeric(10).toUpperCase(),
     status: faker.random.arrayElement([
       ProductStatus.AVAILABLE,
@@ -127,7 +127,10 @@ const seedProducts = async () => {
   for (let i = 0; i < 100; i++) {
     products.push(generateProduct());
   }
-  await prisma.product.createMany({ data: products, skipDuplicates: true });
+  await prisma.product.createMany({
+    data: products,
+    skipDuplicates: true,
+  });
 
   const isProductExist = prisma.product.findMany({});
   isProductExist ? seedCurrencies() : console.log('Product not found');

@@ -24,7 +24,7 @@ Table Product {
   shopId Int [not null]
   currencies CurrenciesOnProducts [not null]
   wishlistedBy Wishlists [not null]
-  stock Stock [not null]
+  stock Stock
   cover_photo String [not null]
   feature_photos FeaturePhoto [not null]
   createdAt DateTime [default: `now()`, not null]
@@ -108,7 +108,7 @@ Table Stock {
   id Int [increment, unique, not null]
   product Product [not null]
   quantity Int [not null]
-  productId Int [not null]
+  productId Int [unique, not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 
@@ -157,6 +157,6 @@ Ref: Wishlists.productId > Product.id
 
 Ref: PhoneOnShops.shopId > Shop.id
 
-Ref: Stock.productId > Product.id
+Ref: Stock.productId - Product.id
 
 Ref: FeaturePhoto.productId > Product.id

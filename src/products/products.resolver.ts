@@ -1,6 +1,7 @@
 import { CurrenciesOnProducts } from '@generated/prisma-nestjs-graphql/currencies-on-products/currencies-on-products.model';
 import { Currency } from '@generated/prisma-nestjs-graphql/currency/currency.model';
 import { ProductCount } from '@generated/prisma-nestjs-graphql/product/product-count.output';
+import { Stock } from '@generated/prisma-nestjs-graphql/stock/stock.model';
 import {
   Resolver,
   Query,
@@ -55,6 +56,11 @@ export class ProductsResolver {
   @ResolveField(() => ShopEntity)
   async shop(@Parent() product: ProductEntity) {
     return await this.productsService.getShop(product.id);
+  }
+
+  @ResolveField(() => Stock)
+  async stock(@Parent() product: ProductEntity) {
+    return await this.productsService.getStock(product.id);
   }
 
   @Query(() => ProductEntity, { name: 'product' })
