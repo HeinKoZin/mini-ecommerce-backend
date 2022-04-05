@@ -10,7 +10,6 @@ export class ProductsService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(createProductInput: ProductCreateInput) {
-    console.log(createProductInput);
     const createdProduct = await this.prismaService.product.create({
       include: {
         shop: true,

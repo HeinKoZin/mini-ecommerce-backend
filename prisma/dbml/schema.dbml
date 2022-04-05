@@ -7,9 +7,11 @@ Table User {
   name String [not null, note: '@Validator.MinLength(3)']
   email String [unique, not null, note: '@Validator.IsEmail()']
   password String [not null, note: '@Validator.MinLength(8)']
+  addresses Address [not null]
   role UserType [not null, default: 'USER']
   shops UsersOnShops [not null]
-  wishlists Wishlists [not null]
+  wishlists Wishlist [not null]
+  orders Order [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
@@ -23,10 +25,12 @@ Table Product {
   status ProductStatus [not null]
   shopId Int [not null]
   currencies CurrenciesOnProducts [not null]
-  wishlistedBy Wishlists [not null]
+  Wishlist Wishlist
   stock Stock
   cover_photo String [not null]
-  feature_photos FeaturePhoto [not null]
+  featured_photos FeaturedPhoto [not null]
+  options Option [not null]
+  OrderedProduct OrderedProduct
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
@@ -56,7 +60,7 @@ Table Shop {
   name String [not null]
   slug String [unique, not null]
   address String
-  phone_numbers PhoneOnShops [not null]
+  phone_numbers PhoneShop [not null]
   products Product [not null]
   owners UsersOnShops [not null]
   createdAt DateTime [default: `now()`, not null]
@@ -77,12 +81,12 @@ Table UsersOnShops {
   }
 }
 
-Table Wishlists {
+Table Wishlist {
   id Int [increment, unique, not null]
   user User [not null]
   product Product [not null]
   userId Int [not null]
-  productId Int [not null]
+  productId Int [unique, not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 
@@ -91,7 +95,7 @@ Table Wishlists {
   }
 }
 
-Table PhoneOnShops {
+Table PhoneShop {
   id Int [increment, unique, not null]
   shop Shop [not null]
   phone String [not null]
@@ -117,7 +121,7 @@ Table Stock {
   }
 }
 
-Table FeaturePhoto {
+Table FeaturedPhoto {
   id Int [increment, unique, not null]
   product Product [not null]
   photo String [not null]
@@ -127,6 +131,115 @@ Table FeaturePhoto {
 
   indexes {
     (id, productId) [pk]
+  }
+}
+
+Table Order {
+  id Int [increment, unique, not null]
+  userId Int [not null]
+  productId Int [not null]
+  products OrderedProduct [not null]
+  shipping_address ShippingAddress
+  total_price Float [not null]
+  user User [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+
+  indexes {
+    (id, userId, productId) [pk]
+  }
+}
+
+Table OrderedProduct {
+  id Int [increment, unique, not null]
+  quantity Int [not null]
+  price Float [not null]
+  total Float [not null]
+  sub_total Float [not null]
+  discount Float [not null]
+  orderId Int [not null]
+  productId Int [unique, not null]
+  optionId Int [not null]
+  order Order [not null]
+  product Product [not null]
+  option Option [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+
+  indexes {
+    (id, orderId, productId) [pk]
+  }
+}
+
+Table Option {
+  id Int [increment, unique, not null]
+  name String [not null]
+  value String [not null]
+  productId Int [not null]
+  product Product [not null]
+  OrderedProduct OrderedProduct [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+
+  indexes {
+    (id, productId) [pk]
+  }
+}
+
+Table Address {
+  id Int [increment, unique, not null]
+  name String [not null]
+  adress String [not null]
+  townshipId Int [not null]
+  township Township [not null]
+  userId Int [not null]
+  user User [not null]
+  ShippingAddress ShippingAddress
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+
+  indexes {
+    (id, userId) [pk]
+  }
+}
+
+Table State {
+  id Int [pk, increment, unique]
+  name String [not null]
+  townships Township [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+
+  indexes {
+    (id) [pk]
+  }
+}
+
+Table Township {
+  id Int [pk, increment, unique]
+  name String [not null]
+  stateId Int [not null]
+  state State [not null]
+  addresses Address [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+
+  indexes {
+    (id) [pk]
+  }
+}
+
+Table ShippingAddress {
+  id Int [increment, unique, not null]
+  addressId Int [unique, not null]
+  orderId Int [unique, not null]
+  order Order [not null]
+  address Address [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+
+  indexes {
+    (id, orderId) [pk]
   }
 }
 
@@ -151,12 +264,32 @@ Ref: UsersOnShops.shopId > Shop.id
 
 Ref: UsersOnShops.userId > User.id
 
-Ref: Wishlists.userId > User.id
+Ref: Wishlist.userId > User.id
 
-Ref: Wishlists.productId > Product.id
+Ref: Wishlist.productId - Product.id
 
-Ref: PhoneOnShops.shopId > Shop.id
+Ref: PhoneShop.shopId > Shop.id
 
 Ref: Stock.productId - Product.id
 
-Ref: FeaturePhoto.productId > Product.id
+Ref: FeaturedPhoto.productId > Product.id
+
+Ref: Order.userId > User.id
+
+Ref: OrderedProduct.orderId > Order.id
+
+Ref: OrderedProduct.productId - Product.id
+
+Ref: OrderedProduct.optionId > Option.id
+
+Ref: Option.productId > Product.id
+
+Ref: Address.townshipId > Township.id
+
+Ref: Address.userId > User.id
+
+Ref: Township.stateId > State.id
+
+Ref: ShippingAddress.orderId - Order.id
+
+Ref: ShippingAddress.addressId - Address.id

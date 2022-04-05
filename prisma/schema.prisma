@@ -11,22 +11,22 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-// generator nestgraphql {
-//   provider               = "node node_modules/prisma-nestjs-graphql"
-//   output                 = "../src/generated/prisma-nestjs-graphql"
-//   fields_Validator_from  = "class-validator"
-//   fields_Validator_input = true
-//   // decorate_1_type = "CreateOneUserArgs"
-//   // decorate_1_field = data
-//   // decorate_1_name = ValidateNested
-//   // decorate_1_from = "class-validator"
-//   // decorate_1_arguments = "[]"
-//   // decorate_2_type = "CreateOneUserArgs"
-//   // decorate_2_field = data
-//   // decorate_2_from = "class-transformer"
-//   // decorate_2_arguments = "['() => {propertyType.0}']"
-//   // decorate_2_name = Type
-// }
+generator nestgraphql {
+  provider               = "node node_modules/prisma-nestjs-graphql"
+  output                 = "../src/generated/prisma-nestjs-graphql"
+  fields_Validator_from  = "class-validator"
+  fields_Validator_input = true
+  // decorate_1_type = "CreateOneUserArgs"
+  // decorate_1_field = data
+  // decorate_1_name = ValidateNested
+  // decorate_1_from = "class-validator"
+  // decorate_1_arguments = "[]"
+  // decorate_2_type = "CreateOneUserArgs"
+  // decorate_2_field = data
+  // decorate_2_from = "class-transformer"
+  // decorate_2_arguments = "['() => {propertyType.0}']"
+  // decorate_2_name = Type
+}
 
 generator dbml {
   provider = "prisma-dbml-generator"
@@ -41,9 +41,11 @@ model User {
   email     String             @unique
   /// @Validator.MinLength(8)
   password  String
+  addresses Address[]
   role      UserType           @default(value: USER)
   shops     UsersOnShops[]
-  wishlists Wishlists[]
+  wishlists Wishlist[]
+  orders    Order[]
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt
 
@@ -65,10 +67,12 @@ model Product {
   status       ProductStatus
   shopId       Int
   currencies   CurrenciesOnProducts[]
-  wishlistedBy Wishlists?
+  Wishlist Wishlist?
   stock        Stock?
   cover_photo  String
-  feature_photos FeaturePhoto[]
+  featured_photos FeaturedPhoto[]
+  options      Option[]
+  OrderedProduct OrderedProduct?
   createdAt    DateTime               @default(now())
   updatedAt    DateTime               @updatedAt
 
@@ -113,7 +117,7 @@ model Shop {
   name          String
   slug          String         @unique
   address       String?
-  phone_numbers PhoneOnShops[]
+  phone_numbers PhoneShop[]
   products      Product[]
   owners        UsersOnShops[]
   createdAt     DateTime       @default(now())
@@ -137,7 +141,7 @@ model UsersOnShops {
   @@map("owners_on_shops")
 }
 
-model Wishlists {
+model Wishlist {
   id        Int      @unique @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
   product   Product  @relation(fields: [productId], references: [id])
@@ -148,10 +152,10 @@ model Wishlists {
 
   @@id([id, userId, productId])
   @@index([userId, productId])
-  @@map("wish_lists")
+  @@map("wishlists")
 }
 
-model PhoneOnShops {
+model PhoneShop {
   id        Int      @unique @default(autoincrement())
   shop      Shop     @relation(fields: [shopId], references: [id])
   phone     String
@@ -161,7 +165,7 @@ model PhoneOnShops {
 
   @@id([id, shopId])
   @@index([shopId, id])
-  @@map("phone_on_shops")
+  @@map("phone_shops")
 }
 
 model Stock {
@@ -178,7 +182,7 @@ model Stock {
 }
 
 
-model FeaturePhoto {
+model FeaturedPhoto {
   id        Int      @unique @default(autoincrement())
   product   Product  @relation(fields: [productId], references: [id])
   photo     String
@@ -188,5 +192,120 @@ model FeaturePhoto {
 
   @@id([id, productId])
   @@index([productId, id])
-  @@map("feature_photos")
+  @@map("featured_photos")
+}
+
+model Order{
+  id        Int      @unique @default(autoincrement())
+  userId    Int
+  productId Int
+  products  OrderedProduct[]
+  shipping_address ShippingAddress?
+  total_price Float
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id, userId, productId])
+  @@index([userId, productId])
+  @@map("orders")
+}
+
+
+model OrderedProduct{
+  id        Int      @unique @default(autoincrement())
+  quantity  Int
+  price     Float
+  total     Float
+  sub_total Float
+  discount  Float
+  orderId   Int
+  productId Int
+  optionId  Int
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  option    Option @relation(fields: [optionId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id, orderId, productId])
+  @@index([orderId, productId])
+  @@map("ordered_products")
+}
+
+
+
+model Option{
+  id        Int      @unique @default(autoincrement())
+  name      String
+  value     String
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
+  OrderedProduct OrderedProduct[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id, productId])
+  @@index([productId, id])
+  @@map("options")
+}
+
+
+model Address{
+  id        Int      @unique @default(autoincrement())
+  name      String
+  adress    String
+  townshipId Int
+  township   Township @relation(fields: [townshipId], references: [id])
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  ShippingAddress ShippingAddress?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id, userId])
+  @@index([userId, id])
+  @@map("addresses")
+}
+
+model State{
+  id        Int      @unique @default(autoincrement())
+  name      String
+  townships Township[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id])
+  @@index([name])
+  @@map("states")
+}
+
+model Township{
+  id        Int      @unique @default(autoincrement())
+  name      String
+  stateId   Int
+  state     State    @relation(fields: [stateId], references: [id])
+  addresses Address[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id])
+  @@index([name])
+  @@map("townships")
+}
+
+
+
+model ShippingAddress {
+  id        Int      @unique @default(autoincrement())
+  addressId Int
+  orderId   Int
+  order     Order    @relation(fields: [orderId], references: [id])
+  address   Address  @relation(fields: [addressId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id, orderId])
+  @@index([orderId, id])
+  @@map("shipping_address")
 }
