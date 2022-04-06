@@ -67,12 +67,12 @@ model Product {
   status       ProductStatus
   shopId       Int
   currencies   CurrenciesOnProducts[]
-  Wishlist Wishlist?
+  wishlistedBy Wishlist?
   stock        Stock?
   cover_photo  String
   featured_photos FeaturedPhoto[]
   options      Option[]
-  OrderedProduct OrderedProduct?
+  ordered_product OrderedProduct?
   createdAt    DateTime               @default(now())
   updatedAt    DateTime               @updatedAt
 
@@ -241,7 +241,7 @@ model Option{
   value     String
   productId Int
   product   Product  @relation(fields: [productId], references: [id])
-  OrderedProduct OrderedProduct[]
+  ordered_products OrderedProduct[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -259,7 +259,7 @@ model Address{
   township   Township @relation(fields: [townshipId], references: [id])
   userId    Int
   user      User     @relation(fields: [userId], references: [id])
-  ShippingAddress ShippingAddress?
+  shipping_address ShippingAddress?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
